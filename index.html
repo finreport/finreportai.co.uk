@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FinReportAI — Client-Ready Financial Reports, Automatically</title>
+<meta name="description" content="FinReportAI turns your Xero, QuickBooks, Sage or Excel data into a branded, client-friendly PDF report. Plain English summaries, visual charts, key flags — so your clients actually understand their finances.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0B1D38;
+    --navy-mid: #162847;
+    --teal: #0D8A78;
+    --teal-light: #11A692;
+    --gold: #C9A84C;
+    --gold-light: #E2C36A;
+    --white: #FFFFFF;
+    --off-white: #F4F6F9;
+    --gray: #6B7280;
+    --gray-light: #E5E9F0;
+    --text: #1A2A3A;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(11,29,56,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-mark {
+    width: 36px; height: 36px;
+    background: var(--teal);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 15px; color: white; font-weight: 400;
+  }
+  .nav-logo-text {
+    font-size: 16px; font-weight: 600; color: white; letter-spacing: -0.3px;
+  }
+  .nav-logo-text span { color: var(--gold); }
+
+  .nav-links { display: flex; align-items: center; gap: 32px; }
+  .nav-links a {
+    color: rgba(255,255,255,0.7); text-decoration: none;
+    font-size: 14px; font-weight: 400; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: white; }
+
+  .nav-cta {
+    background: var(--teal); color: white !important;
+    padding: 9px 20px; border-radius: 6px;
+    font-weight: 500 !important; font-size: 14px !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--teal-light) !important; }
+
+  /* ── HERO ───────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 120px 5% 80px;
+    position: relative; overflow: hidden;
+    text-align: center;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(13,138,120,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 80% 80%, rgba(201,168,76,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(13,138,120,0.15);
+    border: 1px solid rgba(13,138,120,0.35);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 12px; font-weight: 500; color: var(--teal-light);
+    letter-spacing: 0.5px; text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--teal-light);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(40px, 7vw, 76px);
+    line-height: 1.08;
+    color: white;
+    max-width: 900px;
+    margin: 0 auto 28px;
+    letter-spacing: -1px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: clamp(15px, 2vw, 18px);
+    color: rgba(255,255,255,0.6);
+    max-width: 580px;
+    margin: 0 auto 48px;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .hero-actions {
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: center;
+  }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--teal);
+    color: white; text-decoration: none;
+    padding: 15px 32px; border-radius: 8px;
+    font-size: 15px; font-weight: 600;
+    transition: all 0.2s;
+    box-shadow: 0 0 0 0 rgba(13,138,120,0.4);
+  }
+  .btn-primary:hover {
+    background: var(--teal-light);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(13,138,120,0.3);
+  }
+
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: rgba(255,255,255,0.8); text-decoration: none;
+    padding: 15px 28px; border-radius: 8px;
+    font-size: 15px; font-weight: 500;
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover {
+    color: white;
+    border-color: rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.05);
+  }
+
+  .hero-trust {
+    margin-top: 56px;
+    display: flex; align-items: center; gap: 12px;
+    color: rgba(255,255,255,0.4); font-size: 13px;
+  }
+  .hero-trust-divider { width: 40px; height: 1px; background: rgba(255,255,255,0.15); }
+
+  .hero-software {
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: center;
+  }
+  .sw-badge {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.55);
+    letter-spacing: 0.3px;
+  }
+
+  /* ── REPORT PREVIEW ─────────────────────────── */
+  .preview-section {
+    background: var(--navy-mid);
+    padding: 80px 5%;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .preview-label {
+    text-align: center;
+    font-size: 12px; font-weight: 500; color: var(--gold);
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 48px;
+  }
+
+  .report-mockup {
+    max-width: 860px; margin: 0 auto;
+    background: white; border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 40px 120px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+  }
+
+  .report-header {
+    background: var(--navy);
+    padding: 24px 28px;
+  }
+  .report-header h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px; color: white; font-weight: 400;
+    margin-bottom: 4px;
+  }
+  .report-header p { font-size: 12px; color: rgba(255,255,255,0.5); }
+  .conf-badge {
+    display: inline-block;
+    background: var(--gold); color: var(--navy);
+    font-size: 9px; font-weight: 700; letter-spacing: 1px;
+    padding: 3px 8px; border-radius: 3px; margin-top: 10px;
+  }
+
+  .report-body { padding: 24px 28px; }
+
+  .report-kpis {
+    display: grid; grid-template-columns: repeat(4,1fr); gap: 12px;
+    margin-bottom: 24px;
+  }
+  .kpi {
+    border: 1px solid var(--gray-light);
+    border-radius: 8px; padding: 14px 12px; text-align: center;
+  }
+  .kpi-val { font-size: 20px; font-weight: 700; color: var(--navy); line-height: 1.2; }
+  .kpi-label { font-size: 10px; color: var(--gray); margin-top: 4px; }
+  .kpi-change { font-size: 10px; font-weight: 600; color: var(--teal); margin-top: 3px; }
+
+  .report-section-title {
+    font-size: 9px; font-weight: 700; color: var(--teal);
+    text-transform: uppercase; letter-spacing: 1.5px;
+    border-bottom: 1.5px solid var(--teal);
+    padding-bottom: 4px; margin-bottom: 12px;
+  }
+
+  .flag-cards { display: flex; flex-direction: column; gap: 6px; }
+  .flag {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 12px; border-radius: 6px;
+    border: 1px solid var(--gray-light);
+  }
+  .flag.positive { background: #F0FDF4; border-color: #BBF7D0; }
+  .flag.watch { background: #FFFBEB; border-color: #FDE68A; }
+  .flag.risk { background: #FEF2F2; border-color: #FECACA; }
+  .flag-icon {
+    width: 20px; height: 20px; border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+  }
+  .flag.positive .flag-icon { background: #16A34A; color: white; }
+  .flag.watch .flag-icon { background: #D97706; color: white; }
+  .flag.risk .flag-icon { background: #DC2626; color: white; }
+  .flag-content h4 { font-size: 11px; font-weight: 600; color: var(--navy); }
+  .flag-content p { font-size: 10px; color: var(--gray); line-height: 1.4; margin-top: 2px; }
+
+  .chart-bars {
+    display: flex; align-items: flex-end; gap: 10px;
+    height: 60px; margin-bottom: 4px;
+  }
+  .bar-group { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
+  .bar {
+    width: 100%; border-radius: 3px 3px 0 0;
+    background: var(--teal);
+  }
+  .bar-label { font-size: 9px; color: var(--gray); }
+
+  /* ── STATS STRIP ────────────────────────────── */
+  .stats-strip {
+    background: var(--off-white);
+    padding: 48px 5%;
+    display: flex; justify-content: center;
+  }
+  .stats-inner {
+    display: flex; gap: 0; max-width: 800px; width: 100%;
+    border: 1px solid var(--gray-light);
+    border-radius: 12px; overflow: hidden; background: white;
+  }
+  .stat {
+    flex: 1; padding: 28px 24px; text-align: center;
+    border-right: 1px solid var(--gray-light);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-val {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px; color: var(--navy);
+    line-height: 1; margin-bottom: 6px;
+  }
+  .stat-val span { color: var(--teal); }
+  .stat-desc { font-size: 13px; color: var(--gray); line-height: 1.4; }
+
+  /* ── SECTION SHARED ─────────────────────────── */
+  .section { padding: 96px 5%; }
+  .section-label {
+    font-size: 11px; font-weight: 600; color: var(--teal);
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(30px, 4vw, 46px);
+    line-height: 1.1; color: var(--navy);
+    letter-spacing: -0.5px;
+    max-width: 560px;
+  }
+  .section-title em { font-style: italic; color: var(--teal); }
+  .section-sub {
+    font-size: 16px; color: var(--gray); line-height: 1.7;
+    max-width: 500px; margin-top: 16px; font-weight: 300;
+  }
+
+  /* ── PROBLEM SECTION ─────────────────────────── */
+  .problem { background: var(--off-white); }
+  .problem-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+  }
+  .problem-cards { display: flex; flex-direction: column; gap: 12px; }
+  .problem-card {
+    background: white; border: 1px solid var(--gray-light);
+    border-radius: 10px; padding: 20px;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .problem-card-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .problem-card h4 { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+  .problem-card p { font-size: 13px; color: var(--gray); line-height: 1.5; }
+
+  /* ── HOW IT WORKS ──────────────────────────── */
+  .how { background: white; }
+  .how-inner { max-width: 1100px; margin: 0 auto; }
+  .how-steps {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 32px;
+    margin-top: 56px;
+  }
+  .step {
+    position: relative; padding: 32px 28px;
+    background: var(--off-white);
+    border-radius: 12px;
+    border: 1px solid var(--gray-light);
+  }
+  .step-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 56px; color: rgba(13,138,120,0.12);
+    line-height: 1; margin-bottom: 16px;
+  }
+  .step h3 { font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 8px; }
+  .step p { font-size: 14px; color: var(--gray); line-height: 1.6; }
+  .step-connector {
+    position: absolute; top: 50%; right: -20px;
+    width: 40px; height: 2px;
+    background: linear-gradient(90deg, var(--teal), transparent);
+    display: none;
+  }
+
+  /* ── FEATURES ──────────────────────────────── */
+  .features { background: var(--navy); }
+  .features .section-title { color: white; }
+  .features .section-label { color: var(--gold); }
+  .features .section-sub { color: rgba(255,255,255,0.5); }
+  .features-grid {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 1px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px; overflow: hidden;
+    margin-top: 56px;
+    max-width: 1100px;
+  }
+  .feature-item {
+    background: var(--navy-mid);
+    padding: 32px 28px;
+    transition: background 0.2s;
+  }
+  .feature-item:hover { background: rgba(13,138,120,0.08); }
+  .feature-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: rgba(13,138,120,0.15);
+    border: 1px solid rgba(13,138,120,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin-bottom: 16px;
+  }
+  .feature-item h3 { font-size: 15px; font-weight: 600; color: white; margin-bottom: 8px; }
+  .feature-item p { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.6; }
+
+  /* ── SOFTWARE ──────────────────────────────── */
+  .software { background: var(--off-white); }
+  .software-inner { max-width: 1100px; margin: 0 auto; }
+  .software-logos {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    margin-top: 40px;
+  }
+  .sw-pill {
+    background: white; border: 1px solid var(--gray-light);
+    border-radius: 8px; padding: 14px 24px;
+    font-size: 14px; font-weight: 500; color: var(--navy);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .sw-check { color: var(--teal); font-size: 16px; }
+
+  /* ── PRICING ───────────────────────────────── */
+  .pricing { background: white; }
+  .pricing-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+  .pricing-cards {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    margin-top: 48px; text-align: left;
+  }
+  .pricing-card {
+    border: 1px solid var(--gray-light);
+    border-radius: 14px; padding: 32px;
+    position: relative; overflow: hidden;
+  }
+  .pricing-card.featured {
+    border-color: var(--teal);
+    background: linear-gradient(135deg, rgba(13,138,120,0.04) 0%, transparent 60%);
+  }
+  .pricing-card.featured::before {
+    content: 'Most Popular';
+    position: absolute; top: 16px; right: 16px;
+    background: var(--teal); color: white;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+    padding: 4px 10px; border-radius: 100px;
+  }
+  .plan-name { font-size: 13px; font-weight: 600; color: var(--teal); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .plan-price {
+    font-family: 'DM Serif Display', serif;
+    font-size: 44px; color: var(--navy); line-height: 1;
+    margin-bottom: 4px;
+  }
+  .plan-price span { font-family: 'DM Sans', sans-serif; font-size: 18px; font-weight: 400; }
+  .plan-desc { font-size: 13px; color: var(--gray); margin-bottom: 24px; line-height: 1.5; }
+  .plan-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .plan-features li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 13px; color: var(--text); line-height: 1.4;
+  }
+  .plan-features li::before { content: '✓'; color: var(--teal); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .plan-cta {
+    display: block; text-align: center; text-decoration: none;
+    padding: 13px; border-radius: 8px;
+    font-size: 14px; font-weight: 600;
+    transition: all 0.2s;
+  }
+  .plan-cta.primary { background: var(--teal); color: white; }
+  .plan-cta.primary:hover { background: var(--teal-light); }
+  .plan-cta.secondary { border: 1px solid var(--gray-light); color: var(--navy); }
+  .plan-cta.secondary:hover { border-color: var(--teal); color: var(--teal); }
+  .pricing-note { margin-top: 24px; font-size: 13px; color: var(--gray); }
+
+  /* ── FAQ ───────────────────────────────────── */
+  .faq { background: var(--off-white); }
+  .faq-inner { max-width: 720px; margin: 0 auto; }
+  .faq-list { margin-top: 48px; display: flex; flex-direction: column; gap: 0; }
+  .faq-item {
+    border-bottom: 1px solid var(--gray-light);
+    padding: 20px 0;
+  }
+  .faq-q {
+    font-size: 15px; font-weight: 600; color: var(--navy);
+    cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+    gap: 16px;
+    user-select: none;
+  }
+  .faq-q::after {
+    content: '+'; font-size: 20px; font-weight: 300;
+    color: var(--teal); flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  .faq-item.open .faq-q::after { transform: rotate(45deg); }
+  .faq-a {
+    font-size: 14px; color: var(--gray); line-height: 1.7;
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s;
+  }
+  .faq-item.open .faq-a { max-height: 300px; padding-top: 12px; }
+
+  /* ── CTA SECTION ───────────────────────────── */
+  .cta-section {
+    background: var(--navy);
+    padding: 96px 5%;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 80% at 50% 50%, rgba(13,138,120,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-section h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(32px, 5vw, 54px);
+    color: white; line-height: 1.1;
+    max-width: 600px; margin: 0 auto 16px;
+    letter-spacing: -0.5px;
+  }
+  .cta-section h2 em { font-style: italic; color: var(--gold); }
+  .cta-section p {
+    font-size: 16px; color: rgba(255,255,255,0.5);
+    margin-bottom: 40px; font-weight: 300;
+  }
+
+  /* ── FOOTER ────────────────────────────────── */
+  footer {
+    background: var(--navy-mid);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 32px 5%;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .footer-logo { font-size: 15px; font-weight: 600; color: white; }
+  .footer-logo span { color: var(--gold); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 13px; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: rgba(255,255,255,0.7); }
+  .footer-copy { font-size: 12px; color: rgba(255,255,255,0.25); }
+
+  /* ── ANIMATIONS ────────────────────────────── */
+  .fade-up {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ────────────────────────────── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .report-kpis { grid-template-columns: repeat(2,1fr); }
+    .problem-inner { grid-template-columns: 1fr; gap: 40px; }
+    .how-steps { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
+    .pricing-cards { grid-template-columns: 1fr; }
+    .stats-inner { flex-wrap: wrap; }
+    .stat { min-width: 140px; border-bottom: 1px solid var(--gray-light); }
+    footer { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">FR</div>
+    <span class="nav-logo-text">FinReport<span>AI</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="#how">How it works</a>
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="https://tally.so/r/kdk9ao" class="nav-cta">Get started</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Now live — automated financial reporting</div>
+  <h1>Your clients don't<br>understand <em>spreadsheets</em></h1>
+  <p class="hero-sub">FinReportAI turns your Xero, QuickBooks, Sage or Excel data into a branded, client-friendly PDF report — plain English summary, visual charts, key flags — automatically.</p>
+  <div class="hero-actions">
+    <a href="https://drive.google.com/uc?export=download&id=1AcEj_iYtGRS8rqg3dgzTl2u8Du1IUo6K" class="btn-primary">
+      ↓ Download sample report
+    </a>
+    <a href="https://tally.so/r/kdk9ao" class="btn-secondary">
+      Get started →
+    </a>
+  </div>
+  <div class="hero-trust">
+    <div class="hero-trust-divider"></div>
+    <span>Works with your existing software</span>
+    <div class="hero-trust-divider"></div>
+  </div>
+  <div class="hero-software" style="margin-top:16px;">
+    <div class="sw-badge">Xero</div>
+    <div class="sw-badge">QuickBooks</div>
+    <div class="sw-badge">Sage</div>
+    <div class="sw-badge">Excel</div>
+    <div class="sw-badge">CSV</div>
+  </div>
+</section>
+
+<!-- REPORT PREVIEW -->
+<section class="preview-section">
+  <p class="preview-label">Sample report — generated automatically</p>
+  <div class="report-mockup fade-up">
+    <div class="report-header">
+      <h3>The Golden Fork</h3>
+      <p>Quarterly Financial Report &nbsp;·&nbsp; Q1 2025 &nbsp;·&nbsp; GBP (£)</p>
+      <div class="conf-badge">CONFIDENTIAL</div>
+    </div>
+    <div class="report-body">
+      <div style="margin-bottom:20px;">
+        <div class="report-section-title">Executive Summary</div>
+        <p style="font-size:12px;color:#374151;line-height:1.6;">The Golden Fork delivered strong Q1 2025 growth with total revenue of £380,000 and net profit of £115,540. Revenue grew 46% from February to April with gross margin holding consistently at 68.3%. The trajectory heading into Q2 is positive, though staff wage pressures warrant close attention.</p>
+      </div>
+      <div class="report-kpis" style="margin-bottom:20px;">
+        <div class="kpi"><div class="kpi-val">£380k</div><div class="kpi-label">Total Revenue</div><div class="kpi-change">▲ +46% Feb→Apr</div></div>
+        <div class="kpi"><div class="kpi-val">£115k</div><div class="kpi-label">Net Profit</div><div class="kpi-change">▲ Growing</div></div>
+        <div class="kpi"><div class="kpi-val">68.3%</div><div class="kpi-label">Gross Margin</div><div class="kpi-change">● Consistent</div></div>
+        <div class="kpi"><div class="kpi-val">30.4%</div><div class="kpi-label">Net Margin</div><div class="kpi-change">▲ Improving</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div>
+          <div class="report-section-title">Revenue Performance</div>
+          <div class="chart-bars">
+            <div class="bar-group"><div class="bar" style="height:45%;background:#0D8A78;"></div><div class="bar-label">Feb</div></div>
+            <div class="bar-group"><div class="bar" style="height:65%;background:#0B7A6A;"></div><div class="bar-label">Mar</div></div>
+            <div class="bar-group"><div class="bar" style="height:90%;background:#095C50;"></div><div class="bar-label">Apr</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="report-section-title">Flags &amp; Items to Watch</div>
+          <div class="flag-cards">
+            <div class="flag positive"><div class="flag-icon">✓</div><div class="flag-content"><h4>Strong Revenue Growth</h4><p>Revenue grew 46% this quarter</p></div></div>
+            <div class="flag watch"><div class="flag-icon">!</div><div class="flag-content"><h4>Wages Pressure</h4><p>Staff costs up 32% — review before summer</p></div></div>
+            <div class="flag risk"><div class="flag-icon">✕</div><div class="flag-content"><h4>Lease Renewal Due Q3</h4><p>Begin negotiations early</p></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip fade-up">
+  <div class="stats-inner">
+    <div class="stat"><div class="stat-val"><span>15</span>min</div><div class="stat-desc">From CSV upload to PDF in your inbox</div></div>
+    <div class="stat"><div class="stat-val">£<span>0</span></div><div class="stat-desc">Setup fee — pay monthly, cancel anytime</div></div>
+    <div class="stat"><div class="stat-val"><span>∞</span></div><div class="stat-desc">Reports per month on all plans</div></div>
+    <div class="stat"><div class="stat-val"><span>4</span></div><div class="stat-desc">Accounting platforms supported</div></div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="section problem" id="problem">
+  <div class="problem-inner">
+    <div class="fade-up">
+      <div class="section-label">The problem</div>
+      <h2 class="section-title">Most accountants send clients a <em>spreadsheet</em></h2>
+      <p class="section-sub">Business owners don't understand raw data. They need context, clarity, and plain English — not another Excel file to scroll through.</p>
+    </div>
+    <div class="problem-cards fade-up">
+      <div class="problem-card">
+        <div class="problem-card-icon" style="background:#FEF2F2;">📊</div>
+        <div>
+          <h4>Raw data without context</h4>
+          <p>Clients receive spreadsheets they can't interpret, leading to confusion and constant back-and-forth questions.</p>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card-icon" style="background:#FFF7ED;">⏱</div>
+        <div>
+          <h4>Hours spent on formatting</h4>
+          <p>Creating professional client reports manually takes time accountants could spend on higher value work.</p>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card-icon" style="background:#F0FDF4;">📋</div>
+        <div>
+          <h4>Inconsistent presentation</h4>
+          <p>Report quality varies month to month. Some clients get detailed analysis, others get a quick email.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section how" id="how">
+  <div class="how-inner">
+    <div class="fade-up">
+      <div class="section-label">How it works</div>
+      <h2 class="section-title">Three steps. Zero manual work.</h2>
+    </div>
+    <div class="how-steps">
+      <div class="step fade-up">
+        <div class="step-num">01</div>
+        <h3>Export your client's data</h3>
+        <p>Export a P&amp;L from Xero, QuickBooks, Sage or Excel as a CSV. Upload it through our secure form in under a minute.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">02</div>
+        <h3>We generate the report</h3>
+        <p>Our system analyses the data and produces a professionally designed PDF — executive summary, charts, margin analysis, and colour-coded flags.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">03</div>
+        <h3>PDF arrives in your inbox</h3>
+        <p>Within 15 minutes the finished report lands in your inbox, ready to forward to your client. No editing required.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section features" id="features">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="fade-up">
+      <div class="section-label">Features</div>
+      <h2 class="section-title">Everything your clients need to <em>understand</em> their finances</h2>
+      <p class="section-sub">Every report includes the same professional sections, every time — regardless of how much data you provide.</p>
+    </div>
+    <div class="features-grid fade-up">
+      <div class="feature-item">
+        <div class="feature-icon">📝</div>
+        <h3>Plain English Executive Summary</h3>
+        <p>3-4 sentences your client can actually read. No jargon, no accounting terminology — just clear commentary on what happened and why it matters.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">📊</div>
+        <h3>Visual Charts & Margin Analysis</h3>
+        <p>Revenue bar charts, margin progression bars, and revenue mix breakdowns — so clients see the trends at a glance without reading tables.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🚩</div>
+        <h3>Colour-Coded Analyst Flags</h3>
+        <p>Green positives, amber watches, red risks — each with a plain English explanation. Clients immediately know what to focus on.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">📈</div>
+        <h3>Full P&amp;L Statement</h3>
+        <p>Complete monthly breakdown with every line item, totals, gross margin %, and net margin % — the detail your clients occasionally need.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🔄</div>
+        <h3>Period-over-Period Comparison</h3>
+        <p>Upload two periods and the report automatically shows growth percentages vs the prior quarter — the question every client asks answered before they ask it.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🏷</div>
+        <h3>White Label Option</h3>
+        <p>Your firm's name, logo, colours, and contact details on every report. Your clients never need to know the report was automated.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">⚡</div>
+        <h3>Works With Any Business Type</h3>
+        <p>Restaurant, consultancy, retail, trades, healthcare — the report adapts its language and line items to the actual business, not a generic template.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🔒</div>
+        <h3>Secure & Confidential</h3>
+        <p>Every report is marked confidential. Data is processed securely and never retained beyond 30 days. UK GDPR compliant.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">📮</div>
+        <h3>Delivered to Your Inbox</h3>
+        <p>No portal to log into, no dashboard to check. The report arrives as a PDF attachment — ready to forward to your client in one click.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOFTWARE -->
+<section class="section software" id="software">
+  <div class="software-inner fade-up">
+    <div class="section-label">Compatibility</div>
+    <h2 class="section-title">Works with the software you already use</h2>
+    <p class="section-sub" style="margin-bottom:0;">Export a P&amp;L from any of these as a CSV or Excel file and upload it directly. No integrations, no setup.</p>
+    <div class="software-logos">
+      <div class="sw-pill"><span class="sw-check">✓</span> Xero</div>
+      <div class="sw-pill"><span class="sw-check">✓</span> QuickBooks</div>
+      <div class="sw-pill"><span class="sw-check">✓</span> Sage</div>
+      <div class="sw-pill"><span class="sw-check">✓</span> Microsoft Excel</div>
+      <div class="sw-pill"><span class="sw-check">✓</span> Google Sheets</div>
+      <div class="sw-pill"><span class="sw-check">✓</span> Any CSV format</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section pricing" id="pricing">
+  <div class="pricing-inner">
+    <div class="fade-up">
+      <div class="section-label" style="text-align:center;">Pricing</div>
+      <h2 class="section-title" style="margin:0 auto;text-align:center;">Simple, transparent pricing</h2>
+      <p class="section-sub" style="margin:16px auto 0;text-align:center;">Unlimited reports for your entire client base. No per-report fees. No setup costs.</p>
+    </div>
+    <div class="pricing-cards fade-up">
+      <div class="pricing-card featured">
+        <div class="plan-name">Standard</div>
+        <div class="plan-price">£299<span>/mo</span></div>
+        <div class="plan-desc">Everything you need to deliver professional financial reports to every client.</div>
+        <ul class="plan-features">
+          <li>Unlimited reports per month</li>
+          <li>Plain English executive summaries</li>
+          <li>Visual charts and margin analysis</li>
+          <li>Colour-coded analyst flags</li>
+          <li>Period-over-period comparison reports</li>
+          <li>Works with Xero, QuickBooks, Sage, Excel</li>
+          <li>PDF delivered to your inbox within 15 minutes</li>
+          <li>UK GDPR compliant</li>
+        </ul>
+        <a href="mailto:reports@finreportai.co.uk?subject=FinReportAI%20Standard%20Plan%20Enquiry" class="plan-cta primary">Get started →</a>
+      </div>
+      <div class="pricing-card">
+        <div class="plan-name">White Label</div>
+        <div class="plan-price">£499<span>/mo</span></div>
+        <div class="plan-desc">Everything in Standard, with your firm's branding on every report — your clients never see FinReportAI.</div>
+        <ul class="plan-features">
+          <li>Everything in Standard</li>
+          <li>Your firm name and logo on every report</li>
+          <li>Your brand colours throughout</li>
+          <li>Your firm's tagline and contact details</li>
+          <li>Custom legal disclaimer in footer</li>
+          <li>Unique report reference numbers</li>
+          <li>Report filename includes your firm name</li>
+          <li>Zero FinReportAI branding anywhere</li>
+        </ul>
+        <a href="mailto:reports@finreportai.co.uk?subject=FinReportAI%20White%20Label%20Plan%20Enquiry" class="plan-cta secondary">Enquire about White Label →</a>
+      </div>
+    </div>
+    <p class="pricing-note fade-up">No setup fee &nbsp;·&nbsp; Cancel anytime &nbsp;·&nbsp; First report free &nbsp;·&nbsp; Bank transfer or card accepted</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section faq" id="faq">
+  <div class="faq-inner">
+    <div class="fade-up">
+      <div class="section-label">FAQ</div>
+      <h2 class="section-title">Common questions</h2>
+    </div>
+    <div class="faq-list fade-up">
+      <div class="faq-item">
+        <div class="faq-q">How do I get started?</div>
+        <div class="faq-a">Register your account using our onboarding form, then submit your first client's P&L data using the report submission form. Your first report is free — no payment required until you're happy with the output.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What format does my data need to be in?</div>
+        <div class="faq-a">Any CSV or Excel export from Xero, QuickBooks, Sage, or any spreadsheet software. We provide a template if you're unsure. The more detail you include, the richer the report — but even basic revenue and profit figures produce a useful output.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How long does it take to receive the report?</div>
+        <div class="faq-a">Typically within 15 minutes of uploading your data. You'll receive a confirmation email immediately and the finished PDF shortly after.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is my client's financial data secure?</div>
+        <div class="faq-a">Yes. All data is encrypted in transit and at rest. We are UK GDPR compliant and data is permanently deleted within 30 days of report delivery. We never sell or share client data with third parties.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I put my firm's branding on the reports?</div>
+        <div class="faq-a">Yes — that's what our White Label plan is for. Your firm name, logo, brand colours, tagline, contact details, and legal disclaimer all appear on every report. Your clients see your brand, not FinReportAI.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Does it work for any type of business?</div>
+        <div class="faq-a">Yes. The report adapts automatically to the business type — a restaurant report uses different language and highlights different metrics to a consulting firm or retail business. No manual configuration required.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I cancel at any time?</div>
+        <div class="faq-a">Yes — no contracts, no cancellation fees. Just email us and we'll deactivate your account at the end of your current billing period.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Ready to send reports your clients actually <em>understand?</em></h2>
+  <p>First report is free. No setup fee. Takes under a minute to get started.</p>
+  <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+    <a href="https://tally.so/r/kdk9ao" class="btn-primary">Get started free →</a>
+    <a href="https://drive.google.com/uc?export=download&id=1AcEj_iYtGRS8rqg3dgzTl2u8Du1IUo6K" class="btn-secondary">↓ Download sample report</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">FinReport<span>AI</span></div>
+  <div class="footer-links">
+    <a href="https://tally.so/r/kdk9ao">Register</a>
+    <a href="https://tally.so/r/zx1q0a">Submit Report</a>
+    <a href="mailto:reports@finreportai.co.uk">Contact</a>
+    <a href="https://finreportai-privacy-policy.tiiny.site">Privacy Policy</a>
+  </div>
+  <div class="footer-copy">© 2026 FinReportAI · reports@finreportai.co.uk</div>
+</footer>
+
+<script>
+  // Intersection observer for fade-up animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+</script>
+</body>
+</html>
