@@ -53,11 +53,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(11,29,56,0.9
 .report-header p{font-size:12px;color:rgba(255,255,255,.5)}
 .conf-badge{display:inline-block;background:var(--gold);color:var(--navy);font-size:9px;font-weight:700;letter-spacing:1px;padding:3px 8px;border-radius:3px;margin-top:10px}
 .report-body{padding:24px 28px}
-.report-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
-.kpi{border:1px solid var(--gray-light);border-radius:8px;padding:14px 12px;text-align:center}
-.kpi-val{font-size:20px;font-weight:700;color:var(--navy);line-height:1.2}
-.kpi-label{font-size:10px;color:var(--gray);margin-top:4px}
-.kpi-change{font-size:10px;font-weight:600;color:var(--teal);margin-top:3px}
+.report-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:24px}
+.kpi{border:1px solid var(--gray-light);border-radius:8px;padding:12px 10px;text-align:center}
+.kpi-val{font-size:18px;font-weight:700;color:var(--navy);line-height:1.2}
+.kpi-label{font-size:9px;color:var(--gray);margin-top:4px}
+.kpi-change{font-size:9px;font-weight:600;color:var(--teal);margin-top:3px}
 .report-section-title{font-size:9px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:1.5px;border-bottom:1.5px solid var(--teal);padding-bottom:4px;margin-bottom:10px}
 .flag{display:flex;gap:10px;align-items:flex-start;padding:9px 11px;border-radius:6px;border:1px solid var(--gray-light);margin-bottom:6px}
 .flag.positive{background:#F0FDF4;border-color:#BBF7D0}
@@ -124,6 +124,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(11,29,56,0.9
 .sw-pill{background:white;border:1px solid var(--gray-light);border-radius:8px;padding:14px 24px;font-size:14px;font-weight:500;color:var(--navy);display:flex;align-items:center;gap:8px}
 .sw-check{color:var(--teal);font-size:16px}
 
+/* TESTIMONIALS */
+.testimonials{background:var(--navy);padding:96px 5%}
+.testimonials-inner{max-width:1100px;margin:0 auto;text-align:center}
+.testimonials .section-label{color:var(--gold);text-align:center}
+.testimonials .section-title{color:white;margin:0 auto;text-align:center}
+.testimonials .section-sub{color:rgba(255,255,255,.5);margin:16px auto 0;text-align:center}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
+.testimonial-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:28px;text-align:left}
+.testimonial-text{font-size:14px;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:20px;font-style:italic}
+.testimonial-author{font-size:13px;font-weight:600;color:white}
+.testimonial-firm{font-size:12px;color:rgba(255,255,255,.4);margin-top:2px}
+.testimonial-placeholder{display:flex;align-items:center;justify-content:center;height:120px;border:1px dashed rgba(255,255,255,.1);border-radius:8px;color:rgba(255,255,255,.2);font-size:13px}
+
 /* PRICING */
 .pricing{background:white}
 .pricing-inner{max-width:900px;margin:0 auto;text-align:center}
@@ -172,6 +185,12 @@ footer{background:var(--navy-mid);border-top:1px solid rgba(255,255,255,.06);pad
 .footer-links a:hover{color:rgba(255,255,255,.7)}
 .footer-copy{font-size:12px;color:rgba(255,255,255,.25)}
 
+/* COOKIE BANNER */
+.cookie-banner{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--navy-mid);border-top:1px solid rgba(255,255,255,.1);padding:16px 5%;align-items:center;justify-content:space-between;gap:16px;z-index:200;flex-wrap:wrap}
+.cookie-banner p{font-size:13px;color:rgba(255,255,255,.6);margin:0}
+.cookie-banner a{color:var(--teal)}
+.cookie-btn{background:var(--teal);color:white;border:none;border-radius:6px;padding:8px 20px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+
 /* ANIMATIONS */
 .fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
 .fade-up.visible{opacity:1;transform:translateY(0)}
@@ -179,12 +198,13 @@ footer{background:var(--navy-mid);border-top:1px solid rgba(255,255,255,.06);pad
 /* RESPONSIVE */
 @media(max-width:768px){
   .nav-links{display:none}
-  .report-kpis{grid-template-columns:repeat(2,1fr)}
+  .report-kpis{grid-template-columns:repeat(3,1fr)}
   .report-two-col{grid-template-columns:1fr!important}
   .problem-inner{grid-template-columns:1fr;gap:40px}
   .how-steps{grid-template-columns:1fr}
   .features-grid{grid-template-columns:1fr}
   .pricing-cards{grid-template-columns:1fr}
+  .testimonials-grid{grid-template-columns:1fr}
   .stats-inner{flex-wrap:wrap}
   .stat{min-width:140px;border-bottom:1px solid var(--gray-light)}
   footer{flex-direction:column;text-align:center}
@@ -242,48 +262,44 @@ footer{background:var(--navy-mid);border-top:1px solid rgba(255,255,255,.06);pad
       <div class="conf-badge">CONFIDENTIAL</div>
     </div>
     <div class="report-body">
-      <!-- Summary -->
       <div style="margin-bottom:20px;">
         <div class="report-section-title">Executive Summary</div>
-        <p style="font-size:12px;color:#374151;line-height:1.6;">The Golden Fork delivered strong Q1 2025 growth with total revenue of £380,000 and net profit of £115,540. Revenue grew 46% from February to April with gross margin holding consistently at 68.3%. The trajectory heading into Q2 is positive, though staff wage pressures warrant close attention.</p>
+        <p style="font-size:12px;color:#374151;line-height:1.6;">The Golden Fork delivered exceptional Q1 2025 results with total revenue of £245,200 and net profit of £67,025. Revenue grew 49% from January to March driven by strong dine-in performance and a record-breaking private dining weekend in March. Gross margin held at 74% throughout the quarter with improving operational leverage.</p>
       </div>
-      <!-- KPIs -->
       <div class="report-kpis" style="margin-bottom:24px;">
-        <div class="kpi"><div class="kpi-val">£380k</div><div class="kpi-label">Total Revenue</div><div class="kpi-change">▲ +46% Feb→Apr</div></div>
-        <div class="kpi"><div class="kpi-val">£115k</div><div class="kpi-label">Net Profit</div><div class="kpi-change">▲ Growing</div></div>
-        <div class="kpi"><div class="kpi-val">68.3%</div><div class="kpi-label">Gross Margin</div><div class="kpi-change">● Consistent</div></div>
-        <div class="kpi"><div class="kpi-val">30.4%</div><div class="kpi-label">Net Margin</div><div class="kpi-change">▲ Improving</div></div>
+        <div class="kpi"><div class="kpi-val">£245k</div><div class="kpi-label">Total Revenue</div><div class="kpi-change">▲ +49% Jan→Mar</div></div>
+        <div class="kpi"><div class="kpi-val">£67k</div><div class="kpi-label">Net Profit</div><div class="kpi-change">▲ Growing</div></div>
+        <div class="kpi"><div class="kpi-val">74.0%</div><div class="kpi-label">Gross Margin</div><div class="kpi-change">● Consistent</div></div>
+        <div class="kpi"><div class="kpi-val">27.3%</div><div class="kpi-label">Net Margin</div><div class="kpi-change">▲ Improving</div></div>
+        <div class="kpi" style="background:#DCFCE7;border-color:#15803D;"><div class="kpi-val" style="color:#15803D;">8/10</div><div class="kpi-label" style="color:#15803D;">Health Score</div><div class="kpi-change" style="color:#15803D;">Excellent</div></div>
       </div>
-      <!-- Two column: chart + flags -->
       <div class="report-two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;">
-        <!-- Chart -->
         <div>
           <div class="report-section-title">Revenue Performance</div>
           <div style="display:flex;align-items:flex-end;gap:10px;height:90px;margin:12px 0 0;">
             <div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px;flex:1;height:100%;">
-              <span style="font-size:9px;color:#6B7280;font-weight:500;">£104k</span>
-              <div style="width:100%;height:40%;background:#0D8A78;border-radius:4px 4px 0 0;"></div>
+              <span style="font-size:9px;color:#6B7280;font-weight:500;">£69k</span>
+              <div style="width:100%;height:45%;background:#0D8A78;border-radius:4px 4px 0 0;"></div>
+              <span style="font-size:9px;color:#6B7280;">Jan</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px;flex:1;height:100%;">
+              <span style="font-size:9px;color:#6B7280;font-weight:500;">£75k</span>
+              <div style="width:100%;height:60%;background:#0B7A6A;border-radius:4px 4px 0 0;"></div>
               <span style="font-size:9px;color:#6B7280;">Feb</span>
             </div>
             <div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px;flex:1;height:100%;">
-              <span style="font-size:9px;color:#6B7280;font-weight:500;">£124k</span>
-              <div style="width:100%;height:60%;background:#0B7A6A;border-radius:4px 4px 0 0;"></div>
+              <span style="font-size:9px;color:#6B7280;font-weight:500;">£102k</span>
+              <div style="width:100%;height:90%;background:#084F45;border-radius:4px 4px 0 0;"></div>
               <span style="font-size:9px;color:#6B7280;">Mar</span>
-            </div>
-            <div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px;flex:1;height:100%;">
-              <span style="font-size:9px;color:#6B7280;font-weight:500;">£152k</span>
-              <div style="width:100%;height:85%;background:#084F45;border-radius:4px 4px 0 0;"></div>
-              <span style="font-size:9px;color:#6B7280;">Apr</span>
             </div>
           </div>
         </div>
-        <!-- Flags -->
         <div>
           <div class="report-section-title">Flags &amp; Items to Watch</div>
           <div style="margin-top:10px;">
-            <div class="flag positive"><div class="flag-icon">✓</div><div class="flag-content"><h4>Strong Revenue Growth</h4><p>Revenue grew 46% this quarter</p></div></div>
-            <div class="flag watch"><div class="flag-icon">!</div><div class="flag-content"><h4>Wages Pressure</h4><p>Staff costs up 32% — review before summer</p></div></div>
-            <div class="flag risk"><div class="flag-icon">✕</div><div class="flag-content"><h4>Lease Renewal Due Q3</h4><p>Begin negotiations early</p></div></div>
+            <div class="flag positive"><div class="flag-icon">+</div><div class="flag-content"><h4>Exceptional March Revenue</h4><p>£102k in March — highest ever monthly revenue</p></div></div>
+            <div class="flag watch"><div class="flag-icon">!</div><div class="flag-content"><h4>Staff Costs Rising</h4><p>Wages up in March — monitor into Q2</p></div></div>
+            <div class="flag risk"><div class="flag-icon">X</div><div class="flag-content"><h4>Supplier Review Due</h4><p>Drinks margin requires quarterly review</p></div></div>
           </div>
         </div>
       </div>
@@ -364,13 +380,13 @@ footer{background:var(--navy-mid);border-top:1px solid rgba(255,255,255,.06);pad
     <div class="features-grid fade-up">
       <div class="feature-item"><div class="feature-icon">📝</div><h3>Plain English Executive Summary</h3><p>Clear commentary on what happened and why it matters — no jargon, no accounting terminology.</p></div>
       <div class="feature-item"><div class="feature-icon">📊</div><h3>Visual Charts &amp; Margin Analysis</h3><p>Revenue bar charts, margin progression bars, and revenue mix breakdowns your clients can read at a glance.</p></div>
-      <div class="feature-item"><div class="feature-icon">🚩</div><h3>Colour-Coded Analyst Flags</h3><p>Green positives, amber watches, red risks — each with a plain English explanation so clients know what to focus on.</p></div>
-      <div class="feature-item"><div class="feature-icon">📈</div><h3>Full P&amp;L Statement</h3><p>Complete monthly breakdown with every line item, totals, gross margin %, and net margin %.</p></div>
+      <div class="feature-item"><div class="feature-icon">🚩</div><h3>Colour-Coded Analyst Flags</h3><p>Green positives, amber watches, red risks — each with a plain English explanation and action date.</p></div>
+      <div class="feature-item"><div class="feature-icon">📈</div><h3>Full P&amp;L Statement</h3><p>Complete monthly breakdown with every line item, per-period averages, gross margin %, and net margin %.</p></div>
       <div class="feature-item"><div class="feature-icon">🔄</div><h3>Period-over-Period Comparison</h3><p>Upload two periods and the report automatically shows growth percentages vs the prior quarter.</p></div>
+      <div class="feature-item"><div class="feature-icon">💡</div><h3>Business Health Score</h3><p>A single 1–10 score rating overall financial health — growth, margins, profitability, and cost control.</p></div>
+      <div class="feature-item"><div class="feature-icon">🔮</div><h3>Forecast &amp; Recommendations</h3><p>Next period revenue and profit projection plus 3 specific, actionable recommendations based on the data.</p></div>
       <div class="feature-item"><div class="feature-icon">🏷</div><h3>White Label Option</h3><p>Your firm's name, logo, colours, and contact details on every report. Your clients never see FinReportAI.</p></div>
-      <div class="feature-item"><div class="feature-icon">⚡</div><h3>Works With Any Business Type</h3><p>Restaurant, consultancy, retail, trades — the report adapts its language and line items automatically.</p></div>
-      <div class="feature-item"><div class="feature-icon">🔒</div><h3>Secure &amp; Confidential</h3><p>Every report is marked confidential. Data is processed securely and never retained beyond 30 days. UK GDPR compliant.</p></div>
-      <div class="feature-item"><div class="feature-icon">📮</div><h3>Delivered to Your Inbox</h3><p>No portal to log into. The report arrives as a PDF attachment — ready to forward to your client in one click.</p></div>
+      <div class="feature-item"><div class="feature-icon">🔒</div><h3>Secure &amp; Confidential</h3><p>Every report is marked confidential. Data processed securely and never retained beyond 30 days. UK GDPR compliant.</p></div>
     </div>
   </div>
 </section>
@@ -392,6 +408,26 @@ footer{background:var(--navy-mid);border-top:1px solid rgba(255,255,255,.06);pad
   </div>
 </section>
 
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="testimonials-inner fade-up">
+    <div class="section-label">What firms say</div>
+    <h2 class="section-title">Trusted by UK accountancy firms</h2>
+    <p class="section-sub">Join the firms already delivering professional reports to every client, every month.</p>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-placeholder">Testimonials coming soon</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-placeholder">First report free — try it today</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-placeholder">DM us on LinkedIn to get started</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- PRICING -->
 <section class="section pricing" id="pricing">
   <div class="pricing-inner">
@@ -409,7 +445,9 @@ footer{background:var(--navy-mid);border-top:1px solid rgba(255,255,255,.06);pad
           <li>Unlimited reports per month</li>
           <li>Plain English executive summaries</li>
           <li>Visual charts and margin analysis</li>
-          <li>Colour-coded analyst flags</li>
+          <li>Business health score</li>
+          <li>Forecast and recommendations</li>
+          <li>Colour-coded analyst flags with risk scores</li>
           <li>Period-over-period comparison reports</li>
           <li>Works with Xero, QuickBooks, Sage, Excel</li>
           <li>PDF delivered within 15 minutes</li>
@@ -429,6 +467,7 @@ footer{background:var(--navy-mid);border-top:1px solid rgba(255,255,255,.06);pad
           <li>Custom legal disclaimer in footer</li>
           <li>Unique report reference numbers</li>
           <li>Report filename includes your firm name</li>
+          <li>Client portal — report history and downloads</li>
           <li>Zero FinReportAI branding anywhere</li>
         </ul>
         <a href="mailto:reports@finreportai.co.uk?subject=FinReportAI%20White%20Label%20Enquiry" class="plan-cta secondary">Enquire about White Label →</a>
@@ -467,6 +506,10 @@ footer{background:var(--navy-mid);border-top:1px solid rgba(255,255,255,.06);pad
         <div class="faq-a">Yes — that's what our White Label plan is for. Your firm name, logo, brand colours, tagline, contact details, and legal disclaimer all appear on every report. Your clients see your brand, not FinReportAI.</div>
       </div>
       <div class="faq-item">
+        <div class="faq-q">What is the client portal?</div>
+        <div class="faq-a">White Label subscribers get access to a private portal at app.finreportai.co.uk. Log in to submit reports, view your full report history, and download any past PDF. Standard plan users can also log in to submit reports.</div>
+      </div>
+      <div class="faq-item">
         <div class="faq-q">Does it work for any type of business?</div>
         <div class="faq-a">Yes. The report adapts automatically to the business type — a restaurant report uses different language and highlights different metrics to a consulting firm or retail business.</div>
       </div>
@@ -494,11 +537,18 @@ footer{background:var(--navy-mid);border-top:1px solid rgba(255,255,255,.06);pad
   <div class="footer-links">
     <a href="https://tally.so/r/kdk9ao">Register</a>
     <a href="https://tally.so/r/zx1q0a">Submit Report</a>
+    <a href="https://app.finreportai.co.uk">Client Login</a>
     <a href="mailto:reports@finreportai.co.uk">Contact</a>
-    <a href="https://finreportai-privacy-policy.tiiny.site">Privacy Policy</a>
+    <a href="/privacy">Privacy Policy</a>
   </div>
   <div class="footer-copy">© 2026 FinReportAI &nbsp;·&nbsp; reports@finreportai.co.uk</div>
 </footer>
+
+<!-- COOKIE BANNER -->
+<div class="cookie-banner" id="cookie-banner">
+  <p>We use cookies to improve your experience. By continuing you accept our <a href="/privacy">privacy policy</a>.</p>
+  <button class="cookie-btn" onclick="acceptCookies()">Accept</button>
+</div>
 
 <script>
 const observer = new IntersectionObserver(entries => {
@@ -514,6 +564,15 @@ document.querySelectorAll('.faq-q').forEach(q => {
     if(!isOpen) item.classList.add('open');
   });
 });
+
+// Cookie banner
+if(!localStorage.getItem('cookies_accepted')){
+  document.getElementById('cookie-banner').style.display='flex';
+}
+function acceptCookies(){
+  localStorage.setItem('cookies_accepted','1');
+  document.getElementById('cookie-banner').style.display='none';
+}
 </script>
 </body>
 </html>
