@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms &amp; Conditions | FinReportAI</title>
+<meta name="description" content="Terms and Conditions for FinReportAI — the automated financial reporting service for UK accountancy firms.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ── */
+:root{
+  --navy:#0B1D38;--navy-2:#0D2040;--navy-3:#122548;
+  --teal:#0D8A78;--teal-l:#11A692;--teal-d:#096B5D;
+  --gold:#C9A84C;--gold-l:#D4B86A;
+  --white:#fff;--off:#F5F7FB;--gray:#6B7280;
+  --text:#1A2A3A;--line:#E4E9F2;
+  --teal-bg:rgba(13,138,120,.06);--teal-border:rgba(13,138,120,.18);
+}
+
+/* ── RESET ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--text);overflow-x:hidden;line-height:1.7}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:inherit;border:none;background:none}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--navy)}
+::-webkit-scrollbar-thumb{background:var(--teal);border-radius:2px}
+
+/* ── NAV ── */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:68px;padding:0 5%;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(10,25,50,.95);
+  backdrop-filter:blur(24px) saturate(160%);
+  -webkit-backdrop-filter:blur(24px) saturate(160%);
+  box-shadow:0 1px 0 rgba(255,255,255,.05),0 8px 40px rgba(0,0,0,.3);
+}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-mark{
+  width:34px;height:34px;border-radius:9px;flex-shrink:0;
+  background:linear-gradient(140deg,var(--teal-l),var(--teal-d));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Serif Display',serif;font-size:13px;color:#fff;
+  box-shadow:0 4px 18px rgba(13,138,120,.45);
+  transition:transform .28s,box-shadow .28s;
+}
+.nav-logo:hover .nav-mark{transform:scale(1.1) rotate(-4deg);box-shadow:0 6px 28px rgba(13,138,120,.6)}
+.nav-word{font-size:15px;font-weight:600;color:#fff;letter-spacing:-.2px}
+.nav-word span{color:var(--gold)}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a{
+  font-size:13.5px;color:rgba(255,255,255,.52);
+  position:relative;padding-bottom:2px;transition:color .2s;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-1px;left:0;right:100%;
+  height:1px;background:var(--teal-l);
+  transition:right .28s cubic-bezier(.4,0,.2,1);
+}
+.nav-links a:hover{color:#fff}
+.nav-links a:hover::after{right:0}
+.nav-pill{
+  padding:8px 20px;border-radius:7px;
+  background:var(--teal);color:#fff;
+  font-size:13.5px;font-weight:600;
+  box-shadow:0 4px 18px rgba(13,138,120,.38);
+  transition:background .22s,transform .22s,box-shadow .22s;white-space:nowrap;
+}
+.nav-pill:hover{background:var(--teal-l);transform:translateY(-1px);box-shadow:0 7px 28px rgba(13,138,120,.52)}
+.nav-pill::after{display:none!important}
+.hamburger{display:none;flex-direction:column;gap:5px;padding:6px;flex-shrink:0}
+.hamburger span{display:block;width:22px;height:1.5px;background:rgba(255,255,255,.8);border-radius:1px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+#mob-nav{
+  position:fixed;top:68px;left:0;right:0;z-index:190;
+  background:rgba(10,25,50,.97);backdrop-filter:blur(24px);
+  max-height:0;overflow:hidden;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  transition:max-height .4s cubic-bezier(.4,0,.2,1);
+}
+#mob-nav.open{max-height:380px}
+#mob-nav a{
+  display:block;padding:14px 5%;font-size:15px;
+  color:rgba(255,255,255,.58);border-bottom:1px solid rgba(255,255,255,.05);
+  transition:color .2s,padding-left .2s;
+}
+#mob-nav a:hover{color:#fff;padding-left:calc(5% + 6px)}
+#mob-nav a:last-child{border:none;color:var(--teal-l);font-weight:600;margin-top:2px}
+
+/* ── PAGE HERO ── */
+.page-hero{
+  background:var(--navy);padding:120px 5% 72px;
+  position:relative;overflow:hidden;
+}
+.page-hero::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 65% 70% at 5% 50%,rgba(13,138,120,.18) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 55% at 95% 10%,rgba(201,168,76,.08) 0%,transparent 52%);
+  pointer-events:none;
+}
+.page-hero::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.016) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.016) 1px,transparent 1px);
+  background-size:72px 72px;
+  -webkit-mask-image:radial-gradient(ellipse 85% 80% at 25% 50%,rgba(0,0,0,.7) 15%,transparent 68%);
+  mask-image:radial-gradient(ellipse 85% 80% at 25% 50%,rgba(0,0,0,.7) 15%,transparent 68%);
+}
+.page-hero-inner{max-width:860px;margin:0 auto;position:relative;z-index:1}
+/* Breadcrumb */
+.breadcrumb{
+  display:flex;align-items:center;gap:8px;
+  font-size:12px;color:rgba(255,255,255,.32);
+  margin-bottom:24px;letter-spacing:.2px;
+}
+.breadcrumb a{color:rgba(255,255,255,.38);transition:color .2s}
+.breadcrumb a:hover{color:rgba(255,255,255,.75)}
+.breadcrumb-sep{font-size:10px;color:rgba(255,255,255,.2)}
+.breadcrumb-current{color:rgba(255,255,255,.55)}
+/* Hero text */
+.page-label{
+  font-size:10.5px;font-weight:700;color:var(--teal-l);
+  text-transform:uppercase;letter-spacing:2.2px;
+  display:flex;align-items:center;gap:10px;margin-bottom:18px;
+}
+.page-label::before{content:'';width:18px;height:1.5px;background:var(--teal-l);flex-shrink:0}
+.page-hero h1{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(36px,4.5vw,58px);
+  color:#fff;line-height:1.07;letter-spacing:-1.5px;
+  margin-bottom:20px;
+}
+.page-hero h1 em{font-style:italic;color:var(--gold)}
+.page-meta{
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+  font-size:13px;color:rgba(255,255,255,.35);
+}
+.page-meta-item{display:flex;align-items:center;gap:6px}
+.page-meta-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--teal);display:inline-block;flex-shrink:0;
+}
+
+/* ── LAYOUT ── */
+.page-layout{
+  max-width:1120px;margin:0 auto;
+  display:grid;grid-template-columns:240px 1fr;
+  gap:64px;padding:72px 5% 96px;
+  align-items:start;
+}
+
+/* ── SIDEBAR TOC ── */
+.toc{
+  position:sticky;top:88px;
+  background:var(--off);border:1px solid var(--line);
+  border-radius:16px;padding:28px 24px;
+  font-size:13px;
+}
+.toc-title{
+  font-size:10px;font-weight:700;color:var(--navy);
+  text-transform:uppercase;letter-spacing:2px;
+  margin-bottom:16px;padding-bottom:12px;
+  border-bottom:1px solid var(--line);
+}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:2px}
+.toc-list li a{
+  display:flex;align-items:center;gap:8px;
+  padding:7px 10px;border-radius:7px;
+  color:var(--gray);font-size:12.5px;
+  transition:all .2s;
+}
+.toc-list li a:hover{background:rgba(13,138,120,.08);color:var(--teal)}
+.toc-list li a.active{background:rgba(13,138,120,.1);color:var(--teal);font-weight:600}
+.toc-num{
+  font-size:10px;font-weight:700;color:rgba(13,138,120,.5);
+  min-width:16px;flex-shrink:0;font-variant-numeric:tabular-nums;
+}
+.toc-contact{
+  margin-top:20px;padding-top:16px;
+  border-top:1px solid var(--line);
+  font-size:12px;color:var(--gray);line-height:1.6;
+}
+.toc-contact a{color:var(--teal);transition:color .2s}
+.toc-contact a:hover{color:var(--teal-l)}
+
+/* ── CONTENT ── */
+.terms-content{min-width:0}
+
+/* Section block */
+.t-section{
+  margin-bottom:64px;
+  padding-bottom:64px;
+  border-bottom:1px solid var(--line);
+}
+.t-section:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+
+/* Section header */
+.t-section-header{
+  display:flex;align-items:center;gap:16px;
+  margin-bottom:28px;
+}
+.t-section-num{
+  font-family:'DM Serif Display',serif;
+  font-size:13px;color:var(--teal);
+  background:var(--teal-bg);border:1px solid var(--teal-border);
+  border-radius:7px;padding:4px 10px;
+  font-weight:400;white-space:nowrap;flex-shrink:0;
+}
+.t-section h2{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(22px,2.4vw,28px);
+  color:var(--navy);line-height:1.15;letter-spacing:-.4px;
+}
+/* Teal top accent on each section */
+.t-section-bar{
+  width:36px;height:2.5px;
+  background:linear-gradient(to right,var(--teal),var(--teal-l));
+  border-radius:2px;margin-bottom:24px;
+}
+
+/* Typography */
+.terms-content p{
+  font-size:15px;color:var(--text);line-height:1.78;
+  margin-bottom:16px;
+}
+.terms-content p:last-child{margin-bottom:0}
+.terms-content h3{
+  font-size:15.5px;font-weight:700;color:var(--navy);
+  margin:28px 0 10px;
+}
+.terms-content h3:first-child{margin-top:0}
+
+/* Lists */
+.terms-content ul,.terms-content ol{
+  padding-left:0;list-style:none;
+  margin-bottom:16px;
+  display:flex;flex-direction:column;gap:8px;
+}
+.terms-content ul li{
+  display:flex;gap:10px;align-items:flex-start;
+  font-size:15px;color:var(--text);line-height:1.72;
+}
+.terms-content ul li::before{
+  content:'';
+  width:6px;height:6px;border-radius:50%;
+  background:var(--teal);flex-shrink:0;margin-top:8px;
+}
+.terms-content ol{counter-reset:olist}
+.terms-content ol li{
+  display:flex;gap:12px;align-items:flex-start;
+  font-size:15px;color:var(--text);line-height:1.72;
+  counter-increment:olist;
+}
+.terms-content ol li::before{
+  content:counter(olist)'.';
+  font-size:13px;font-weight:700;color:var(--teal);
+  flex-shrink:0;min-width:20px;padding-top:2px;
+  font-variant-numeric:tabular-nums;
+}
+
+/* Callout boxes */
+.callout{
+  background:var(--teal-bg);border:1px solid var(--teal-border);
+  border-left:3px solid var(--teal);border-radius:10px;
+  padding:18px 20px;margin:24px 0;
+}
+.callout.amber{
+  background:rgba(217,119,6,.05);
+  border-color:rgba(217,119,6,.18);
+  border-left-color:#D97706;
+}
+.callout.red{
+  background:rgba(220,38,38,.04);
+  border-color:rgba(220,38,38,.15);
+  border-left-color:#DC2626;
+}
+.callout-label{
+  font-size:10px;font-weight:700;color:var(--teal);
+  text-transform:uppercase;letter-spacing:1.8px;margin-bottom:8px;
+}
+.callout.amber .callout-label{color:#D97706}
+.callout.red .callout-label{color:#DC2626}
+.callout p{font-size:14px;margin:0!important;line-height:1.65}
+
+/* Definition terms */
+.term-def{
+  display:grid;grid-template-columns:180px 1fr;
+  gap:8px 20px;margin:16px 0;
+}
+.term-def dt{
+  font-size:14px;font-weight:600;color:var(--navy);
+  padding-top:2px;
+}
+.term-def dd{
+  font-size:14px;color:var(--text);line-height:1.7;
+  border-left:2px solid var(--line);padding-left:14px;
+}
+
+/* Strong inline */
+.terms-content strong{font-weight:600;color:var(--navy)}
+
+/* Links */
+.terms-content a{color:var(--teal);transition:color .2s}
+.terms-content a:hover{color:var(--teal-l)}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--navy-2);
+  border-top:1px solid rgba(255,255,255,.06);
+  padding:52px 5% 40px;
+}
+.ft-top{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  gap:40px;flex-wrap:wrap;
+  padding-bottom:40px;margin-bottom:32px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.ft-brand{max-width:280px}
+.ft-logo{font-size:15px;font-weight:600;color:#fff;margin-bottom:10px;letter-spacing:-.1px}
+.ft-logo span{color:var(--gold)}
+.ft-tag{font-size:13px;color:rgba(255,255,255,.26);line-height:1.6}
+.ft-cols{display:flex;gap:52px;flex-wrap:wrap}
+.ft-col h4{font-size:10px;font-weight:700;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:2.2px;margin-bottom:14px}
+.ft-col a{display:block;font-size:13px;color:rgba(255,255,255,.38);margin-bottom:9px;transition:color .2s}
+.ft-col a:hover{color:rgba(255,255,255,.78)}
+.ft-bot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.ft-copy{font-size:12px;color:rgba(255,255,255,.18)}
+.ft-legal a{font-size:12px;color:rgba(255,255,255,.22);transition:color .2s}
+.ft-legal a:hover{color:rgba(255,255,255,.5)}
+
+/* ── COOKIE ── */
+.cookie{
+  display:none;position:fixed;bottom:20px;left:20px;right:20px;
+  max-width:560px;
+  background:var(--navy-3);border:1px solid rgba(255,255,255,.12);
+  border-radius:16px;padding:18px 22px;
+  align-items:center;justify-content:space-between;
+  gap:16px;z-index:300;flex-wrap:wrap;
+  box-shadow:0 28px 72px rgba(0,0,0,.55);
+}
+.cookie.show{display:flex}
+.cookie p{font-size:13px;color:rgba(255,255,255,.48);margin:0}
+.cookie a{color:var(--teal-l)}
+.cookie-btn{
+  background:var(--teal);color:#fff;border:none;border-radius:9px;
+  padding:9px 22px;font-size:13px;font-weight:600;cursor:pointer;
+  white-space:nowrap;transition:background .2s;
+}
+.cookie-btn:hover{background:var(--teal-l)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .page-layout{grid-template-columns:1fr;gap:0;padding-top:56px}
+  .toc{position:static;margin-bottom:48px;border-radius:12px}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .ft-top{flex-direction:column}
+  .ft-cols{gap:32px}
+  .ft-bot{flex-direction:column;text-align:center}
+  .term-def{grid-template-columns:1fr}
+  .term-def dd{border-left:none;padding-left:0;border-top:1px solid var(--line);padding-top:6px}
+}
+@media(max-width:540px){
+  .page-hero{padding:100px 5% 56px}
+  .page-layout{padding-top:48px;padding-bottom:64px}
+  .cookie{left:12px;right:12px;bottom:12px}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="nav">
+  <a href="/" class="nav-logo">
+    <div class="nav-mark">FR</div>
+    <span class="nav-word">FinReport<span>AI</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="/#how">How it works</a>
+    <a href="/#features">Features</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/#faq">FAQ</a>
+    <a href="https://app.finreportai.co.uk" rel="noopener">Client Login</a>
+  </div>
+  <a href="https://tally.so/r/kdk9ao" rel="noopener" class="nav-pill">Get started</a>
+  <button class="hamburger" id="ham" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mob-nav">
+  <a href="/#how" onclick="closeMob()">How it works</a>
+  <a href="/#features" onclick="closeMob()">Features</a>
+  <a href="/#pricing" onclick="closeMob()">Pricing</a>
+  <a href="/#faq" onclick="closeMob()">FAQ</a>
+  <a href="https://app.finreportai.co.uk" rel="noopener" onclick="closeMob()">Client Login</a>
+  <a href="https://tally.so/r/kdk9ao" rel="noopener" onclick="closeMob()">Get started free →</a>
+</div>
+
+<!-- ── PAGE HERO ── -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="breadcrumb-sep">›</span>
+      <span class="breadcrumb-current">Terms &amp; Conditions</span>
+    </nav>
+    <div class="page-label">Legal</div>
+    <h1>Terms &amp; <em>Conditions</em></h1>
+    <div class="page-meta">
+      <div class="page-meta-item"><span class="page-meta-dot"></span> Last updated: 6 June 2026</div>
+      <div class="page-meta-item"><span class="page-meta-dot"></span> Governing law: England &amp; Wales</div>
+      <div class="page-meta-item"><span class="page-meta-dot"></span> Version 1.0</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── MAIN LAYOUT ── -->
+<div class="page-layout">
+
+  <!-- Sidebar TOC -->
+  <aside>
+    <nav class="toc" aria-label="Contents">
+      <div class="toc-title">Contents</div>
+      <ol class="toc-list">
+        <li><a href="#s1"><span class="toc-num">1</span>Definitions</a></li>
+        <li><a href="#s2"><span class="toc-num">2</span>The Service</a></li>
+        <li><a href="#s3"><span class="toc-num">3</span>Subscription &amp; Payment</a></li>
+        <li><a href="#s4"><span class="toc-num">4</span>Acceptable Use</a></li>
+        <li><a href="#s5"><span class="toc-num">5</span>Data Processing &amp; GDPR</a></li>
+        <li><a href="#s6"><span class="toc-num">6</span>Intellectual Property</a></li>
+        <li><a href="#s7"><span class="toc-num">7</span>White Label Terms</a></li>
+        <li><a href="#s8"><span class="toc-num">8</span>Service Availability</a></li>
+        <li><a href="#s9"><span class="toc-num">9</span>Limitation of Liability</a></li>
+        <li><a href="#s10"><span class="toc-num">10</span>Indemnity</a></li>
+        <li><a href="#s11"><span class="toc-num">11</span>Termination</a></li>
+        <li><a href="#s12"><span class="toc-num">12</span>Confidentiality</a></li>
+        <li><a href="#s13"><span class="toc-num">13</span>Amendments</a></li>
+        <li><a href="#s14"><span class="toc-num">14</span>General</a></li>
+        <li><a href="#s15"><span class="toc-num">15</span>Governing Law</a></li>
+        <li><a href="#s16"><span class="toc-num">16</span>Contact</a></li>
+      </ol>
+      <div class="toc-contact">
+        <strong style="display:block;color:var(--navy);margin-bottom:4px;font-size:12px">Questions?</strong>
+        <a href="mailto:reports@finreportai.co.uk">reports@finreportai.co.uk</a>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- Terms Content -->
+  <article class="terms-content">
+
+    <div class="callout" style="margin-bottom:48px">
+      <div class="callout-label">Please read carefully</div>
+      <p>These Terms and Conditions ("Agreement") govern your access to and use of the FinReportAI service. By registering for an account, submitting data, or otherwise using the service, you agree to be bound by this Agreement. If you do not agree, you must not use the service. This Agreement constitutes a legally binding contract between you and FinReportAI under the laws of England and Wales.</p>
+    </div>
+
+    <!-- 1. DEFINITIONS -->
+    <section class="t-section" id="s1">
+      <div class="t-section-bar"></div>
+      <div class="t-section-header">
+        <span class="t-section-num">Clause 1</span>
+        <h2>Definitions</h2>
+      </div>
+      <p>In this Agreement, the following terms have the meanings set out below:</p>
+      <dl class="term-def">
+        <dt>"Agreement"</dt>
+        <dd>These Terms and Conditions, together with any Order Form, pricing page, or other document expressly incorporated by reference.</dd>
+        <dt>"Client Data"</dt>
+        <dd>Any financial data, spreadsheet exports, CSV files, or other information submitted by you to the Service for the purpose of generating a Report.</dd>
+        <dt>"End Client"</dt>
+        <dd>Any third party (including your accountancy clients) to whom you deliver, forward, or otherwise distribute a Report generated through the Service.</dd>
+        <dt>"FinReportAI" / "we" / "us"</dt>
+        <dd>FinReportAI, the operator of the service available at finreportai.co.uk and app.finreportai.co.uk. Contact: reports@finreportai.co.uk.</dd>
+        <dt>"Free Tier"</dt>
+        <dd>Any complimentary, trial, or zero-cost use of the Service, including the first-report-free offer.</dd>
+        <dt>"Report"</dt>
+        <dd>The AI-generated PDF financial report produced by the Service using Client Data submitted by you.</dd>
+        <dt>"Service"</dt>
+        <dd>The automated financial report generation platform operated by FinReportAI, accessible via finreportai.co.uk and app.finreportai.co.uk.</dd>
+        <dt>"Subscriber" / "you"</dt>
+        <dd>The individual or firm that has registered for an account and is subject to this Agreement. Where you register on behalf of a firm or company, "you" refers to that firm or company, and the individual registering warrants that they have authority to bind it.</dd>
+        <dt>"Subscription Plan"</dt>
+        <dd>The Standard or White Label plan selected by you, as described on the pricing page at the time of purchase.</dd>
+        <dt>"White Label Plan"</dt>
+        <dd>The Subscription Plan that enables you to apply your firm's branding to Reports, removing FinReportAI branding.</dd>
+      </dl>
+    </section>
+
+    <!-- 2. THE SERVICE -->
+    <section class="t-section" id="s2">
+      <div class="t-section-bar"></div>
+      <div class="t-section-header">
+        <span class="t-section-num">Clause 2</span>
+        <h2>The Service</h2>
+      </div>
+      <h3>2.1 Description</h3>
+      <p>FinReportAI provides a software-as-a-service platform that processes Client Data submitted by Subscribers and returns an AI-assisted, professionally formatted PDF financial Report by email, typically within 15 minutes of submission. The 15-minute delivery time is a target, not a guarantee; actual delivery times may vary.</p>
+      <h3>2.2 Nature of Reports</h3>
+      <p>Reports are generated using artificial intelligence and automated analysis. They are provided for informational and presentational purposes only. FinReportAI is not a regulated financial advisor, and nothing in any Report constitutes financial advice, investment advice, tax advice, or legal advice. You are solely responsible for reviewing the accuracy of each Report before distributing it to End Clients.</p>
+      <div class="callout amber">
+        <div class="callout-label">Important disclaimer</div>
+        <p>Reports generated by the Service are based solely on the data you submit. FinReportAI does not independently verify Client Data. Any errors, omissions, or inaccuracies in the data you provide may result in inaccuracies in the Report. You must review every Report before delivering it to an End Client.</p>
+      </div>
+      <h3>2.3 First Report Free</h3>
+      <p>FinReportAI offers one complimentary Report to new Subscribers (the "Free Tier"). This free report is subject to this Agreement in full. FinReportAI reserves the right to modify or withdraw the Free Tier offer at any time without notice.</p>
+      <h3>2.4 Account Registration</h3>
+      <p>To access the Service beyond the Free Tier, you must register for an account. You agree to provide accurate, current, and complete information during registration and to keep your account credentials confidential. You are responsible for all activity that occurs under your account.</p>
+    </section>
+
+    <!-- 3. SUBSCRIPTION & PAYMENT -->
+    <section class="t-section" id="s3">
+      <div class="t-section-bar"></div>
+      <div class="t-section-header">
+        <span class="t-section-num">Clause 3</span>
+        <h2>Subscription &amp; Payment</h2>
+      </div>
+      <h3>3.1 Subscription Plans</h3>
+      <p>Paid access to the Service is provided on a monthly subscription basis. Current pricing is displayed on the FinReportAI pricing page. Prices are stated exclusive of VAT. VAT is chargeable in addition at the prevailing UK rate where applicable.</p>
+      <h3>3.2 Payment Terms</h3>
+      <ul>
+        <li>Subscriptions are invoiced monthly in advance.</li>
+        <li>Payment is accepted by card or bank transfer, as specified on the pricing page or invoice.</li>
+        <li>You must ensure payment details remain valid and up to date. Failure to maintain valid payment details may result in suspension or termination of access.</li>
+        <li>FinReportAI reserves the right to suspend the Service if payment is not received within 14 days of the invoice due date, without prejudice to any other remedies.</li>
+      </ul>
+      <h3>3.3 Cancellation</h3>
+      <p>You may cancel your subscription at any time by emailing <a href="mailto:reports@finreportai.co.uk">reports@finreportai.co.uk</a>. Cancellation takes effect at the end of the current billing period. You will retain access to the Service until the end of the period for which you have paid.</p>
+      <h3>3.4 No Refunds</h3>
+      <div class="callout amber">
+        <div class="callout-label">Refund policy</div>
+        <p><strong>Subscription fees are non-refundable.</strong> No refund or credit will be issued for any unused portion of a subscription period, including where you cancel mid-month or where access is terminated by FinReportAI for breach of this Agreement. This policy does not affect your statutory rights as a consumer, where applicable.</p>
+      </div>
+      <h3>3.5 Price Changes</h3>
+      <p>FinReportAI reserves the right to change subscription pricing. We will provide at least 30 days' written notice (by email) of any price increase. Continued use of the Service after a price change takes effect constitutes your acceptance of the new pricing.</p>
+      <h3>3.6 Taxes</h3>
+      <p>You are responsible for all applicable taxes, duties, and levies arising from your use of the Service, other than taxes on FinReportAI's income. Where FinReportAI is required by law to collect and remit such taxes, the applicable amount will be added to your invoice.</p>
+    </section>
+
+    <!-- 4. ACCEPTABLE USE -->
+    <section class="t-section" id="s4">
+      <div class="t-section-bar"></div>
+      <div class="t-section-header">
+        <span class="t-section-num">Clause 4</span>
+        <h2>Acceptable Use</h2>
+      </div>
+      <h3>4.1 Permitted Use</h3>
+      <p>The Service is intended for use by professional accountancy firms, bookkeeping practices, and financial advisors for the purpose of generating financial Reports for their own clients. You may only use the Service for lawful purposes and in accordance with this Agreement.</p>
+      <h3>4.2 Prohibited Use</h3>
+      <p>You must not use the Service to:</p>
+      <ul>
+        <li>Submit false, fabricated, or fraudulent financial data;</li>
+        <li>Generate Reports intended to mislead, deceive, or defraud End Clients or any third party;</li>
+        <li>Process data belonging to individuals or entities for whom you have no authority or lawful basis;</li>
+        <li>Attempt to reverse-engineer, scrape, copy, or extract the algorithms, prompts, templates, or methodologies underlying the Service;</li>
+        <li>Use automated systems, bots, or scripts to access the Service in a manner that exceeds normal human usage;</li>
+        <li>Resell, sublicence, or commercially exploit the Service to third parties without FinReportAI's prior written consent (save that delivering Reports to your own End Clients is expressly permitted);</li>
+        <li>Transmit malware, viruses, or any code designed to damage or interfere with the Service;</li>
+        <li>Use the Service in a way that breaches any applicable law, regulation, or professional conduct rule, including but not limited to the Financial Services and Markets Act 2000, the Money Laundering Regulations 2017, or any applicable ICAEW, ACCA, or CIMA professional standards.</li>
+      </ul>
+      <h3>4.3 Professional Responsibility</h3>
+      <p>You acknowledge that you are a professional operating within a regulated or quasi-regulated environment. You remain solely responsible for ensuring that your use of the Service and the distribution of Reports to End Clients complies with your professional obligations, including any duties owed to clients, regulatory requirements, and professional indemnity obligations.</p>
+    </section>
+
+    <!-- 5. DATA PROCESSING & GDPR -->
+    <section class="t-section" id="s5">
+      <div class="t-section-bar"></div>
+      <div class="t-section-header">
+        <span class="t-section-num">Clause 5</span>
+        <h2>Data Processing &amp; UK GDPR Compliance</h2>
+      </div>
+      <h3>5.1 Roles</h3>
+      <p>For the purposes of the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018 ("Data Protection Legislation"):</p>
+      <ul>
+        <li>You are the <strong>Controller</strong> of any personal data contained within Client Data that you submit to the Service;</li>
+        <li>FinReportAI acts as the <strong>Processor</strong> of such personal data, processing it solely on your instructions for the purpose of generating Reports.</li>
+      </ul>
+      <h3>5.2 Your Obligations as Controller</h3>
+      <p>By submitting Client Data to the Service, you warrant that:</p>
+      <ul>
+        <li>You have a lawful basis under the Data Protection Legislation to process and transfer the personal data contained in the Client Data to FinReportAI;</li>
+        <li>You have provided appropriate privacy notices to the individuals whose data is contained in the Client Data;</li>
+        <li>The Client Data does not contain special categories of personal data (as defined in Article 9 UK GDPR) unless you have specific authorisation and a lawful basis to process such data.</li>
+      </ul>
+      <h3>5.3 FinReportAI's Obligations as Processor</h3>
+      <p>FinReportAI agrees to:</p>
+      <ul>
+        <li>Process Client Data only for the purposes of generating Reports and as otherwise instructed by you;</li>
+        <li>Implement appropriate technical and organisational measures to protect Client Data against unauthorised access, loss, or destruction;</li>
+        <li>Not transfer Client Data outside the United Kingdom or European Economic Area without appropriate safeguards in place;</li>
+        <li>Not share or sell Client Data to any third party, save where required by law or necessary to operate the Service (e.g. infrastructure providers subject to appropriate data processing agreements);</li>
+        <li>Promptly notify you of any confirmed personal data breach affecting Client Data;</li>
+        <li>Assist you, on reasonable request and at your cost, in responding to data subject rights requests relating to personal data contained in Client Data.</li>
+      </ul>
+      <h3>5.4 Data Retention and Deletion</h3>
+      <div class="callout">
+        <div class="callout-label">Data deletion policy</div>
+        <p>Client Data and generated Reports are <strong>permanently and securely deleted within 30 days of Report delivery</strong>. No Client Data is retained beyond this period unless required by applicable law. This deletion is irreversible; FinReportAI cannot recover data after deletion.</p>
+      </div>
+      <h3>5.5 Sub-processors</h3>
+      <p>FinReportAI may engage sub-processors (such as cloud infrastructure providers and AI API providers) to process Client Data on its behalf. FinReportAI shall ensure that any sub-processor is bound by data protection obligations no less stringent than those in this clause. A list of current sub-processors is available on request.</p>
+      <h3>5.6 Cookies and Website Data</h3>
+      <p>FinReportAI's website uses cookies for functional and analytical purposes. Full details are set out in our <a href="/privacy">Privacy Policy</a>. Your use of the website constitutes acceptance of cookie use as described therein.</p>
+    </section>
+
+    <!-- 6. INTELLECTUAL PROPERTY -->
+    <section class="t-section" id="s6">
+      <div class="t-section-bar"></div>
+      <div class="t-section-header">
+        <span class="t-section-num">Clause 6</span>
+        <h2>Intellectual Property</h2>
+      </div>
+      <h3>6.1 FinReportAI Platform</h3>
+      <p>All intellectual property rights in the Service, including the software, algorithms, templates, design, trade marks, trade names, and the FinReportAI brand, are and shall remain the exclusive property of FinReportAI. Nothing in this Agreement grants you any rights in or to the Service other than the limited licence set out below.</p>
+      <h3>6.2 Licence to Use</h3>
+      <p>FinReportAI grants you a non-exclusive, non-transferable, revocable licence to access and use the Service during your Subscription Period solely for the purpose of generating Reports for delivery to your End Clients in accordance with this Agreement.</p>
+      <h3>6.3 Ownership of Reports</h3>
+      <p>Subject to payment of all applicable fees, <strong>the intellectual property rights in each Report generated using your Client Data vest in and belong to you</strong> (the Subscribing firm) upon delivery. You may use, distribute, modify, and forward Reports to your End Clients without restriction, subject to the terms of this Agreement. FinReportAI retains no ownership of the Report content once delivered to you.</p>
+      <h3>6.4 Client Data</h3>
+      <p>You retain full ownership of all Client Data you submit. You grant FinReportAI a limited, non-exclusive licence to process Client Data solely to the extent necessary to provide the Service and generate Reports. This licence terminates upon deletion of Client Data in accordance with clause 5.4.</p>
+      <h3>6.5 Feedback</h3>
+      <p>If you provide feedback, suggestions, or ideas regarding the Service, you grant FinReportAI a perpetual, irrevocable, royalty-free licence to use such feedback for any purpose without compensation or attribution to you.</p>
+    </section>
+
+    <!-- 7. WHITE LABEL TERMS -->
+    <section class="t-section" id="s7">
+      <div class="t-section-bar"></div>
+      <div class="t-section-header">
+        <span class="t-section-num">Clause 7</span>
+        <h2>White Label Terms</h2>
+      </div>
+      <h3>7.1 Applicability</h3>
+      <p>This clause applies to Subscribers on the White Label Plan only. Where there is any conflict between this clause and the general terms, this clause shall prevail in relation to white label use.</p>
+      <h3>7.2 White Label Licence</h3>
+      <p>Subject to payment of the White Label Plan subscription fee, FinReportAI grants you a non-exclusive, non-transferable licence to apply your firm's branding (including your name, logo, brand colours, tagline, and contact details) to Reports generated through the Service, and to deliver such branded Reports to End Clients under your firm's identity.</p>
+      <h3>7.3 Subscriber's Responsibility for Branded Reports</h3>
+      <div class="callout amber">
+        <div class="callout-label">Your responsibility</div>
+        <p>You are solely responsible for how branded Reports are presented, described, and used in your dealings with End Clients. You must not represent to End Clients that branded Reports were produced entirely in-house or by human analysts where doing so would be misleading. You are responsible for ensuring your use of AI-assisted tools in client communications complies with your professional obligations and any applicable regulatory guidance.</p>
+      </div>
+      <h3>7.4 No FinReportAI Liability to End Clients</h3>
+      <p>FinReportAI has no direct contractual relationship with your End Clients. Any liability arising from the delivery, use, or reliance on a branded Report by an End Client is solely between you and that End Client. You shall indemnify FinReportAI against any claims brought by End Clients arising from your use of the White Label Service (see clause 10).</p>
+      <h3>7.5 Prohibited Branding Use</h3>
+      <p>You must not apply branding to Reports in a way that:</p>
+      <ul>
+        <li>Implies endorsement by a regulatory body without authority;</li>
+        <li>Includes misleading credentials or qualifications;</li>
+        <li>Violates any third party's trade mark, copyright, or other intellectual property rights;</li>
+        <li>Constitutes a misrepresentation in breach of the Misrepresentation Act 1967 or the Consumer Protection from Unfair Trading Regulations 2008.</li>
+      </ul>
+      <h3>7.6 Branding Setup</h3>
+      <p>You are responsible for providing accurate and up-to-date branding assets to FinReportAI. FinReportAI shall apply branding in good faith based on the assets you provide and bears no liability for errors resulting from incorrect, low-quality, or out-of-date assets supplied by you.</p>
+    </section>
+
+    <!-- 8. SERVICE AVAILABILITY -->
+    <section class="t-section" id="s8">
+      <div class="t-section-bar"></div>
+      <div class="t-section-header">
+        <span class="t-section-num">Clause 8</span>
+        <h2>Service Availability</h2>
+      </div>
+      <h3>8.1 Reasonable Efforts</h3>
+      <p>FinReportAI shall use commercially reasonable efforts to make the Service available on a continuous basis. We target high availability but do not guarantee any specific uptime percentage. The Service is provided "as available" without warranty of uninterrupted access.</p>
+      <h3>8.2 No SLA on Free Tier</h3>
+      <div class="callout">
+        <div class="callout-label">Free tier note</div>
+        <p>No service level agreement (SLA), uptime commitment, or priority support is available on the Free Tier. Free Tier access is provided on a best-efforts basis and may be subject to throttling, queuing, or temporary suspension without notice.</p>
+      </div>
+      <h3>8.3 Scheduled Maintenance</h3>
+      <p>FinReportAI may take the Service offline for scheduled maintenance, upgrades, or repairs. Where possible, we will provide advance notice via email or the website. Scheduled maintenance periods are excluded from any availability calculations.</p>
+      <h3>8.4 Third-Party Dependencies</h3>
+      <p>The Service relies on third-party infrastructure providers and AI APIs. FinReportAI is not responsible for downtime, degraded performance, or data loss caused by failures in third-party services beyond our reasonable control.</p>
+      <h3>8.5 Force Majeure</h3>
+      <p>FinReportAI shall not be liable for any failure or delay in providing the Service that is caused by circumstances beyond our reasonable control, including but not limited to acts of God, internet outages, cyberattacks, changes in law, pandemics, or third-party service failures.</p>
+      <h3>8.6 Report Delivery</h3>
+      <p>The 15-minute Report delivery time is a target indicator only and does not form part of any service level commitment. FinReportAI is not liable for any loss or damage resulting from delayed Report delivery.</p>
+    </section>
+
+    <!-- 9. LIMITATION OF LIABILITY -->
+    <section class="t-section" id="s9">
+      <div class="t-section-bar"></div>
+      <div class="t-section-header">
+        <span class="t-section-num">Clause 9</span>
+        <h2>Limitation of Liability</h2>
+      </div>
+      <h3>9.1 Exclusion of Consequential Loss</h3>
+      <div class="callout red">
+        <div class="callout-label">Liability cap</div>
+        <p>To the maximum extent permitted by applicable law, FinReportAI shall not be liable for any: loss of profits; loss of revenue; loss of business; loss of data; damage to reputation; indirect, special, incidental, or consequential losses — even if advised of the possibility of such loss.</p>
+      </div>
+      <h3>9.2 Cap on Direct Liability</h3>
+      <p>FinReportAI's total aggregate liability to you under or in connection with this Agreement (whether in contract, tort including negligence, breach of statutory duty, or otherwise) shall not exceed the <strong>total subscription fees paid by you to FinReportAI in the three (3) calendar months immediately preceding the event giving rise to the claim</strong>.</p>
+      <h3>9.3 Basis of the Bargain</h3>
+      <p>The parties acknowledge that the limitations of liability in this clause reflect a reasonable and proportionate allocation of risk in the context of the subscription fee charged, and that FinReportAI would not have entered into this Agreement on the terms herein without such limitations.</p>
+      <h3>9.4 Nothing Excluded</h3>
+      <p>Nothing in this Agreement limits or excludes liability for: death or personal injury caused by negligence; fraud or fraudulent misrepresentation; or any other liability that cannot lawfully be excluded or limited under English law.</p>
+      <h3>9.5 Report Accuracy</h3>
+      <p>FinReportAI does not warrant that Reports will be free from errors. You accept sole responsibility for reviewing and validating Reports prior to delivering them to End Clients. FinReportAI shall not be liable for any loss, damage, claim, or regulatory action arising from errors in a Report that you delivered to an End Client without adequate review.</p>
+    </section>
+
+    <!-- 10. INDEMNITY -->
+    <section class="t-section" id="s10">
+      <div class="t-section-bar"></div>
+      <div class="t-section-header">
+        <span class="t-section-num">Clause 10</span>
+        <h2>Indemnity</h2>
+      </div>
+      <p>You shall indemnify, defend, and hold harmless FinReportAI and its officers, employees, and agents from and against any claims, proceedings, losses, damages, costs (including reasonable legal fees), and liabilities arising out of or in connection with:</p>
+      <ul>
+        <li>Your breach of this Agreement;</li>
+        <li>Your use of the Service in violation of any applicable law or regulation;</li>
+        <li>The content, accuracy, or legality of Client Data you submit;</li>
+        <li>The delivery or distribution of Reports to End Clients, including any claims brought by End Clients in relation to the accuracy, completeness, or use of Reports;</li>
+        <li>Your application of white label branding to Reports and any representations made by you to End Clients in connection with such Reports;</li>
+        <li>Any infringement of third-party intellectual property rights arising from Client Data or branding assets you provide.</li>
+      </ul>
+    </section>
+
+    <!-- 11. TERMINATION -->
+    <section class="t-section" id="s11">
+      <div class="t-section-bar"></div>
+      <div class="t-section-header">
+        <span class="t-section-num">Clause 11</span>
+        <h2>Termination</h2>
+      </div>
+      <h3>11.1 Termination by You</h3>
+      <p>You may terminate this Agreement at any time by cancelling your subscription in accordance with clause 3.3. Your access will continue until the end of the paid period. No refund will be issued for any unused portion of the current billing period.</p>
+      <h3>11.2 Termination by FinReportAI</h3>
+      <p>FinReportAI may terminate or suspend this Agreement and your access to the Service immediately on written notice if:</p>
+      <ul>
+        <li>You commit a material breach of this Agreement that is incapable of remedy;</li>
+        <li>You commit a material breach that is capable of remedy but fail to remedy it within 14 days of written notice;</li>
+        <li>You become insolvent, enter administration, receivership, or liquidation, or make an arrangement with creditors;</li>
+        <li>Your use of the Service is found to be unlawful or harmful to FinReportAI, other users, or third parties;</li>
+        <li>Payment of any invoice is overdue by more than 14 days.</li>
+      </ul>
+      <h3>11.3 Effect of Termination</h3>
+      <p>Upon termination of this Agreement for any reason:</p>
+      <ul>
+        <li>All licences granted to you under this Agreement terminate immediately;</li>
+        <li>You must immediately cease using the Service and destroy any copies of Reports generated after the termination date;</li>
+        <li>Any accrued payment obligations survive termination;</li>
+        <li>Client Data will be deleted in accordance with clause 5.4;</li>
+        <li>Clauses 6 (IP), 9 (Liability), 10 (Indemnity), 12 (Confidentiality), and 15 (Governing Law) survive termination indefinitely.</li>
+      </ul>
+    </section>
+
+    <!-- 12. CONFIDENTIALITY -->
+    <section class="t-section" id="s12">
+      <div class="t-section-bar"></div>
+      <div class="t-section-header">
+        <span class="t-section-num">Clause 12</span>
+        <h2>Confidentiality</h2>
+      </div>
+      <h3>12.1 Mutual Obligations</h3>
+      <p>Each party agrees to keep confidential all Confidential Information of the other party and not to disclose it to any third party without prior written consent, except as required by law or as necessary to perform obligations under this Agreement.</p>
+      <h3>12.2 Definition</h3>
+      <p>"Confidential Information" means any information disclosed by one party to the other that is marked as confidential or that would reasonably be understood to be confidential given its nature, including but not limited to: Client Data, business plans, pricing, technical specifications, and Report content.</p>
+      <h3>12.3 Carve-outs</h3>
+      <p>Confidentiality obligations do not apply to information that: (a) is or becomes publicly available through no fault of the receiving party; (b) was already known to the receiving party without restriction; (c) is independently developed without reference to the Confidential Information; or (d) is required to be disclosed by law, court order, or regulatory authority.</p>
+      <h3>12.4 Report Confidentiality</h3>
+      <p>All Reports are marked "Confidential" by default. This marking serves as a courtesy to End Clients but does not alter the ownership and distribution rights set out in clause 6.</p>
+    </section>
+
+    <!-- 13. AMENDMENTS -->
+    <section class="t-section" id="s13">
+      <div class="t-section-bar"></div>
+      <div class="t-section-header">
+        <span class="t-section-num">Clause 13</span>
+        <h2>Amendments to this Agreement</h2>
+      </div>
+      <p>FinReportAI reserves the right to amend these Terms and Conditions at any time. Where amendments are material, we will provide at least 30 days' written notice by email to your registered address before the amendments take effect. For non-material amendments (such as corrections, clarifications, or legal updates that do not adversely affect your rights), changes take effect immediately on publication on this page and are indicated by an updated "Last updated" date.</p>
+      <p>Continued use of the Service after any amendment takes effect constitutes your acceptance of the revised Agreement. If you do not accept material changes, you may terminate your subscription in accordance with clause 11.1, and no early termination fee will apply where termination is solely due to a material change in these terms.</p>
+    </section>
+
+    <!-- 14. GENERAL -->
+    <section class="t-section" id="s14">
+      <div class="t-section-bar"></div>
+      <div class="t-section-header">
+        <span class="t-section-num">Clause 14</span>
+        <h2>General Provisions</h2>
+      </div>
+      <h3>14.1 Entire Agreement</h3>
+      <p>This Agreement (together with any documents expressly incorporated by reference) constitutes the entire agreement between the parties in relation to its subject matter and supersedes all prior representations, discussions, undertakings, and agreements between the parties.</p>
+      <h3>14.2 Severability</h3>
+      <p>If any provision of this Agreement is held by a court of competent jurisdiction to be invalid, illegal, or unenforceable, that provision shall be modified to the minimum extent necessary to make it enforceable, or severed if modification is not possible. The remainder of the Agreement shall continue in full force and effect.</p>
+      <h3>14.3 Waiver</h3>
+      <p>No failure or delay by FinReportAI in exercising any right under this Agreement shall operate as a waiver of that right. A waiver of any particular right on one occasion shall not constitute a waiver of that right on any subsequent occasion.</p>
+      <h3>14.4 Assignment</h3>
+      <p>You may not assign, novate, or transfer your rights or obligations under this Agreement without FinReportAI's prior written consent. FinReportAI may assign this Agreement (in whole or in part) to any successor business, affiliate, or acquirer without your consent, provided that the assignee assumes all obligations hereunder.</p>
+      <h3>14.5 Notices</h3>
+      <p>All notices under this Agreement must be in writing. Notices to FinReportAI must be sent by email to <a href="mailto:reports@finreportai.co.uk">reports@finreportai.co.uk</a>. Notices to you will be sent to the email address registered on your account. Notices are deemed received on the next working day after sending by email.</p>
+      <h3>14.6 Third Party Rights</h3>
+      <p>This Agreement does not create any rights enforceable by any third party under the Contracts (Rights of Third Parties) Act 1999, except that FinReportAI's officers and employees may enforce clause 9 and clause 10 in their personal capacity.</p>
+      <h3>14.7 Relationship of Parties</h3>
+      <p>Nothing in this Agreement shall create or imply a partnership, joint venture, agency, or employment relationship between the parties. Each party acts as an independent contractor.</p>
+    </section>
+
+    <!-- 15. GOVERNING LAW -->
+    <section class="t-section" id="s15">
+      <div class="t-section-bar"></div>
+      <div class="t-section-header">
+        <span class="t-section-num">Clause 15</span>
+        <h2>Governing Law &amp; Jurisdiction</h2>
+      </div>
+      <p>This Agreement and any dispute or claim arising out of or in connection with it or its subject matter or formation (including non-contractual disputes or claims) shall be governed by and construed in accordance with the <strong>law of England and Wales</strong>.</p>
+      <p>Each party irrevocably agrees that the courts of <strong>England and Wales</strong> shall have exclusive jurisdiction to settle any dispute or claim arising out of or in connection with this Agreement or its subject matter or formation.</p>
+    </section>
+
+    <!-- 16. CONTACT -->
+    <section class="t-section" id="s16">
+      <div class="t-section-bar"></div>
+      <div class="t-section-header">
+        <span class="t-section-num">Clause 16</span>
+        <h2>Contact Us</h2>
+      </div>
+      <p>If you have any questions about these Terms and Conditions, wish to exercise any rights referred to herein, or need to contact FinReportAI for any other reason, please reach us at:</p>
+      <div class="callout" style="margin-top:20px">
+        <div class="callout-label">Contact details</div>
+        <p><strong>FinReportAI</strong><br>
+        Email: <a href="mailto:reports@finreportai.co.uk">reports@finreportai.co.uk</a><br>
+        Website: <a href="https://finreportai.co.uk">finreportai.co.uk</a><br>
+        Registered service territory: United Kingdom</p>
+      </div>
+      <p style="margin-top:24px;font-size:14px;color:var(--gray)">For data protection queries or to exercise your rights under UK GDPR, please include "DATA REQUEST" in the subject line of your email.</p>
+    </section>
+
+  </article>
+</div><!-- /page-layout -->
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="ft-top">
+    <div class="ft-brand">
+      <div class="ft-logo">FinReport<span>AI</span></div>
+      <p class="ft-tag">Client-ready financial reports for UK accountancy firms. Powered by AI. Delivered in 15 minutes.</p>
+    </div>
+    <div class="ft-cols">
+      <div class="ft-col">
+        <h4>Product</h4>
+        <a href="/#how">How it works</a>
+        <a href="/#features">Features</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="/#faq">FAQ</a>
+      </div>
+      <div class="ft-col">
+        <h4>Account</h4>
+        <a href="https://tally.so/r/kdk9ao" rel="noopener">Register</a>
+        <a href="https://tally.so/r/zx1q0a" rel="noopener">Submit Report</a>
+        <a href="https://app.finreportai.co.uk" rel="noopener">Client Login</a>
+        <a href="mailto:reports@finreportai.co.uk">Contact</a>
+      </div>
+      <div class="ft-col">
+        <h4>Legal</h4>
+        <a href="/terms">Terms &amp; Conditions</a>
+        <a href="/privacy">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+  <div class="ft-bot">
+    <div class="ft-copy">© 2026 FinReportAI · reports@finreportai.co.uk</div>
+    <div class="ft-legal"><a href="/privacy">Privacy Policy</a></div>
+  </div>
+</footer>
+
+<!-- COOKIE BANNER -->
+<div class="cookie" id="cookie">
+  <p>We use cookies to improve your experience. By continuing you accept our <a href="/privacy">privacy policy</a>.</p>
+  <button class="cookie-btn" onclick="acceptCookie()">Accept</button>
+</div>
+
+<script>
+// ── MOBILE MENU ──
+const ham = document.getElementById('ham');
+const mobNav = document.getElementById('mob-nav');
+function closeMob(){ham.classList.remove('open');mobNav.classList.remove('open')}
+ham.addEventListener('click',()=>{
+  ham.classList.toggle('open');
+  mobNav.classList.toggle('open');
+});
+
+// ── ACTIVE TOC LINK ON SCROLL ──
+const sections = document.querySelectorAll('.t-section[id]');
+const tocLinks = document.querySelectorAll('.toc-list a');
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      tocLinks.forEach(l=>l.classList.remove('active'));
+      const active = document.querySelector('.toc-list a[href="#'+e.target.id+'"]');
+      if(active) active.classList.add('active');
+    }
+  });
+},{rootMargin:'-25% 0px -65% 0px'});
+sections.forEach(s=>observer.observe(s));
+
+// ── COOKIE ──
+if(!localStorage.getItem('fr_cookie_ok')){
+  document.getElementById('cookie').classList.add('show');
+}
+function acceptCookie(){
+  localStorage.setItem('fr_cookie_ok','1');
+  document.getElementById('cookie').classList.remove('show');
+}
+</script>
+</body>
+</html>

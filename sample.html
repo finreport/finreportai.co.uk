@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sample Report | FinReportAI — See What Your Clients Will Receive</title>
+<meta name="description" content="Download a full sample FinReportAI report for a fictional restaurant — The Golden Fork, Q1 2025. See every section before you subscribe.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════════ */
+:root{
+  --navy:#0B1D38;--navy-2:#0D2040;--navy-3:#122548;--navy-4:#172D52;
+  --teal:#0D8A78;--teal-l:#11A692;--teal-d:#096B5D;
+  --gold:#C9A84C;--gold-l:#D4B86A;
+  --white:#fff;--off:#F5F7FB;--gray:#6B7280;--line:#E4E9F2;--text:#1A2A3A;
+  --red:#DC2626;--amber:#D97706;--green:#16A34A;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--text);overflow-x:hidden;line-height:1.6}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:inherit;border:none;background:none}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--navy)}
+::-webkit-scrollbar-thumb{background:var(--teal);border-radius:2px}
+
+/* ═══════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════ */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:68px;padding:0 5%;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:background .45s,backdrop-filter .45s,box-shadow .45s;
+}
+#nav.solid{
+  background:rgba(10,25,50,.93);
+  backdrop-filter:blur(24px) saturate(160%);
+  -webkit-backdrop-filter:blur(24px) saturate(160%);
+  box-shadow:0 1px 0 rgba(255,255,255,.05),0 12px 48px rgba(0,0,0,.38);
+}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.nav-mark{
+  width:34px;height:34px;border-radius:9px;
+  background:linear-gradient(140deg,var(--teal-l),var(--teal-d));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Serif Display',serif;font-size:13px;color:#fff;
+  box-shadow:0 4px 18px rgba(13,138,120,.45);
+  transition:transform .28s,box-shadow .28s;
+}
+.nav-logo:hover .nav-mark{transform:scale(1.1) rotate(-4deg);box-shadow:0 6px 28px rgba(13,138,120,.6)}
+.nav-word{font-size:15px;font-weight:600;color:#fff;letter-spacing:-.2px}
+.nav-word span{color:var(--gold)}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a{
+  font-size:13.5px;color:rgba(255,255,255,.52);
+  position:relative;padding-bottom:2px;transition:color .2s;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-1px;left:0;right:100%;
+  height:1px;background:var(--teal-l);
+  transition:right .28s cubic-bezier(.4,0,.2,1);
+}
+.nav-links a:hover{color:#fff}
+.nav-links a:hover::after{right:0}
+.nav-pill{
+  padding:8px 20px;border-radius:7px;background:var(--teal);color:#fff;
+  font-size:13.5px;font-weight:600;
+  box-shadow:0 4px 18px rgba(13,138,120,.38);
+  transition:background .22s,transform .22s,box-shadow .22s;white-space:nowrap;
+}
+.nav-pill:hover{background:var(--teal-l);transform:translateY(-1px);box-shadow:0 7px 28px rgba(13,138,120,.52)}
+.nav-pill::after{display:none!important}
+.hamburger{display:none;flex-direction:column;gap:5px;padding:6px;flex-shrink:0}
+.hamburger span{display:block;width:22px;height:1.5px;background:rgba(255,255,255,.8);border-radius:1px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+#mob-nav{
+  position:fixed;top:68px;left:0;right:0;z-index:190;
+  background:rgba(10,25,50,.97);backdrop-filter:blur(24px);
+  max-height:0;overflow:hidden;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  transition:max-height .4s cubic-bezier(.4,0,.2,1);
+}
+#mob-nav.open{max-height:380px}
+#mob-nav a{
+  display:block;padding:14px 5%;font-size:15px;
+  color:rgba(255,255,255,.58);border-bottom:1px solid rgba(255,255,255,.05);
+  transition:color .2s,padding-left .2s;
+}
+#mob-nav a:hover{color:#fff;padding-left:calc(5% + 6px)}
+#mob-nav a:last-child{border:none;color:var(--teal-l);font-weight:600}
+
+/* ═══════════════════════════════════════════
+   SHARED
+═══════════════════════════════════════════ */
+.s-label{
+  font-size:10.5px;font-weight:700;color:var(--teal);
+  text-transform:uppercase;letter-spacing:2.2px;margin-bottom:18px;
+  display:flex;align-items:center;gap:10px;
+}
+.s-label::before{content:'';width:18px;height:1.5px;background:currentColor;flex-shrink:0}
+.s-label.center{justify-content:center}
+.s-label.gold{color:var(--gold)}
+.s-title{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(34px,3.9vw,52px);
+  line-height:1.07;color:var(--navy);letter-spacing:-1.2px;
+}
+.s-title.white{color:#fff}
+.s-title em{font-style:italic;color:var(--teal)}
+.s-title.white em{color:var(--gold)}
+.s-sub{font-size:16px;color:var(--gray);line-height:1.78;font-weight:300;margin-top:16px}
+.s-sub.muted{color:rgba(255,255,255,.42)}
+.btn-fill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--teal);color:#fff;
+  padding:15px 30px;border-radius:9px;font-size:14.5px;font-weight:600;
+  box-shadow:0 6px 24px rgba(13,138,120,.34);
+  transition:background .24s,transform .24s,box-shadow .24s;white-space:nowrap;
+}
+.btn-fill:hover{background:var(--teal-l);transform:translateY(-2px);box-shadow:0 12px 38px rgba(13,138,120,.5)}
+.btn-fill:active{transform:translateY(0)}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:8px;
+  color:rgba(255,255,255,.68);border:1px solid rgba(255,255,255,.18);
+  padding:15px 28px;border-radius:9px;font-size:14.5px;font-weight:500;
+  transition:all .24s;white-space:nowrap;
+}
+.btn-ghost:hover{color:#fff;border-color:rgba(255,255,255,.38);background:rgba(255,255,255,.06);transform:translateY(-2px)}
+.fu{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.fu.v{opacity:1;transform:translateY(0)}
+.fu.d1{transition-delay:.12s}
+.fu.d2{transition-delay:.24s}
+.fu.d3{transition-delay:.36s}
+.fu.d4{transition-delay:.48s}
+
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
+.hero{
+  min-height:100vh;background:var(--navy);
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;gap:48px;
+  padding:108px 5% 80px;
+  position:relative;overflow:hidden;
+}
+.hero-mesh{position:absolute;inset:0;pointer-events:none;z-index:0}
+.hero-mesh::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 75% 65% at -5% 52%,rgba(13,138,120,.24) 0%,transparent 55%),
+    radial-gradient(ellipse 55% 50% at 105% 8%,rgba(201,168,76,.1) 0%,transparent 52%),
+    radial-gradient(ellipse 48% 55% at 60% 105%,rgba(13,138,120,.12) 0%,transparent 52%);
+  animation:auroraA 22s ease-in-out infinite alternate;
+}
+.hero-mesh::after{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+  background-size:72px 72px;
+  -webkit-mask-image:radial-gradient(ellipse 85% 80% at 20% 52%,rgba(0,0,0,.75) 20%,transparent 68%);
+  mask-image:radial-gradient(ellipse 85% 80% at 20% 52%,rgba(0,0,0,.75) 20%,transparent 68%);
+}
+@keyframes auroraA{
+  0%{transform:scale(1) translate(0,0)}
+  100%{transform:scale(1.1) translate(3%,2%)}
+}
+.hero-l{position:relative;z-index:2}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.22);
+  border-radius:100px;padding:6px 16px;margin-bottom:28px;
+  font-size:11px;font-weight:600;color:var(--gold);letter-spacing:.9px;text-transform:uppercase;
+}
+.pulse-dot{
+  width:7px;height:7px;border-radius:50%;background:var(--green);
+  box-shadow:0 0 0 0 rgba(22,163,74,.55);
+  animation:pulseDot 2.2s ease-out infinite;flex-shrink:0;
+}
+@keyframes pulseDot{
+  0%{box-shadow:0 0 0 0 rgba(22,163,74,.55)}
+  65%{box-shadow:0 0 0 10px rgba(22,163,74,0)}
+  100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}
+}
+.hero h1{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(44px,5vw,76px);
+  line-height:1.04;letter-spacing:-2px;
+  color:#fff;max-width:580px;margin-bottom:22px;
+}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero-sub{
+  font-size:clamp(15px,1.5vw,17px);
+  color:rgba(255,255,255,.48);
+  line-height:1.8;font-weight:300;max-width:460px;margin-bottom:20px;
+}
+/* Report spec pills */
+.report-spec{
+  display:flex;gap:8px;flex-wrap:wrap;
+  margin-bottom:40px;
+}
+.spec-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  border-radius:6px;padding:5px 12px;
+  font-size:11.5px;font-weight:500;color:rgba(255,255,255,.5);
+}
+.spec-pill-dot{width:5px;height:5px;border-radius:50%;background:var(--teal);flex-shrink:0}
+.hero-btns{display:flex;gap:13px;flex-wrap:wrap;align-items:center}
+
+/* Hero right — large report card */
+.hero-r{
+  display:flex;align-items:center;justify-content:center;
+  position:relative;z-index:2;
+}
+.hero-glow-ring{
+  position:absolute;width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(13,138,120,.2) 0%,transparent 65%);
+  pointer-events:none;animation:glowBreathe 7s ease-in-out infinite;
+}
+@keyframes glowBreathe{
+  0%,100%{transform:scale(1);opacity:.65}50%{transform:scale(1.18);opacity:1}
+}
+.report-float{
+  width:400px;max-width:100%;
+  border-radius:16px;overflow:hidden;background:#fff;
+  box-shadow:
+    48px 56px 110px rgba(0,0,0,.65),
+    18px 22px 44px rgba(0,0,0,.35),
+    0 0 0 1px rgba(255,255,255,.08),
+    0 0 120px rgba(13,138,120,.16);
+  transform:perspective(1100px) rotateY(-10deg) rotateX(5deg) rotate(-2deg);
+  animation:heroFloat 7s ease-in-out infinite;
+  position:relative;z-index:1;
+}
+.report-float::before{
+  content:'';position:absolute;inset:6px -9px -14px;border-radius:16px;
+  background:rgba(255,255,255,.09);z-index:-1;
+}
+.report-float::after{
+  content:'';position:absolute;inset:11px -18px -26px;border-radius:16px;
+  background:rgba(255,255,255,.04);z-index:-2;
+}
+@keyframes heroFloat{
+  0%,100%{transform:perspective(1100px) rotateY(-10deg) rotateX(5deg) rotate(-2deg) translateY(0)}
+  50%{transform:perspective(1100px) rotateY(-10deg) rotateX(5deg) rotate(-2deg) translateY(-20px)}
+}
+/* Report internals */
+.rf-head{background:var(--navy);padding:16px 20px;position:relative;overflow:hidden}
+.rf-head::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--teal-l),var(--teal))}
+.rf-head::after{content:'';position:absolute;top:-60px;right:-60px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(13,138,120,.15) 0%,transparent 70%)}
+.rf-hrow{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.rf-co{font-family:'DM Serif Display',serif;font-size:16px;color:#fff;margin-bottom:3px}
+.rf-period{font-size:9px;color:rgba(255,255,255,.38)}
+.rf-conf{font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,.28);background:rgba(201,168,76,.1);padding:4px 9px;border-radius:3px;white-space:nowrap;flex-shrink:0}
+.rf-body{padding:14px 18px}
+.rf-lbl{font-size:8px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:1.5px;border-bottom:1.5px solid rgba(13,138,120,.18);padding-bottom:4px;margin-bottom:8px}
+.rf-exec{font-size:9px;color:#4B5563;line-height:1.6;margin-bottom:12px}
+.rf-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px}
+.rf-kpi{border:1px solid var(--line);border-radius:7px;padding:8px 5px;text-align:center}
+.rf-kpi.hl{background:#DCFCE7;border-color:#86EFAC}
+.rk-v{font-size:13px;font-weight:700;color:var(--navy);line-height:1}
+.rf-kpi.hl .rk-v{color:#15803D}
+.rk-l{font-size:7px;color:var(--gray);margin-top:3px}
+.rk-c{font-size:7px;font-weight:600;color:var(--teal);margin-top:2px}
+.rf-kpi.hl .rk-c{color:#16A34A}
+.rf-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.rf-bars{display:flex;align-items:flex-end;gap:8px;height:68px;margin-top:8px}
+.rf-bar-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:3px}
+.rf-bv{font-size:7px;color:#6B7280;font-weight:500}
+.rf-b{width:100%;border-radius:3px 3px 0 0}
+.rf-bl{font-size:7px;color:#6B7280}
+.rf-flags{display:flex;flex-direction:column;gap:4px;margin-top:8px}
+.rf-flag{display:flex;gap:6px;align-items:flex-start;padding:6px 7px;border-radius:5px;border:1px solid}
+.rf-flag.p{background:#F0FDF4;border-color:#BBF7D0}
+.rf-flag.w{background:#FFFBEB;border-color:#FDE68A}
+.rf-flag.r{background:#FEF2F2;border-color:#FECACA}
+.rf-dot{width:13px;height:13px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;flex-shrink:0;margin-top:1px}
+.rf-flag.p .rf-dot{background:#16A34A;color:#fff}
+.rf-flag.w .rf-dot{background:#D97706;color:#fff}
+.rf-flag.r .rf-dot{background:#DC2626;color:#fff}
+.rf-ft h5{font-size:9px;font-weight:600;color:var(--navy)}
+.rf-ft p{font-size:8px;color:var(--gray);margin-top:1px;line-height:1.3}
+.rf-foot{background:var(--off);border-top:1px solid var(--line);padding:8px 18px;display:flex;justify-content:space-between;align-items:center}
+.rf-foot-brand{font-size:8px;font-weight:600;color:rgba(11,29,56,.35)}
+.rf-foot-brand span{color:var(--teal)}
+.rf-health{font-size:8px;font-weight:700;color:var(--green)}
+
+/* ═══════════════════════════════════════════
+   MARQUEE
+═══════════════════════════════════════════ */
+.marquee-wrap{
+  background:var(--navy-3);overflow:hidden;
+  border-top:1px solid rgba(255,255,255,.06);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  height:44px;display:flex;align-items:center;
+}
+.marquee-track{
+  display:flex;align-items:center;width:max-content;
+  animation:marquee 40s linear infinite;
+}
+.marquee-wrap:hover .marquee-track{animation-play-state:paused}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.m-item{
+  display:inline-flex;align-items:center;
+  font-size:11.5px;font-weight:600;color:var(--gold);
+  letter-spacing:.5px;padding:0 22px;white-space:nowrap;
+}
+.m-sep{color:rgba(201,168,76,.3);font-size:7px;padding:0 2px}
+
+/* ═══════════════════════════════════════════
+   WHAT'S INSIDE
+═══════════════════════════════════════════ */
+.inside{background:var(--off);padding:96px 5%}
+.inside-inner{max-width:1120px;margin:0 auto}
+.inside-head{text-align:center;max-width:640px;margin:0 auto 64px}
+/* Page count badge */
+.page-count{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#fff;border:1px solid var(--line);
+  border-radius:100px;padding:8px 20px;
+  font-size:12px;font-weight:500;color:var(--gray);
+  box-shadow:0 2px 10px rgba(0,0,0,.05);margin-top:18px;
+}
+.page-count strong{color:var(--navy);font-weight:600}
+/* Sections grid */
+.sections-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:2px;
+  background:var(--line);
+  border:1px solid var(--line);
+  border-radius:20px;overflow:hidden;
+}
+.sec-card{
+  background:#fff;padding:28px 24px;
+  position:relative;overflow:hidden;
+  transition:all .3s;cursor:default;
+}
+.sec-card::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,var(--teal),var(--teal-l));
+  transform:scaleX(0);transform-origin:left;transition:transform .35s;
+}
+.sec-card:hover{background:var(--off);transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,.09);z-index:1}
+.sec-card:hover::after{transform:scaleX(1)}
+.sec-num{
+  font-size:10px;font-weight:700;color:rgba(13,138,120,.45);
+  letter-spacing:1.5px;margin-bottom:12px;font-variant-numeric:tabular-nums;
+}
+.sec-icon{
+  font-size:24px;margin-bottom:14px;
+  display:block;
+  transition:transform .3s;
+}
+.sec-card:hover .sec-icon{transform:scale(1.15) rotate(-5deg)}
+.sec-card h3{
+  font-size:13.5px;font-weight:600;color:var(--navy);
+  margin-bottom:7px;line-height:1.35;
+}
+.sec-card p{font-size:12px;color:var(--gray);line-height:1.6}
+
+/* ═══════════════════════════════════════════
+   PREVIEW STRIP — stats bar
+═══════════════════════════════════════════ */
+.stats-strip{
+  background:#fff;padding:56px 5%;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.stats-strip-inner{
+  max-width:1120px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+}
+.strip-stat{
+  padding:32px 28px;text-align:center;
+  border-right:1px solid var(--line);
+  position:relative;
+}
+.strip-stat:last-child{border-right:none}
+.strip-stat::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,var(--teal),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.strip-stat:hover::before{opacity:1}
+.strip-num{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(36px,3.5vw,48px);
+  color:var(--navy);line-height:1;letter-spacing:-1.5px;margin-bottom:8px;
+}
+.strip-num .acc{color:var(--teal)}
+.strip-desc{font-size:13px;color:var(--gray);line-height:1.5}
+
+/* ═══════════════════════════════════════════
+   MOCKUP SECTION (expanded detail)
+═══════════════════════════════════════════ */
+.mockup-section{
+  background:var(--navy);padding:96px 5%;
+  position:relative;overflow:hidden;
+}
+.mockup-section::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 55% 50% at 10% 80%,rgba(13,138,120,.13) 0%,transparent 52%),
+    radial-gradient(ellipse 42% 55% at 90% 12%,rgba(201,168,76,.07) 0%,transparent 52%);
+  pointer-events:none;
+}
+.mockup-inner{max-width:1120px;margin:0 auto;position:relative;z-index:1}
+.mockup-layout{
+  display:grid;grid-template-columns:1fr 1.05fr;
+  gap:72px;align-items:center;margin-top:56px;
+}
+/* Large centred mockup */
+.mockup-stage{
+  display:flex;justify-content:center;align-items:center;
+  position:relative;
+}
+.mockup-glow{
+  position:absolute;width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(circle,rgba(13,138,120,.2) 0%,transparent 65%);
+  pointer-events:none;animation:glowBreathe 6s ease-in-out infinite;
+}
+.report-large{
+  width:360px;max-width:100%;
+  border-radius:16px;overflow:hidden;background:#fff;
+  box-shadow:
+    32px 40px 80px rgba(0,0,0,.55),
+    12px 16px 32px rgba(0,0,0,.3),
+    0 0 0 1px rgba(255,255,255,.08),
+    0 0 80px rgba(13,138,120,.14);
+  animation:heroFloat 8s ease-in-out infinite;
+}
+/* Feature list */
+.mockup-features{display:flex;flex-direction:column;gap:16px}
+.mf-item{
+  display:flex;align-items:flex-start;gap:16px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+  border-radius:13px;padding:20px;
+  transition:all .3s;
+}
+.mf-item:hover{background:rgba(255,255,255,.07);border-color:rgba(13,138,120,.22);transform:translateX(5px)}
+.mf-icon{
+  width:42px;height:42px;border-radius:11px;
+  background:linear-gradient(135deg,rgba(13,138,120,.28),rgba(13,138,120,.1));
+  border:1px solid rgba(13,138,120,.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;transition:all .3s;
+}
+.mf-item:hover .mf-icon{
+  background:linear-gradient(135deg,rgba(13,138,120,.45),rgba(13,138,120,.2));
+  border-color:rgba(13,138,120,.55);
+  box-shadow:0 6px 20px rgba(13,138,120,.28);
+}
+.mf-text h4{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px}
+.mf-text p{font-size:13px;color:rgba(255,255,255,.4);line-height:1.55}
+
+/* ═══════════════════════════════════════════
+   TRUST SECTION
+═══════════════════════════════════════════ */
+.trust{background:var(--off);padding:64px 5%}
+.trust-inner{
+  max-width:1120px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+}
+.trust-card{
+  background:#fff;border:1px solid var(--line);border-radius:16px;
+  padding:32px 28px;text-align:center;transition:all .35s;
+  position:relative;overflow:hidden;
+}
+.trust-card::before{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,transparent,var(--teal),transparent);
+  opacity:0;transition:opacity .35s;
+}
+.trust-card:hover{box-shadow:0 16px 44px rgba(0,0,0,.09);transform:translateY(-4px)}
+.trust-card:hover::before{opacity:1}
+.trust-icon{font-size:32px;margin-bottom:14px;display:block}
+.trust-card h3{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:8px}
+.trust-card p{font-size:13px;color:var(--gray);line-height:1.6}
+
+/* ═══════════════════════════════════════════
+   FINAL CTA
+═══════════════════════════════════════════ */
+.final-cta{
+  background:var(--teal);padding:96px 5%;text-align:center;
+  position:relative;overflow:hidden;
+}
+.final-cta::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 55% at 50% -10%,rgba(255,255,255,.12) 0%,transparent 55%),
+    radial-gradient(ellipse 40% 45% at 20% 110%,rgba(0,0,0,.1) 0%,transparent 55%);
+  pointer-events:none;
+}
+.final-cta::after{
+  content:'';position:absolute;
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:52px 52px;
+  inset:0;pointer-events:none;
+}
+.final-cta-inner{max-width:680px;margin:0 auto;position:relative;z-index:1}
+.cta-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);
+  border-radius:100px;padding:7px 20px;margin-bottom:28px;
+  font-size:12px;font-weight:600;color:#fff;letter-spacing:.4px;
+}
+.final-cta h2{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(36px,5vw,60px);color:#fff;
+  line-height:1.07;letter-spacing:-1.5px;margin-bottom:16px;
+}
+.final-cta h2 em{font-style:italic;color:rgba(255,255,255,.75)}
+.final-cta p{font-size:17px;color:rgba(255,255,255,.75);margin-bottom:44px;font-weight:300;line-height:1.65}
+.cta-btns{display:flex;gap:13px;justify-content:center;flex-wrap:wrap}
+.btn-white{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#fff;color:var(--teal);
+  padding:15px 30px;border-radius:9px;font-size:14.5px;font-weight:700;
+  box-shadow:0 6px 28px rgba(0,0,0,.2);
+  transition:all .24s;white-space:nowrap;
+}
+.btn-white:hover{background:var(--off);transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,.28)}
+.btn-outline-white{
+  display:inline-flex;align-items:center;gap:8px;
+  color:#fff;border:1.5px solid rgba(255,255,255,.45);
+  padding:15px 28px;border-radius:9px;font-size:14.5px;font-weight:500;
+  transition:all .24s;white-space:nowrap;
+}
+.btn-outline-white:hover{border-color:#fff;background:rgba(255,255,255,.12);transform:translateY(-2px)}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+footer{
+  background:var(--navy-2);border-top:1px solid rgba(255,255,255,.06);
+  padding:52px 5% 40px;
+}
+.ft-top{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  gap:40px;flex-wrap:wrap;
+  padding-bottom:40px;margin-bottom:32px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.ft-brand{max-width:280px}
+.ft-logo{font-size:15px;font-weight:600;color:#fff;margin-bottom:10px;letter-spacing:-.1px}
+.ft-logo span{color:var(--gold)}
+.ft-tag{font-size:13px;color:rgba(255,255,255,.26);line-height:1.6}
+.ft-cols{display:flex;gap:52px;flex-wrap:wrap}
+.ft-col h4{font-size:10px;font-weight:700;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:2.2px;margin-bottom:14px}
+.ft-col a{display:block;font-size:13px;color:rgba(255,255,255,.38);margin-bottom:9px;transition:color .2s}
+.ft-col a:hover{color:rgba(255,255,255,.78)}
+.ft-bot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.ft-copy{font-size:12px;color:rgba(255,255,255,.18)}
+.ft-legal a{font-size:12px;color:rgba(255,255,255,.22);transition:color .2s}
+.ft-legal a:hover{color:rgba(255,255,255,.5)}
+
+/* ═══════════════════════════════════════════
+   COOKIE
+═══════════════════════════════════════════ */
+.cookie{
+  display:none;position:fixed;bottom:20px;left:20px;right:20px;
+  max-width:560px;
+  background:var(--navy-3);border:1px solid rgba(255,255,255,.12);
+  border-radius:16px;padding:18px 22px;
+  align-items:center;justify-content:space-between;
+  gap:16px;z-index:300;flex-wrap:wrap;
+  box-shadow:0 28px 72px rgba(0,0,0,.55);
+}
+.cookie.show{display:flex}
+.cookie p{font-size:13px;color:rgba(255,255,255,.48);margin:0}
+.cookie a{color:var(--teal-l)}
+.cookie-btn{
+  background:var(--teal);color:#fff;border:none;border-radius:9px;
+  padding:9px 22px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s;
+}
+.cookie-btn:hover{background:var(--teal-l)}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media(max-width:1060px){
+  .hero{grid-template-columns:1fr;text-align:center;padding:108px 5% 80px;gap:60px}
+  .hero-l{display:flex;flex-direction:column;align-items:center}
+  .hero h1{max-width:660px}
+  .hero-sub{max-width:560px}
+  .hero-btns{justify-content:center}
+  .report-float{transform:perspective(1100px) rotateY(0deg) rotateX(6deg) rotate(-1.5deg)}
+  @keyframes heroFloat{
+    0%,100%{transform:perspective(1100px) rotateY(0) rotateX(6deg) rotate(-1.5deg) translateY(0)}
+    50%{transform:perspective(1100px) rotateY(0) rotateX(6deg) rotate(-1.5deg) translateY(-20px)}
+  }
+  .mockup-layout{grid-template-columns:1fr;gap:56px}
+  .mockup-stage{order:-1}
+}
+@media(max-width:900px){
+  .sections-grid{grid-template-columns:repeat(3,1fr)}
+  .stats-strip-inner{grid-template-columns:repeat(2,1fr)}
+  .strip-stat:nth-child(2){border-right:none}
+  .strip-stat:nth-child(3){border-top:1px solid var(--line)}
+  .strip-stat:nth-child(4){border-top:1px solid var(--line);border-right:none}
+  .trust-inner{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .sections-grid{grid-template-columns:repeat(2,1fr)}
+  .trust-inner{grid-template-columns:1fr}
+  .ft-top{flex-direction:column}
+  .ft-cols{gap:32px}
+  .ft-bot{flex-direction:column;text-align:center}
+}
+@media(max-width:540px){
+  .hero,.inside,.mockup-section,.trust,.final-cta{padding-top:72px;padding-bottom:72px}
+  .hero-btns{flex-direction:column;width:100%;max-width:320px}
+  .hero-btns a{width:100%;justify-content:center}
+  .cta-btns{flex-direction:column;align-items:center;width:100%;max-width:320px;margin:0 auto}
+  .cta-btns a{width:100%;justify-content:center}
+  .report-float,.report-large{width:300px}
+  .rf-kpis{grid-template-columns:repeat(2,1fr)}
+  .rf-cols{grid-template-columns:1fr}
+  .sections-grid{grid-template-columns:1fr 1fr}
+  .stats-strip-inner{grid-template-columns:1fr 1fr}
+  .cookie{left:12px;right:12px;bottom:12px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════
+     NAV
+══════════════════════ -->
+<nav id="nav">
+  <a href="/" class="nav-logo">
+    <div class="nav-mark">FR</div>
+    <span class="nav-word">FinReport<span>AI</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="/#how">How it works</a>
+    <a href="/#features">Features</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/#faq">FAQ</a>
+    <a href="https://app.finreportai.co.uk" rel="noopener">Client Login</a>
+  </div>
+  <a href="https://tally.so/r/kdk9ao" rel="noopener" class="nav-pill">Get started</a>
+  <button class="hamburger" id="ham" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div id="mob-nav">
+  <a href="/#how" onclick="closeMob()">How it works</a>
+  <a href="/#features" onclick="closeMob()">Features</a>
+  <a href="/#pricing" onclick="closeMob()">Pricing</a>
+  <a href="/#faq" onclick="closeMob()">FAQ</a>
+  <a href="https://app.finreportai.co.uk" rel="noopener" onclick="closeMob()">Client Login</a>
+  <a href="https://tally.so/r/kdk9ao" rel="noopener" onclick="closeMob()">Get started free →</a>
+</div>
+
+<!-- ══════════════════════
+     HERO
+══════════════════════ -->
+<section class="hero">
+  <div class="hero-mesh"></div>
+
+  <div class="hero-l fu">
+    <div class="hero-eyebrow">
+      <span class="pulse-dot"></span>
+      Real sample · No sign-up required
+    </div>
+    <h1>See exactly what your clients will <em>receive.</em></h1>
+    <p class="hero-sub">This is a complete, unredacted report generated for a fictional restaurant — The Golden Fork — covering Q1 2025. Every section, every chart, every flag. This is exactly what lands in your inbox.</p>
+    <div class="report-spec">
+      <div class="spec-pill"><span class="spec-pill-dot"></span>The Golden Fork · Restaurant</div>
+      <div class="spec-pill"><span class="spec-pill-dot"></span>Q1 2025 (Jan–Mar)</div>
+      <div class="spec-pill"><span class="spec-pill-dot"></span>GBP · UK Format</div>
+      <div class="spec-pill"><span class="spec-pill-dot"></span>19 sections · Full PDF</div>
+    </div>
+    <div class="hero-btns">
+      <a href="https://drive.google.com/uc?export=download&id=1Jfbyc0XbM5ZJX7-y_uhLlQ8ePJ5fj6C1" rel="noopener" class="btn-fill">↓ Download sample report</a>
+      <a href="https://tally.so/r/kdk9ao" rel="noopener" class="btn-ghost">Get started free →</a>
+    </div>
+  </div>
+
+  <div class="hero-r">
+    <div class="hero-glow-ring"></div>
+    <div class="report-float fu d2">
+      <div class="rf-head">
+        <div class="rf-hrow">
+          <div>
+            <div class="rf-co">The Golden Fork</div>
+            <div class="rf-period">Quarterly Financial Report · Q1 2025 · GBP (£)</div>
+          </div>
+          <div class="rf-conf">Confidential</div>
+        </div>
+      </div>
+      <div class="rf-body">
+        <div class="rf-lbl">Executive Summary</div>
+        <p class="rf-exec">The Golden Fork delivered exceptional Q1 2025 results with total revenue of £245,200 and net profit of £67,025. Revenue grew 49% from January to March with improving operational leverage throughout the quarter.</p>
+        <div class="rf-kpis">
+          <div class="rf-kpi"><div class="rk-v">£245k</div><div class="rk-l">Revenue</div><div class="rk-c">▲ +49%</div></div>
+          <div class="rf-kpi"><div class="rk-v">£67k</div><div class="rk-l">Net Profit</div><div class="rk-c">▲ Growing</div></div>
+          <div class="rf-kpi"><div class="rk-v">74%</div><div class="rk-l">Gross Margin</div><div class="rk-c">● Stable</div></div>
+          <div class="rf-kpi hl"><div class="rk-v">8/10</div><div class="rk-l">Health Score</div><div class="rk-c">● Excellent</div></div>
+        </div>
+        <div class="rf-cols">
+          <div>
+            <div class="rf-lbl">Revenue Performance</div>
+            <div class="rf-bars">
+              <div class="rf-bar-col"><div class="rf-bv">£69k</div><div class="rf-b" style="height:48%;background:linear-gradient(to top,#0D8A78,#11A692)"></div><div class="rf-bl">Jan</div></div>
+              <div class="rf-bar-col"><div class="rf-bv">£75k</div><div class="rf-b" style="height:65%;background:linear-gradient(to top,#0B7A6A,#0D8A78)"></div><div class="rf-bl">Feb</div></div>
+              <div class="rf-bar-col"><div class="rf-bv">£102k</div><div class="rf-b" style="height:92%;background:linear-gradient(to top,#084F45,#0D8A78)"></div><div class="rf-bl">Mar</div></div>
+            </div>
+          </div>
+          <div>
+            <div class="rf-lbl">Flags &amp; Items to Watch</div>
+            <div class="rf-flags">
+              <div class="rf-flag p"><div class="rf-dot">✓</div><div class="rf-ft"><h5>Record March Revenue</h5><p>£102k — highest ever monthly</p></div></div>
+              <div class="rf-flag w"><div class="rf-dot">!</div><div class="rf-ft"><h5>Staff Costs Rising</h5><p>Monitor wages into Q2</p></div></div>
+              <div class="rf-flag r"><div class="rf-dot">✕</div><div class="rf-ft"><h5>Supplier Review Due</h5><p>Drinks margin at risk</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="rf-foot">
+        <div class="rf-foot-brand">FinReport<span>AI</span></div>
+        <div class="rf-health">● Health: 8/10 — Excellent</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════
+     MARQUEE
+══════════════════════ -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="m-item">19 report sections<span class="m-sep">◆</span></span>
+    <span class="m-item">Plain English summary<span class="m-sep">◆</span></span>
+    <span class="m-item">Visual charts<span class="m-sep">◆</span></span>
+    <span class="m-item">Analyst flags<span class="m-sep">◆</span></span>
+    <span class="m-item">Business health score<span class="m-sep">◆</span></span>
+    <span class="m-item">Forecast &amp; recommendations<span class="m-sep">◆</span></span>
+    <span class="m-item">Full P&amp;L statement<span class="m-sep">◆</span></span>
+    <span class="m-item">Corporation tax estimate<span class="m-sep">◆</span></span>
+    <span class="m-item">Cash flow summary<span class="m-sep">◆</span></span>
+    <span class="m-item">Industry benchmarks<span class="m-sep">◆</span></span>
+    <span class="m-item">Delivered in 15 minutes<span class="m-sep">◆</span></span>
+    <span class="m-item">UK GDPR compliant<span class="m-sep">◆</span></span>
+    <span class="m-item">19 report sections<span class="m-sep">◆</span></span>
+    <span class="m-item">Plain English summary<span class="m-sep">◆</span></span>
+    <span class="m-item">Visual charts<span class="m-sep">◆</span></span>
+    <span class="m-item">Analyst flags<span class="m-sep">◆</span></span>
+    <span class="m-item">Business health score<span class="m-sep">◆</span></span>
+    <span class="m-item">Forecast &amp; recommendations<span class="m-sep">◆</span></span>
+    <span class="m-item">Full P&amp;L statement<span class="m-sep">◆</span></span>
+    <span class="m-item">Corporation tax estimate<span class="m-sep">◆</span></span>
+    <span class="m-item">Cash flow summary<span class="m-sep">◆</span></span>
+    <span class="m-item">Industry benchmarks<span class="m-sep">◆</span></span>
+    <span class="m-item">Delivered in 15 minutes<span class="m-sep">◆</span></span>
+    <span class="m-item">UK GDPR compliant<span class="m-sep">◆</span></span>
+  </div>
+</div>
+
+<!-- ══════════════════════
+     WHAT'S INSIDE
+══════════════════════ -->
+<section class="inside">
+  <div class="inside-inner">
+    <div class="inside-head fu">
+      <div class="s-label center">What's inside</div>
+      <h2 class="s-title" style="text-align:center">Every section, <em>every time.</em></h2>
+      <p class="s-sub" style="text-align:center">Every FinReportAI report contains the same 19 sections — no matter the client, the industry, or the period.</p>
+      <div class="page-count">The sample report is a <strong>full, unredacted PDF</strong> — download it free, no email required</div>
+    </div>
+
+    <div class="sections-grid fu d1">
+      <div class="sec-card">
+        <div class="sec-num">01</div>
+        <span class="sec-icon">📄</span>
+        <h3>Cover Page</h3>
+        <p>Client name, period, report date, and confidentiality notice.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-num">02</div>
+        <span class="sec-icon">📑</span>
+        <h3>Table of Contents</h3>
+        <p>Clickable navigation to every section of the report.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-num">03</div>
+        <span class="sec-icon">📝</span>
+        <h3>Executive Summary</h3>
+        <p>Plain English narrative — what happened, why it matters, and what to watch.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-num">04</div>
+        <span class="sec-icon">📊</span>
+        <h3>KPI Cards</h3>
+        <p>Revenue, net profit, gross margin, and health score at a glance.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-num">05</div>
+        <span class="sec-icon">📈</span>
+        <h3>Revenue Performance Chart</h3>
+        <p>Month-by-month bar chart with values and trend commentary.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-num">06</div>
+        <span class="sec-icon">📉</span>
+        <h3>Margin Analysis</h3>
+        <p>Gross and net margin progression across the period with benchmarks.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-num">07</div>
+        <span class="sec-icon">🧾</span>
+        <h3>Expense Breakdown</h3>
+        <p>Cost categories as % of revenue with period-on-period movement.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-num">08</div>
+        <span class="sec-icon">📋</span>
+        <h3>Full P&amp;L Statement</h3>
+        <p>Every line item, monthly columns, averages, and margin percentages.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-num">09</div>
+        <span class="sec-icon">🌊</span>
+        <h3>P&amp;L Waterfall</h3>
+        <p>Visual bridge from revenue to net profit showing each cost layer.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-num">10</div>
+        <span class="sec-icon">🏦</span>
+        <h3>Corporation Tax Estimate</h3>
+        <p>Indicative CT liability based on reported profit — clearly labelled as an estimate.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-num">11</div>
+        <span class="sec-icon">💧</span>
+        <h3>Cash Flow Summary</h3>
+        <p>Simplified operating, investing, and financing cash movements.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-num">12</div>
+        <span class="sec-icon">🏛</span>
+        <h3>Balance Sheet Snapshot</h3>
+        <p>Key assets, liabilities, and working capital position at period end.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-num">13</div>
+        <span class="sec-icon">🏭</span>
+        <h3>Industry Context</h3>
+        <p>How key metrics compare to sector benchmarks for the client's industry.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-num">14</div>
+        <span class="sec-icon">📡</span>
+        <h3>Key Trends</h3>
+        <p>Three to five data-driven observations on emerging patterns in the numbers.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-num">15</div>
+        <span class="sec-icon">💡</span>
+        <h3>Recommendations</h3>
+        <p>Three specific, actionable recommendations tied directly to the data.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-num">16</div>
+        <span class="sec-icon">🔮</span>
+        <h3>Forecast</h3>
+        <p>Next period revenue and profit projection with confidence range.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-num">17</div>
+        <span class="sec-icon">🚩</span>
+        <h3>Flags &amp; Items to Watch</h3>
+        <p>Green positives, amber watches, and red risks — each with an action note.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-num">18</div>
+        <span class="sec-icon">✍️</span>
+        <h3>Accountant's Notes</h3>
+        <p>Space for your firm to add manual commentary before forwarding to the client.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-num">19</div>
+        <span class="sec-icon">📖</span>
+        <h3>Glossary</h3>
+        <p>Plain English definitions of every financial term used in the report.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════
+     STATS STRIP
+══════════════════════ -->
+<div class="stats-strip">
+  <div class="stats-strip-inner">
+    <div class="strip-stat fu">
+      <div class="strip-num">19</div>
+      <div class="strip-desc">Sections in every report, without exception</div>
+    </div>
+    <div class="strip-stat fu d1">
+      <div class="strip-num"><span class="acc">15</span><span style="font-size:22px;letter-spacing:0">min</span></div>
+      <div class="strip-desc">From CSV upload to PDF in your inbox</div>
+    </div>
+    <div class="strip-stat fu d2">
+      <div class="strip-num"><span class="acc">∞</span></div>
+      <div class="strip-desc">Reports per month on Standard and White Label</div>
+    </div>
+    <div class="strip-stat fu d3">
+      <div class="strip-num">£<span class="acc">0</span></div>
+      <div class="strip-desc">To download this sample — no email required</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════
+     MOCKUP DETAIL
+══════════════════════ -->
+<section class="mockup-section">
+  <div class="mockup-inner">
+    <div class="fu">
+      <div class="s-label gold">The report in detail</div>
+      <h2 class="s-title white">Built for clients who <em>don't</em> speak accountant.</h2>
+      <p class="s-sub muted" style="max-width:520px">Every section is designed to be understood by a business owner with no financial background — while giving you the depth you need as their adviser.</p>
+    </div>
+    <div class="mockup-layout">
+      <div class="mockup-stage fu d1">
+        <div class="mockup-glow"></div>
+        <div class="report-large">
+          <div class="rf-head">
+            <div class="rf-hrow">
+              <div>
+                <div class="rf-co">The Golden Fork</div>
+                <div class="rf-period">Quarterly Financial Report · Q1 2025 · GBP (£)</div>
+              </div>
+              <div class="rf-conf">Confidential</div>
+            </div>
+          </div>
+          <div class="rf-body">
+            <div class="rf-lbl">Executive Summary</div>
+            <p class="rf-exec">The Golden Fork delivered exceptional Q1 2025 results with total revenue of £245,200 and net profit of £67,025. Revenue grew 49% from January to March with improving operational leverage throughout the quarter.</p>
+            <div class="rf-kpis">
+              <div class="rf-kpi"><div class="rk-v">£245k</div><div class="rk-l">Revenue</div><div class="rk-c">▲ +49%</div></div>
+              <div class="rf-kpi"><div class="rk-v">£67k</div><div class="rk-l">Net Profit</div><div class="rk-c">▲ Growing</div></div>
+              <div class="rf-kpi"><div class="rk-v">74%</div><div class="rk-l">Gross Margin</div><div class="rk-c">● Stable</div></div>
+              <div class="rf-kpi hl"><div class="rk-v">8/10</div><div class="rk-l">Health Score</div><div class="rk-c">● Excellent</div></div>
+            </div>
+            <div class="rf-cols">
+              <div>
+                <div class="rf-lbl">Revenue Performance</div>
+                <div class="rf-bars">
+                  <div class="rf-bar-col"><div class="rf-bv">£69k</div><div class="rf-b" style="height:48%;background:linear-gradient(to top,#0D8A78,#11A692)"></div><div class="rf-bl">Jan</div></div>
+                  <div class="rf-bar-col"><div class="rf-bv">£75k</div><div class="rf-b" style="height:65%;background:linear-gradient(to top,#0B7A6A,#0D8A78)"></div><div class="rf-bl">Feb</div></div>
+                  <div class="rf-bar-col"><div class="rf-bv">£102k</div><div class="rf-b" style="height:92%;background:linear-gradient(to top,#084F45,#0D8A78)"></div><div class="rf-bl">Mar</div></div>
+                </div>
+              </div>
+              <div>
+                <div class="rf-lbl">Flags &amp; Items to Watch</div>
+                <div class="rf-flags">
+                  <div class="rf-flag p"><div class="rf-dot">✓</div><div class="rf-ft"><h5>Record March Revenue</h5><p>£102k — highest ever monthly</p></div></div>
+                  <div class="rf-flag w"><div class="rf-dot">!</div><div class="rf-ft"><h5>Staff Costs Rising</h5><p>Monitor wages into Q2</p></div></div>
+                  <div class="rf-flag r"><div class="rf-dot">✕</div><div class="rf-ft"><h5>Supplier Review Due</h5><p>Drinks margin at risk</p></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="rf-foot">
+            <div class="rf-foot-brand">FinReport<span>AI</span></div>
+            <div class="rf-health">● Health: 8/10 — Excellent</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mockup-features fu d2">
+        <div class="mf-item">
+          <div class="mf-icon">📝</div>
+          <div class="mf-text">
+            <h4>Plain English throughout</h4>
+            <p>The executive summary reads like a letter from a trusted adviser — no jargon, no accounting terminology your client needs to decode.</p>
+          </div>
+        </div>
+        <div class="mf-item">
+          <div class="mf-icon">🚩</div>
+          <div class="mf-text">
+            <h4>Colour-coded analyst flags</h4>
+            <p>Every report ends with green positives, amber watches, and red risks — each with a plain English explanation and suggested action.</p>
+          </div>
+        </div>
+        <div class="mf-item">
+          <div class="mf-icon">💡</div>
+          <div class="mf-text">
+            <h4>Business health score</h4>
+            <p>A single 1–10 score based on growth, margins, profitability, and cost control — giving clients a clear picture in seconds.</p>
+          </div>
+        </div>
+        <div class="mf-item">
+          <div class="mf-icon">🔒</div>
+          <div class="mf-text">
+            <h4>Marked confidential by default</h4>
+            <p>Every report is stamped Confidential. Data is permanently deleted within 30 days. UK GDPR compliant.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════
+     TRUST CARDS
+══════════════════════ -->
+<section class="trust">
+  <div class="trust-inner">
+    <div class="trust-card fu">
+      <span class="trust-icon">📥</span>
+      <h3>No email. No sign-up. Just download.</h3>
+      <p>The sample report is completely free to download. No form, no email address, no strings. Click the button and it's yours.</p>
+    </div>
+    <div class="trust-card fu d1">
+      <span class="trust-icon">🏢</span>
+      <h3>Real data, fictional firm</h3>
+      <p>The Golden Fork is entirely fictional — but the numbers, charts, and analysis are exactly what a real client report looks like. Nothing is mocked up or simplified.</p>
+    </div>
+    <div class="trust-card fu d2">
+      <span class="trust-icon">✅</span>
+      <h3>This is what your first report looks like</h3>
+      <p>Submit your first client's data and receive an identical report — same sections, same quality, same delivery speed. Your first report is completely free.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════
+     FINAL CTA
+══════════════════════ -->
+<section class="final-cta">
+  <div class="final-cta-inner fu">
+    <div class="cta-badge">★ First report completely free — no card required</div>
+    <h2>Ready to generate your <em>first</em> report?</h2>
+    <p>Takes under 60 seconds to get started. Upload your client's P&amp;L and receive a report like this in your inbox within 15 minutes.</p>
+    <div class="cta-btns">
+      <a href="https://tally.so/r/kdk9ao" rel="noopener" class="btn-white">Get started free →</a>
+      <a href="https://drive.google.com/uc?export=download&id=1Jfbyc0XbM5ZJX7-y_uhLlQ8ePJ5fj6C1" rel="noopener" class="btn-outline-white">↓ Download sample first</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════
+     FOOTER
+══════════════════════ -->
+<footer>
+  <div class="ft-top">
+    <div class="ft-brand">
+      <div class="ft-logo">FinReport<span>AI</span></div>
+      <p class="ft-tag">Client-ready financial reports for UK accountancy firms. Powered by AI. Delivered in 15 minutes.</p>
+    </div>
+    <div class="ft-cols">
+      <div class="ft-col">
+        <h4>Product</h4>
+        <a href="/#how">How it works</a>
+        <a href="/#features">Features</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="/#faq">FAQ</a>
+      </div>
+      <div class="ft-col">
+        <h4>Account</h4>
+        <a href="https://tally.so/r/kdk9ao" rel="noopener">Register</a>
+        <a href="https://tally.so/r/zx1q0a" rel="noopener">Submit Report</a>
+        <a href="https://app.finreportai.co.uk" rel="noopener">Client Login</a>
+        <a href="mailto:reports@finreportai.co.uk">Contact</a>
+      </div>
+      <div class="ft-col">
+        <h4>Legal</h4>
+        <a href="/terms">Terms &amp; Conditions</a>
+        <a href="/privacy">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+  <div class="ft-bot">
+    <div class="ft-copy">© 2026 FinReportAI · reports@finreportai.co.uk</div>
+    <div class="ft-legal"><a href="/privacy">Privacy Policy</a></div>
+  </div>
+</footer>
+
+<!-- COOKIE -->
+<div class="cookie" id="cookie">
+  <p>We use cookies to improve your experience. By continuing you accept our <a href="/privacy">privacy policy</a>.</p>
+  <button class="cookie-btn" onclick="acceptCookie()">Accept</button>
+</div>
+
+<script>
+// Nav scroll
+const navEl = document.getElementById('nav');
+const onScroll = () => navEl.classList.toggle('solid', window.scrollY > 50);
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+
+// Mobile menu
+const ham = document.getElementById('ham');
+const mobNav = document.getElementById('mob-nav');
+function closeMob(){ham.classList.remove('open');mobNav.classList.remove('open')}
+ham.addEventListener('click',()=>{
+  ham.classList.toggle('open');
+  mobNav.classList.toggle('open');
+});
+
+// Fade-up observer
+const fuObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('v');fuObs.unobserve(e.target)}
+  });
+},{threshold:0.08});
+document.querySelectorAll('.fu').forEach(el=>fuObs.observe(el));
+
+// Cookie
+if(!localStorage.getItem('fr_cookie_ok')){
+  document.getElementById('cookie').classList.add('show');
+}
+function acceptCookie(){
+  localStorage.setItem('fr_cookie_ok','1');
+  document.getElementById('cookie').classList.remove('show');
+}
+</script>
+</body>
+</html>
