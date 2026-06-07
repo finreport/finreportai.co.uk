@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — Page Not Found | FinReportAI</title>
+<meta name="description" content="This page doesn't exist — but your next client report can. FinReportAI delivers branded financial PDFs in 15 minutes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ── */
+:root{
+  --navy:#0B1D38;--navy-2:#0D2040;--navy-3:#122548;
+  --teal:#0D8A78;--teal-l:#11A692;--teal-d:#096B5D;
+  --gold:#C9A84C;--gold-l:#D4B86A;
+  --white:#fff;--gray:#6B7280;--line:#E4E9F2;
+}
+
+/* ── RESET ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;height:100%}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--navy);color:var(--white);
+  min-height:100vh;display:flex;flex-direction:column;
+  overflow-x:hidden;line-height:1.6;
+}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:inherit;border:none;background:none}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--navy)}
+::-webkit-scrollbar-thumb{background:var(--teal);border-radius:2px}
+
+/* ── NAV ── */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:68px;padding:0 5%;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(10,25,50,.92);
+  backdrop-filter:blur(24px) saturate(160%);
+  -webkit-backdrop-filter:blur(24px) saturate(160%);
+  box-shadow:0 1px 0 rgba(255,255,255,.05),0 8px 40px rgba(0,0,0,.35);
+}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-mark{
+  width:34px;height:34px;border-radius:9px;flex-shrink:0;
+  background:linear-gradient(140deg,var(--teal-l),var(--teal-d));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Serif Display',serif;font-size:13px;color:#fff;
+  box-shadow:0 4px 18px rgba(13,138,120,.45);
+  transition:transform .28s,box-shadow .28s;
+}
+.nav-logo:hover .nav-mark{transform:scale(1.1) rotate(-4deg);box-shadow:0 6px 28px rgba(13,138,120,.6)}
+.nav-word{font-size:15px;font-weight:600;color:#fff;letter-spacing:-.2px}
+.nav-word span{color:var(--gold)}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a{
+  font-size:13.5px;color:rgba(255,255,255,.52);
+  position:relative;padding-bottom:2px;transition:color .2s;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-1px;left:0;right:100%;
+  height:1px;background:var(--teal-l);
+  transition:right .28s cubic-bezier(.4,0,.2,1);
+}
+.nav-links a:hover{color:#fff}
+.nav-links a:hover::after{right:0}
+.nav-pill{
+  padding:8px 20px;border-radius:7px;
+  background:var(--teal);color:#fff;
+  font-size:13.5px;font-weight:600;
+  box-shadow:0 4px 18px rgba(13,138,120,.38);
+  transition:background .22s,transform .22s,box-shadow .22s;
+  white-space:nowrap;
+}
+.nav-pill:hover{background:var(--teal-l);transform:translateY(-1px);box-shadow:0 7px 28px rgba(13,138,120,.52)}
+.nav-pill::after{display:none!important}
+.hamburger{display:none;flex-direction:column;gap:5px;padding:6px;flex-shrink:0}
+.hamburger span{display:block;width:22px;height:1.5px;background:rgba(255,255,255,.8);border-radius:1px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+#mob-nav{
+  position:fixed;top:68px;left:0;right:0;z-index:190;
+  background:rgba(10,25,50,.97);backdrop-filter:blur(24px);
+  max-height:0;overflow:hidden;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  transition:max-height .4s cubic-bezier(.4,0,.2,1);
+}
+#mob-nav.open{max-height:380px}
+#mob-nav a{
+  display:block;padding:14px 5%;font-size:15px;
+  color:rgba(255,255,255,.58);border-bottom:1px solid rgba(255,255,255,.05);
+  transition:color .2s,padding-left .2s;
+}
+#mob-nav a:hover{color:#fff;padding-left:calc(5% + 6px)}
+#mob-nav a:last-child{border:none;color:var(--teal-l);font-weight:600;margin-top:2px}
+
+/* ── MAIN ERROR AREA ── */
+.error-wrap{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  padding:120px 5% 80px;
+  position:relative;overflow:hidden;
+}
+
+/* Aurora mesh background */
+.error-wrap::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 70% 65% at 15% 40%,rgba(13,138,120,.18) 0%,transparent 55%),
+    radial-gradient(ellipse 55% 60% at 88% 65%,rgba(201,168,76,.08) 0%,transparent 52%),
+    radial-gradient(ellipse 45% 50% at 50% 110%,rgba(13,138,120,.1) 0%,transparent 52%);
+  animation:meshDrift 20s ease-in-out infinite alternate;
+}
+@keyframes meshDrift{
+  0%{transform:scale(1) translate(0,0)}
+  100%{transform:scale(1.1) translate(3%,2%)}
+}
+
+/* Faint grid overlay */
+.error-wrap::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+  background-size:72px 72px;
+  -webkit-mask-image:radial-gradient(ellipse 80% 75% at 50% 50%,rgba(0,0,0,.7) 20%,transparent 72%);
+  mask-image:radial-gradient(ellipse 80% 75% at 50% 50%,rgba(0,0,0,.7) 20%,transparent 72%);
+}
+
+/* Watermark 404 */
+.wm{
+  position:absolute;
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(200px,26vw,380px);
+  font-weight:400;color:#fff;
+  opacity:.025;line-height:1;
+  letter-spacing:-12px;
+  user-select:none;pointer-events:none;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  z-index:0;white-space:nowrap;
+}
+
+/* Card */
+.error-card{
+  position:relative;z-index:1;
+  max-width:560px;width:100%;
+  text-align:center;
+}
+
+/* Gold top accent line */
+.card-accent{
+  width:56px;height:3px;
+  background:linear-gradient(to right,var(--gold),var(--gold-l),transparent);
+  border-radius:2px;margin:0 auto 36px;
+  animation:accentPulse 3s ease-in-out infinite;
+}
+@keyframes accentPulse{
+  0%,100%{opacity:.7;transform:scaleX(1)}
+  50%{opacity:1;transform:scaleX(1.18)}
+}
+
+/* Eyebrow */
+.error-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);
+  border-radius:100px;padding:6px 16px;margin-bottom:28px;
+  font-size:11px;font-weight:600;color:var(--gold);
+  letter-spacing:.9px;text-transform:uppercase;
+}
+
+/* Error code */
+.error-code{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(72px,10vw,112px);
+  color:#fff;line-height:1;letter-spacing:-4px;
+  margin-bottom:4px;
+}
+.error-code span{
+  background:linear-gradient(135deg,var(--teal-l),var(--teal));
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* Headline */
+.error-headline{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(22px,3vw,30px);
+  color:#fff;line-height:1.2;
+  letter-spacing:-.5px;margin-bottom:18px;
+}
+.error-headline em{font-style:italic;color:var(--gold)}
+
+/* Sub */
+.error-sub{
+  font-size:16px;color:rgba(255,255,255,.45);
+  line-height:1.72;font-weight:300;
+  max-width:420px;margin:0 auto 40px;
+}
+.error-sub strong{color:rgba(255,255,255,.75);font-weight:500}
+
+/* Divider */
+.error-divider{
+  width:1px;height:44px;
+  background:linear-gradient(to bottom,transparent,rgba(255,255,255,.1),transparent);
+  margin:0 auto 40px;
+}
+
+/* Buttons */
+.error-btns{
+  display:flex;gap:13px;justify-content:center;flex-wrap:wrap;
+}
+.btn-fill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--teal);color:#fff;
+  padding:14px 28px;border-radius:9px;
+  font-size:14.5px;font-weight:600;
+  box-shadow:0 6px 24px rgba(13,138,120,.34);
+  transition:background .24s,transform .24s,box-shadow .24s;
+  white-space:nowrap;
+}
+.btn-fill:hover{background:var(--teal-l);transform:translateY(-2px);box-shadow:0 12px 38px rgba(13,138,120,.5)}
+.btn-fill:active{transform:translateY(0)}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:8px;
+  color:rgba(255,255,255,.65);
+  border:1px solid rgba(255,255,255,.16);
+  padding:14px 24px;border-radius:9px;
+  font-size:14.5px;font-weight:500;
+  transition:all .24s;white-space:nowrap;
+}
+.btn-ghost:hover{color:#fff;border-color:rgba(255,255,255,.36);background:rgba(255,255,255,.06);transform:translateY(-2px)}
+
+/* Helpful links */
+.error-links{
+  margin-top:44px;
+  display:flex;align-items:center;justify-content:center;
+  gap:6px;flex-wrap:wrap;
+}
+.error-links span{font-size:12px;color:rgba(255,255,255,.2)}
+.error-links a{
+  font-size:12px;color:rgba(255,255,255,.38);
+  transition:color .2s;padding:4px 8px;border-radius:5px;
+}
+.error-links a:hover{color:rgba(255,255,255,.75);background:rgba(255,255,255,.05)}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--navy-2);
+  border-top:1px solid rgba(255,255,255,.06);
+  padding:44px 5% 36px;
+}
+.ft-top{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  gap:40px;flex-wrap:wrap;
+  padding-bottom:36px;margin-bottom:28px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.ft-brand{max-width:280px}
+.ft-logo{font-size:15px;font-weight:600;color:#fff;margin-bottom:10px;letter-spacing:-.1px}
+.ft-logo span{color:var(--gold)}
+.ft-tag{font-size:13px;color:rgba(255,255,255,.26);line-height:1.6}
+.ft-cols{display:flex;gap:52px;flex-wrap:wrap}
+.ft-col h4{font-size:10px;font-weight:700;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:2.2px;margin-bottom:14px}
+.ft-col a{display:block;font-size:13px;color:rgba(255,255,255,.38);margin-bottom:9px;transition:color .2s}
+.ft-col a:hover{color:rgba(255,255,255,.78)}
+.ft-bot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.ft-copy{font-size:12px;color:rgba(255,255,255,.18)}
+.ft-legal a{font-size:12px;color:rgba(255,255,255,.22);transition:color .2s}
+.ft-legal a:hover{color:rgba(255,255,255,.5)}
+
+/* ── COOKIE ── */
+.cookie{
+  display:none;position:fixed;bottom:20px;left:20px;right:20px;
+  max-width:560px;
+  background:var(--navy-3);border:1px solid rgba(255,255,255,.12);
+  border-radius:16px;padding:18px 22px;
+  align-items:center;justify-content:space-between;
+  gap:16px;z-index:300;flex-wrap:wrap;
+  box-shadow:0 28px 72px rgba(0,0,0,.55);
+}
+.cookie.show{display:flex}
+.cookie p{font-size:13px;color:rgba(255,255,255,.48);margin:0}
+.cookie a{color:var(--teal-l)}
+.cookie-btn{
+  background:var(--teal);color:#fff;border:none;border-radius:9px;
+  padding:9px 22px;font-size:13px;font-weight:600;cursor:pointer;
+  white-space:nowrap;transition:background .2s;
+}
+.cookie-btn:hover{background:var(--teal-l)}
+
+/* ── FADE IN ── */
+.fade-in{opacity:0;transform:translateY(22px);animation:fadeUp .72s ease forwards}
+.fade-in.d1{animation-delay:.1s}
+.fade-in.d2{animation-delay:.22s}
+.fade-in.d3{animation-delay:.36s}
+.fade-in.d4{animation-delay:.5s}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .ft-top{flex-direction:column}
+  .ft-cols{gap:32px}
+  .ft-bot{flex-direction:column;text-align:center}
+}
+@media(max-width:540px){
+  .error-wrap{padding:100px 5% 64px}
+  .error-btns{flex-direction:column;align-items:center}
+  .error-btns a{width:100%;max-width:300px;justify-content:center}
+  .wm{letter-spacing:-6px}
+  .cookie{left:12px;right:12px;bottom:12px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="/" class="nav-logo">
+    <div class="nav-mark">FR</div>
+    <span class="nav-word">FinReport<span>AI</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="/#how">How it works</a>
+    <a href="/#features">Features</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/#faq">FAQ</a>
+    <a href="https://app.finreportai.co.uk" rel="noopener">Client Login</a>
+  </div>
+  <a href="https://tally.so/r/kdk9ao" rel="noopener" class="nav-pill">Get started</a>
+  <button class="hamburger" id="ham" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mob-nav">
+  <a href="/#how" onclick="closeMob()">How it works</a>
+  <a href="/#features" onclick="closeMob()">Features</a>
+  <a href="/#pricing" onclick="closeMob()">Pricing</a>
+  <a href="/#faq" onclick="closeMob()">FAQ</a>
+  <a href="https://app.finreportai.co.uk" rel="noopener" onclick="closeMob()">Client Login</a>
+  <a href="https://tally.so/r/kdk9ao" rel="noopener" onclick="closeMob()">Get started free →</a>
+</div>
+
+<!-- 404 CONTENT -->
+<main class="error-wrap">
+
+  <!-- Faint watermark -->
+  <div class="wm" aria-hidden="true">404</div>
+
+  <div class="error-card">
+
+    <div class="card-accent fade-in"></div>
+
+    <div class="error-eyebrow fade-in d1">Page not found</div>
+
+    <div class="error-code fade-in d1">4<span>0</span>4</div>
+
+    <h1 class="error-headline fade-in d2">
+      This page doesn't balance.<br>
+      But your books <em>can.</em>
+    </h1>
+
+    <p class="error-sub fade-in d2">
+      The page you're looking for has gone missing — unlike a well-prepared P&amp;L.<br>
+      <strong>Let's get you back on track.</strong>
+    </p>
+
+    <div class="error-divider fade-in d3"></div>
+
+    <div class="error-btns fade-in d3">
+      <a href="/" class="btn-fill">← Go home</a>
+      <a href="https://drive.google.com/uc?export=download&id=1Jfbyc0XbM5ZJX7-y_uhLlQ8ePJ5fj6C1" rel="noopener" class="btn-ghost">↓ Download sample report</a>
+    </div>
+
+    <div class="error-links fade-in d4">
+      <a href="/#how">How it works</a>
+      <span>·</span>
+      <a href="/#features">Features</a>
+      <span>·</span>
+      <a href="/#pricing">Pricing</a>
+      <span>·</span>
+      <a href="https://tally.so/r/kdk9ao" rel="noopener">Get started free</a>
+    </div>
+
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-top">
+    <div class="ft-brand">
+      <div class="ft-logo">FinReport<span>AI</span></div>
+      <p class="ft-tag">Client-ready financial reports for UK accountancy firms. Powered by AI. Delivered in 15 minutes.</p>
+    </div>
+    <div class="ft-cols">
+      <div class="ft-col">
+        <h4>Product</h4>
+        <a href="/#how">How it works</a>
+        <a href="/#features">Features</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="/#faq">FAQ</a>
+      </div>
+      <div class="ft-col">
+        <h4>Account</h4>
+        <a href="https://tally.so/r/kdk9ao" rel="noopener">Register</a>
+        <a href="https://tally.so/r/zx1q0a" rel="noopener">Submit Report</a>
+        <a href="https://app.finreportai.co.uk" rel="noopener">Client Login</a>
+        <a href="mailto:reports@finreportai.co.uk">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="ft-bot">
+    <div class="ft-copy">© 2026 FinReportAI · reports@finreportai.co.uk</div>
+    <div class="ft-legal"><a href="/privacy">Privacy Policy</a></div>
+  </div>
+</footer>
+
+<!-- COOKIE BANNER -->
+<div class="cookie" id="cookie">
+  <p>We use cookies to improve your experience. By continuing you accept our <a href="/privacy">privacy policy</a>.</p>
+  <button class="cookie-btn" onclick="acceptCookie()">Accept</button>
+</div>
+
+<script>
+// Mobile menu
+const ham = document.getElementById('ham');
+const mobNav = document.getElementById('mob-nav');
+function closeMob(){ham.classList.remove('open');mobNav.classList.remove('open')}
+ham.addEventListener('click',()=>{
+  ham.classList.toggle('open');
+  mobNav.classList.toggle('open');
+});
+
+// Cookie
+if(!localStorage.getItem('fr_cookie_ok')){
+  document.getElementById('cookie').classList.add('show');
+}
+function acceptCookie(){
+  localStorage.setItem('fr_cookie_ok','1');
+  document.getElementById('cookie').classList.remove('show');
+}
+</script>
+</body>
+</html>
