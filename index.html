@@ -851,12 +851,14 @@ footer{
 /* ═══════════════════════════════════════════════
    FADE-UP UTILITY
 ═══════════════════════════════════════════════ */
-.fu{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.fu{opacity:0;transform:translateY(40px);transition:opacity .82s cubic-bezier(.22,1,.36,1),transform .82s cubic-bezier(.22,1,.36,1)}
 .fu.v{opacity:1;transform:translateY(0)}
-.fu.d1{transition-delay:.12s}
-.fu.d2{transition-delay:.24s}
-.fu.d3{transition-delay:.36s}
-.fu.d4{transition-delay:.48s}
+.fu.d1{transition-delay:.14s}
+.fu.d2{transition-delay:.26s}
+.fu.d3{transition-delay:.40s}
+.fu.d4{transition-delay:.55s}
+.fu.d5{transition-delay:.70s}
+.fu.d6{transition-delay:.85s}
 
 /* ═══════════════════════════════════════════════
    RESPONSIVE
@@ -912,6 +914,122 @@ footer{
   .cookie{left:12px;right:12px;bottom:12px}
   .prob-inner{gap:40px}
 }
+
+/* ═══════════════════════════════════════════════
+   HERO SOCIAL PROOF LINE
+═══════════════════════════════════════════════ */
+.hero-social-proof{
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  margin-top:-28px;margin-bottom:36px;
+}
+.hsp-item{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:11.5px;color:rgba(255,255,255,.42);font-weight:400;
+}
+.hsp-chk{
+  width:15px;height:15px;border-radius:50%;flex-shrink:0;
+  background:rgba(22,163,74,.16);border:1px solid rgba(22,163,74,.32);
+  color:#4ade80;font-size:8px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* ═══════════════════════════════════════════════
+   STICKY MOBILE CTA
+═══════════════════════════════════════════════ */
+#sticky-cta{
+  position:fixed;bottom:0;left:0;right:0;z-index:250;
+  background:rgba(11,29,56,.97);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-top:1px solid rgba(255,255,255,.09);
+  padding:11px 20px;
+  transform:translateY(100%);
+  transition:transform .42s cubic-bezier(.4,0,.2,1);
+  display:none;
+}
+#sticky-cta.show{transform:translateY(0)}
+.sticky-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:14px;max-width:480px;margin:0 auto;
+}
+.sticky-txt{font-size:12.5px;color:rgba(255,255,255,.5);line-height:1.3}
+.sticky-txt strong{color:#fff;display:block;font-size:13px}
+.sticky-btn{
+  background:var(--teal);color:#fff;
+  padding:10px 22px;border-radius:8px;
+  font-size:13.5px;font-weight:600;white-space:nowrap;
+  box-shadow:0 4px 18px rgba(13,138,120,.38);
+  transition:background .2s,transform .2s;flex-shrink:0;
+}
+.sticky-btn:hover{background:var(--teal-l);transform:translateY(-1px)}
+@media(min-width:769px){#sticky-cta{display:none!important}}
+@media(max-width:768px){#sticky-cta{display:block}}
+
+/* ═══════════════════════════════════════════════
+   PRICING ANCHOR COMPARISON
+═══════════════════════════════════════════════ */
+.pricing-anchor{
+  background:linear-gradient(135deg,rgba(201,168,76,.07) 0%,rgba(201,168,76,.02) 100%);
+  border:1px solid rgba(201,168,76,.22);
+  border-radius:12px;padding:16px 24px;
+  margin-bottom:38px;
+  font-size:13.5px;color:var(--gray);line-height:1.65;
+  text-align:center;
+}
+.pricing-anchor strong{color:var(--navy);font-weight:600}
+.pricing-anchor .pa-hl{color:var(--teal);font-weight:600}
+
+/* ═══════════════════════════════════════════════
+   FEATURES — INCLUDED IN ALL PLANS
+═══════════════════════════════════════════════ */
+.feat-all-plans{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:10px;font-weight:700;color:rgba(255,255,255,.3);
+  text-transform:uppercase;letter-spacing:2px;
+  margin-bottom:18px;
+}
+.feat-all-plans::before,.feat-all-plans::after{
+  content:'';flex:1;height:1px;
+  background:rgba(255,255,255,.1);
+  min-width:32px;
+}
+
+/* ═══════════════════════════════════════════════
+   EXIT INTENT BANNER
+═══════════════════════════════════════════════ */
+#exit-banner{
+  position:fixed;top:0;left:0;right:0;z-index:600;
+  background:linear-gradient(135deg,var(--navy-3) 0%,var(--navy-4) 100%);
+  border-bottom:1px solid rgba(255,255,255,.1);
+  box-shadow:0 16px 60px rgba(0,0,0,.5);
+  transform:translateY(-100%);
+  transition:transform .5s cubic-bezier(.4,0,.2,1);
+  padding:14px 5%;
+}
+#exit-banner.show{transform:translateY(0)}
+.eb-inner{
+  max-width:960px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:20px;flex-wrap:wrap;
+}
+.eb-icon{font-size:22px;flex-shrink:0}
+.eb-text{font-size:14px;color:rgba(255,255,255,.68);line-height:1.45;flex:1}
+.eb-text strong{color:#fff}
+.eb-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.eb-dl{
+  background:var(--teal);color:#fff;
+  padding:9px 22px;border-radius:8px;
+  font-size:13px;font-weight:600;
+  box-shadow:0 4px 16px rgba(13,138,120,.36);
+  transition:background .2s,transform .2s;white-space:nowrap;
+}
+.eb-dl:hover{background:var(--teal-l);transform:translateY(-1px)}
+.eb-close{
+  background:none;border:none;color:rgba(255,255,255,.35);
+  font-size:22px;cursor:pointer;padding:2px 8px;line-height:1;
+  transition:color .2s;border-radius:4px;
+}
+.eb-close:hover{color:rgba(255,255,255,.8);background:rgba(255,255,255,.07)}
+@media(max-width:768px){#exit-banner{display:none!important}}
 </style>
 </head>
 <body>
@@ -966,6 +1084,11 @@ footer{
     <div class="hero-btns">
       <a href="/sample" rel="noopener" class="btn-fill">↓ Download sample report</a>
       <a href="https://app.finreportai.co.uk" rel="noopener" class="btn-ghost">Get started free →</a>
+    </div>
+    <div class="hero-social-proof">
+      <span class="hsp-item"><span class="hsp-chk">✓</span> Trusted by UK accountancy firms</span>
+      <span class="hsp-item"><span class="hsp-chk">✓</span> UK GDPR compliant</span>
+      <span class="hsp-item"><span class="hsp-chk">✓</span> Cancel anytime</span>
     </div>
     <div class="hero-trust">
       <div class="trust-label">Works with your existing software</div>
@@ -1183,7 +1306,10 @@ footer{
       <h2 class="s-title white">Everything your clients need to <em>understand</em> their finances</h2>
       <p class="s-sub muted">Every report includes the same professional sections, every time.</p>
     </div>
-    <div class="feat-grid fu d1">
+    <div style="text-align:center;margin-top:52px;margin-bottom:0" class="fu d1">
+      <div class="feat-all-plans">Included in all plans</div>
+    </div>
+    <div class="feat-grid fu d2">
       <div class="feat-card">
         <div class="feat-icon">📝</div>
         <h3>Plain English Executive Summary</h3>
@@ -1284,6 +1410,10 @@ footer{
     <div class="pricing-banner fu d1">
       No setup fee <span class="pb-sep">·</span> Cancel anytime <span class="pb-sep">·</span> First report free <span class="pb-sep">·</span> Bank transfer or card accepted
     </div>
+    <div class="pricing-anchor fu d2">
+      Firms using per-client tools like <strong>Syft</strong> or <strong>Fathom</strong> pay <strong>£23+ per client per month.</strong>
+      With <span class="pa-hl">FinReportAI</span> you pay <strong>one flat fee for unlimited clients.</strong>
+    </div>
     <div class="p-cards fu d2">
       <!-- Standard -->
       <div class="p-card featured">
@@ -1377,6 +1507,18 @@ footer{
         <div class="faq-q">Can I cancel at any time?<span class="faq-tog">+</span></div>
         <div class="faq-a">Yes — no contracts, no cancellation fees. Just email us and we'll deactivate your account at the end of your current billing period.</div>
       </div>
+      <div class="faq-item">
+        <div class="faq-q">How is this different from Syft or Fathom?<span class="faq-tog">+</span></div>
+        <div class="faq-a">Syft and Fathom charge per connected client (typically £18–£25/client/month) and require your clients to grant direct software access. FinReportAI charges a single flat monthly fee for unlimited reports, needs no client software access whatsoever, and works from a simple CSV export you already have — no OAuth, no integrations, no per-client cost that scales against you.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do my clients need to do anything?<span class="faq-tog">+</span></div>
+        <div class="faq-a">No — your clients are completely uninvolved in the process. You export the data from your accounting software, upload it through our secure form, and simply forward the finished PDF to your client. They never need to sign up, grant access, or interact with any platform.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What happens to my client data after the report is generated?<span class="faq-tog">+</span></div>
+        <div class="faq-a">Your client's financial data is used solely to generate the report and is permanently and automatically deleted within 30 days of delivery. We never retain data beyond that window, never use it for any other purpose, and never share it with third parties. This is fully compliant with UK GDPR requirements.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -1412,6 +1554,7 @@ footer{
         <a href="#features">Features</a>
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
+        <a href="/sample">Sample Report</a>
       </div>
       <div class="ft-col">
         <h4>Account</h4>
@@ -1421,6 +1564,14 @@ footer{
         <a href="mailto:reports@finreportai.co.uk">Contact</a>
         <a href="/status">Status</a>
       </div>
+      <div class="ft-col">
+        <h4>Resources</h4>
+        <a href="/sample">Sample Report</a>
+        <a href="/terms">Terms &amp; Conditions</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/status">Service Status</a>
+        <a href="/404">Page Not Found</a>
+      </div>
     </div>
   </div>
   <div class="ft-bot">
@@ -1428,6 +1579,31 @@ footer{
     <div class="ft-legal"><a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms &amp; Conditions</a></div>
   </div>
 </footer>
+
+<!-- STICKY MOBILE CTA -->
+<div id="sticky-cta">
+  <div class="sticky-inner">
+    <div class="sticky-txt">
+      <strong>FinReportAI</strong>
+      Professional reports in 15 minutes
+    </div>
+    <a href="https://app.finreportai.co.uk" rel="noopener" class="sticky-btn">Get started free →</a>
+  </div>
+</div>
+
+<!-- EXIT INTENT BANNER -->
+<div id="exit-banner" role="alert" aria-live="polite">
+  <div class="eb-inner">
+    <div class="eb-icon">📄</div>
+    <div class="eb-text">
+      <strong>Before you go —</strong> download a free sample report and see exactly what your clients would receive.
+    </div>
+    <div class="eb-actions">
+      <a href="/sample" rel="noopener" class="eb-dl">↓ Download free sample</a>
+      <button class="eb-close" id="eb-close-btn" aria-label="Close">×</button>
+    </div>
+  </div>
+</div>
 
 <!-- COOKIE BANNER -->
 <div class="cookie" id="cookie">
@@ -1495,6 +1671,64 @@ document.querySelectorAll('.faq-q').forEach(q=>{
     if(!wasOpen) item.classList.add('open');
   });
 });
+
+
+// ── STICKY MOBILE CTA ──
+(function(){
+  const stickyCta = document.getElementById('sticky-cta');
+  if(!stickyCta) return;
+  const hero = document.querySelector('.hero');
+  const stickyObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting) stickyCta.classList.add('show');
+      else stickyCta.classList.remove('show');
+    });
+  },{threshold:0.1});
+  if(hero) stickyObs.observe(hero);
+})();
+
+// ── EXIT INTENT (desktop only) ──
+(function(){
+  if(window.innerWidth < 769) return;
+  const banner = document.getElementById('exit-banner');
+  const closeBtn = document.getElementById('eb-close-btn');
+  if(!banner) return;
+  let triggered = false;
+  let dismissed = sessionStorage.getItem('fr_exit_dismissed');
+  if(dismissed) return;
+  function showBanner(){
+    if(triggered) return;
+    triggered = true;
+    banner.classList.add('show');
+    // Auto-hide after 12 seconds if not dismissed
+    setTimeout(()=>{ if(banner.classList.contains('show')) hideBanner(); }, 12000);
+  }
+  function hideBanner(){
+    banner.classList.remove('show');
+    sessionStorage.setItem('fr_exit_dismissed','1');
+  }
+  document.addEventListener('mouseleave', e=>{
+    if(e.clientY <= 6) showBanner();
+  });
+  if(closeBtn) closeBtn.addEventListener('click', hideBanner);
+  banner.querySelectorAll('a').forEach(a=>a.addEventListener('click', hideBanner));
+})();
+
+// ── STAGGERED FADE-IN for cards within sections ──
+(function(){
+  // Give extra stagger to feat-cards, step cards, stat-cards
+  document.querySelectorAll('.feat-card').forEach((el, i) => {
+    el.classList.add('fu');
+    el.style.transitionDelay = (0.06 * i) + 's';
+  });
+  document.querySelectorAll('.stat-card').forEach((el, i) => {
+    el.style.transitionDelay = (0.1 * i) + 's';
+  });
+  // Re-observe newly tagged elements
+  document.querySelectorAll('.fu').forEach(el => {
+    if(!el.classList.contains('v')) fuObs.observe(el);
+  });
+})();
 
 // ── COOKIE ──
 if(!localStorage.getItem('fr_cookie_ok')){
