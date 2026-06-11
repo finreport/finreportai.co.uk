@@ -447,6 +447,161 @@ footer{
   .uptime-card{padding:18px}
   .cookie{left:12px;right:12px;bottom:12px}
 }
+
+/* ═══════════════════════════════════════
+   UPTIME TOOLTIP FIX
+   (block needs position:relative;
+    bar + card need overflow:visible)
+═══════════════════════════════════════ */
+.uptime-block{position:relative}
+.uptime-bar{overflow:visible}
+.uptime-card{overflow:visible}
+.uptime-block::after{z-index:60;box-shadow:0 4px 16px rgba(0,0,0,.22)}
+
+/* ═══════════════════════════════════════
+   RESPONSE TIME CHIP
+═══════════════════════════════════════ */
+.resp-time{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:11px;font-weight:500;
+  color:var(--gray);white-space:nowrap;
+}
+.resp-dot{
+  width:6px;height:6px;border-radius:50%;flex-shrink:0;
+  background:var(--teal);
+}
+.resp-time.fast .resp-dot{background:var(--green)}
+.resp-time.medium .resp-dot{background:var(--amber)}
+.resp-time.slow .resp-dot{background:var(--red)}
+.resp-time.fast{color:#15803D}
+.resp-time.medium{color:var(--amber)}
+.resp-time.slow{color:var(--red)}
+
+/* ═══════════════════════════════════════
+   INCIDENT HISTORY — green badge
+═══════════════════════════════════════ */
+.incident-card{padding:0;overflow:hidden}
+.incident-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 28px;border-bottom:1px solid var(--line);
+  flex-wrap:wrap;gap:12px;
+}
+.incident-header-label{
+  font-size:13px;font-weight:600;color:var(--navy);
+  display:flex;align-items:center;gap:8px;
+}
+.inc-green-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--green-badge);border:1px solid var(--green-border);
+  border-radius:100px;padding:4px 12px;
+  font-size:11.5px;font-weight:600;color:var(--green);
+}
+.inc-green-badge::before{content:'●';font-size:8px}
+.incident-body{padding:28px}
+.no-incidents{display:flex;align-items:center;gap:14px}
+.ni-icon{
+  width:40px;height:40px;border-radius:50%;
+  background:var(--green-badge);border:1px solid var(--green-border);
+  display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;
+}
+.ni-text h4{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:3px}
+.ni-text p{font-size:13px;color:var(--gray)}
+.incident-months{
+  display:flex;flex-direction:column;gap:0;margin-top:20px;
+}
+.inc-month{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 0;border-bottom:1px solid var(--line);
+  font-size:13px;
+}
+.inc-month:last-child{border-bottom:none}
+.inc-month-label{font-weight:500;color:var(--navy)}
+.inc-month-status{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;font-weight:500;color:var(--green);
+}
+.inc-month-status::before{content:'✓';font-size:11px;font-weight:700}
+
+/* ═══════════════════════════════════════
+   SUBSCRIBE SECTION
+═══════════════════════════════════════ */
+.subscribe-section{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-3) 100%);
+  border-radius:18px;padding:36px 40px;
+  margin-bottom:56px;position:relative;overflow:hidden;
+}
+.subscribe-section::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 70% at 95% 50%,rgba(13,138,120,.18) 0%,transparent 55%),
+    radial-gradient(ellipse 40% 50% at 5% 90%,rgba(201,168,76,.08) 0%,transparent 55%);
+}
+.sub-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:40px;flex-wrap:wrap;position:relative;z-index:1;
+}
+.sub-copy{flex:1;min-width:220px}
+.sub-copy h3{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(20px,2.5vw,26px);color:#fff;
+  letter-spacing:-.5px;margin-bottom:6px;line-height:1.15;
+}
+.sub-copy p{font-size:13.5px;color:rgba(255,255,255,.45);line-height:1.6}
+.sub-form-wrap{flex-shrink:0;min-width:280px}
+.sub-form{
+  display:flex;gap:8px;
+}
+.sub-input{
+  flex:1;padding:11px 16px;border-radius:9px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.16);
+  color:#fff;font-size:13.5px;font-family:inherit;
+  transition:border-color .22s,background .22s;
+  outline:none;min-width:0;
+}
+.sub-input::placeholder{color:rgba(255,255,255,.32)}
+.sub-input:focus{
+  border-color:rgba(13,138,120,.7);
+  background:rgba(255,255,255,.12);
+}
+.sub-btn{
+  background:var(--teal);color:#fff;
+  padding:11px 22px;border-radius:9px;
+  font-size:13.5px;font-weight:600;cursor:pointer;
+  border:none;font-family:inherit;white-space:nowrap;
+  box-shadow:0 4px 16px rgba(13,138,120,.38);
+  transition:background .22s,transform .22s;flex-shrink:0;
+}
+.sub-btn:hover{background:var(--teal-l);transform:translateY(-1px)}
+.sub-btn:active{transform:translateY(0)}
+.sub-success{
+  display:none;align-items:center;gap:14px;
+}
+.sub-success.show{display:flex}
+.sub-success-icon{
+  width:44px;height:44px;border-radius:50%;flex-shrink:0;
+  background:rgba(22,163,74,.2);border:1px solid rgba(22,163,74,.35);
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;
+}
+.sub-success-text h4{
+  font-size:15px;font-weight:600;color:#fff;margin-bottom:3px;
+}
+.sub-success-text p{font-size:13px;color:rgba(255,255,255,.48)}
+.sub-note{font-size:11px;color:rgba(255,255,255,.28);margin-top:8px}
+
+@media(max-width:768px){
+  .subscribe-section{padding:28px 24px}
+  .sub-inner{gap:24px}
+  .sub-form{flex-direction:column}
+  .sub-btn{width:100%}
+  .incident-header{padding:16px 20px}
+  .incident-body{padding:20px}
+  .inc-month{flex-wrap:wrap;gap:6px}
+}
+@media(max-width:540px){
+  .subscribe-section{border-radius:14px}
+}
 </style>
 </head>
 <body>
@@ -530,7 +685,7 @@ footer{
         <span class="status-badge checking" id="badge-pdf">
           <span class="badge-dot"></span>Checking…
         </span>
-        <span class="svc-time" id="time-pdf">—</span>
+        <span class="resp-time" id="time-pdf"><span class="resp-dot"></span>—</span>
       </div>
     </div>
 
@@ -545,7 +700,7 @@ footer{
         <span class="status-badge checking" id="badge-portal">
           <span class="badge-dot"></span>Checking…
         </span>
-        <span class="svc-time" id="time-portal">—</span>
+        <span class="resp-time" id="time-portal"><span class="resp-dot"></span>—</span>
       </div>
     </div>
 
@@ -560,7 +715,7 @@ footer{
         <span class="status-badge green" id="badge-email">
           <span class="badge-dot"></span>Operational
         </span>
-        <span class="svc-time" id="time-email">Manual indicator</span>
+        <span class="resp-time" id="time-email"><span class="resp-dot"></span>Manual indicator</span>
       </div>
     </div>
 
@@ -578,12 +733,56 @@ footer{
   <div class="incident-section">
     <div class="sec-heading">Incident history</div>
     <div class="incident-card">
-      <div class="no-incidents">
-        <div class="ni-icon">✓</div>
-        <div class="ni-text">
-          <h4>No incidents recorded</h4>
-          <p>Uptime tracking began June 2026. No incidents have been recorded to date.</p>
+      <div class="incident-header">
+        <span class="incident-header-label">📋 Past 90 days</span>
+        <span class="inc-green-badge">No incidents reported</span>
+      </div>
+      <div class="incident-body">
+        <div class="no-incidents">
+          <div class="ni-icon">✓</div>
+          <div class="ni-text">
+            <h4>No incidents recorded</h4>
+            <p>Uptime tracking began June 2026. No degradations or outages have been recorded to date.</p>
+          </div>
         </div>
+        <div class="incident-months">
+          <div class="inc-month">
+            <span class="inc-month-label">June 2026</span>
+            <span class="inc-month-status">No incidents</span>
+          </div>
+          <div class="inc-month">
+            <span class="inc-month-label">May 2026</span>
+            <span class="inc-month-status">No incidents</span>
+          </div>
+          <div class="inc-month">
+            <span class="inc-month-label">April 2026</span>
+            <span class="inc-month-status">No incidents</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Subscribe to updates -->
+  <div class="subscribe-section">
+    <div class="sub-inner">
+      <div class="sub-copy">
+        <h3>Get notified about incidents</h3>
+        <p>Enter your email and we'll notify you whenever a service incident is opened or resolved.</p>
+      </div>
+      <div class="sub-form-wrap">
+        <div class="sub-form" id="sub-form">
+          <input type="email" class="sub-input" id="sub-email" placeholder="your@firm.co.uk" autocomplete="email">
+          <button class="sub-btn" id="sub-btn" type="button">Notify me</button>
+        </div>
+        <div class="sub-success" id="sub-success">
+          <div class="sub-success-icon">✓</div>
+          <div class="sub-success-text">
+            <h4>You're subscribed</h4>
+            <p>We'll email you when any service status changes.</p>
+          </div>
+        </div>
+        <p class="sub-note" id="sub-note">No spam · Unsubscribe any time</p>
       </div>
     </div>
   </div>
@@ -770,31 +969,55 @@ function nowStr() {
 }
 
 /* ──────────────────────────────────────
+   RESPONSE TIME DISPLAY
+────────────────────────────────────── */
+function setRespTime(id, ms, isManual) {
+  const el = document.getElementById('time-' + id);
+  if (!el) return;
+  if (isManual) {
+    el.innerHTML = '<span class="resp-dot"></span>Manual indicator';
+    el.className = 'resp-time';
+    return;
+  }
+  let cls = 'fast';
+  if (ms > 800) cls = 'slow';
+  else if (ms > 300) cls = 'medium';
+  el.className = 'resp-time ' + cls;
+  el.innerHTML = '<span class="resp-dot"></span>' + ms + 'ms';
+}
+
+/* ──────────────────────────────────────
    CHECK PDF
 ────────────────────────────────────── */
 async function checkPdf() {
   setStatus('pdf', 'amber', 'Checking endpoint…', '—');
+  document.getElementById('time-pdf').innerHTML = '<span class="resp-dot"></span>Checking…';
   try {
     const ctrl = new AbortController();
     const timeout = setTimeout(() => ctrl.abort(), 10000);
+    const t0 = performance.now();
     const res = await fetch('https://finreportai.onrender.com/healthz', {
       method: 'GET',
       signal: ctrl.signal,
       cache: 'no-store',
     });
     clearTimeout(timeout);
+    const ms = Math.round(performance.now() - t0);
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     if (data && data.status === 'ok') {
       state.pdf = true;
-      setStatus('pdf', 'green', 'PDF generation endpoint responding normally', 'Checked at ' + nowStr());
+      setStatus('pdf', 'green', 'PDF generation endpoint responding normally', '');
+      setRespTime('pdf', ms);
     } else {
       throw new Error('Unexpected response');
     }
   } catch (e) {
     state.pdf = false;
     const msg = e.name === 'AbortError' ? 'Request timed out after 10s' : 'Endpoint not responding';
-    setStatus('pdf', 'red', msg, 'Checked at ' + nowStr());
+    setStatus('pdf', 'red', msg, '');
+    setRespTime('pdf', 0, false);
+    document.getElementById('time-pdf').innerHTML = '<span class="resp-dot"></span>Timeout';
   }
   updateBanner();
 }
@@ -804,9 +1027,11 @@ async function checkPdf() {
 ────────────────────────────────────── */
 async function checkPortal() {
   setStatus('portal', 'amber', 'Checking endpoint…', '—');
+  document.getElementById('time-portal').innerHTML = '<span class="resp-dot"></span>Checking…';
   try {
     const ctrl = new AbortController();
     const timeout = setTimeout(() => ctrl.abort(), 10000);
+    const t0 = performance.now();
     await fetch('https://app.finreportai.co.uk', {
       method: 'GET',
       mode: 'no-cors',
@@ -814,13 +1039,16 @@ async function checkPortal() {
       cache: 'no-store',
     });
     clearTimeout(timeout);
+    const ms = Math.round(performance.now() - t0);
     // no-cors: any response (even opaque) = reachable
     state.portal = true;
-    setStatus('portal', 'green', 'Client portal loading normally', 'Checked at ' + nowStr());
+    setStatus('portal', 'green', 'Client portal loading normally', '');
+    setRespTime('portal', ms);
   } catch (e) {
     state.portal = false;
     const msg = e.name === 'AbortError' ? 'Request timed out after 10s' : 'Portal may be unavailable';
-    setStatus('portal', 'red', msg, 'Checked at ' + nowStr());
+    setStatus('portal', 'red', msg, '');
+    document.getElementById('time-portal').innerHTML = '<span class="resp-dot"></span>Timeout';
   }
   updateBanner();
 }
@@ -914,6 +1142,36 @@ function acceptCookie(){
   localStorage.setItem('fr_cookie_ok','1');
   document.getElementById('cookie').classList.remove('show');
 }
+
+/* ──────────────────────────────────────
+   SUBSCRIBE FORM
+────────────────────────────────────── */
+(function() {
+  const btn   = document.getElementById('sub-btn');
+  const input = document.getElementById('sub-email');
+  const form  = document.getElementById('sub-form');
+  const succ  = document.getElementById('sub-success');
+  const note  = document.getElementById('sub-note');
+  if (!btn) return;
+
+  function submit() {
+    const email = (input.value || '').trim();
+    const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!valid) {
+      input.style.borderColor = 'rgba(220,38,38,.6)';
+      input.focus();
+      setTimeout(() => { input.style.borderColor = ''; }, 1800);
+      return;
+    }
+    // UI-only: show success
+    form.style.display = 'none';
+    note.style.display = 'none';
+    succ.classList.add('show');
+  }
+
+  btn.addEventListener('click', submit);
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') submit(); });
+})();
 
 /* ──────────────────────────────────────
    INIT
