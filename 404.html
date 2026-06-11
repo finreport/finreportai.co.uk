@@ -3,17 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>404 — Page Not Found | FinReportAI</title>
-<meta name="description" content="This page doesn't exist — but your next client report can. FinReportAI delivers branded financial PDFs in 15 minutes.">
+<title>404 — Missing Entry | FinReportAI</title>
+<meta name="description" content="This page has been audited. Finding: it doesn't exist. Let's get you back to something that does.">
+<link rel="canonical" href="https://finreportai.co.uk/404">
+<meta name="robots" content="noindex,follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap"></noscript>
 <style>
 /* ── TOKENS ── */
 :root{
-  --navy:#0B1D38;--navy-2:#0D2040;--navy-3:#122548;
+  --navy:#0B1D38;--navy-2:#0D2040;--navy-3:#122548;--navy-4:#172D52;
   --teal:#0D8A78;--teal-l:#11A692;--teal-d:#096B5D;
   --gold:#C9A84C;--gold-l:#D4B86A;
-  --white:#fff;--gray:#6B7280;--line:#E4E9F2;
+  --white:#fff;--off:#F5F7FB;--gray:#6B7280;--line:#E4E9F2;--text:#1A2A3A;
+  --green:#16A34A;
 }
 
 /* ── RESET ── */
@@ -103,53 +108,78 @@ button{cursor:pointer;font-family:inherit;border:none;background:none}
   position:relative;overflow:hidden;
 }
 
-/* Aurora mesh background */
-.error-wrap::before{
-  content:'';position:absolute;inset:0;pointer-events:none;
+/* Aurora layer A — three shifting gradients */
+.error-mesh{position:absolute;inset:0;pointer-events:none;z-index:0}
+.error-mesh::before{
+  content:'';position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 70% 65% at 15% 40%,rgba(13,138,120,.18) 0%,transparent 55%),
-    radial-gradient(ellipse 55% 60% at 88% 65%,rgba(201,168,76,.08) 0%,transparent 52%),
-    radial-gradient(ellipse 45% 50% at 50% 110%,rgba(13,138,120,.1) 0%,transparent 52%);
-  animation:meshDrift 20s ease-in-out infinite alternate;
+    radial-gradient(ellipse 75% 65% at -5% 52%,rgba(13,138,120,.24) 0%,transparent 55%),
+    radial-gradient(ellipse 55% 50% at 105% 8%,rgba(201,168,76,.1) 0%,transparent 52%),
+    radial-gradient(ellipse 48% 55% at 60% 105%,rgba(13,138,120,.12) 0%,transparent 52%),
+    radial-gradient(ellipse 35% 40% at 80% 60%,rgba(9,107,93,.09) 0%,transparent 48%);
+  animation:auroraA 20s ease-in-out infinite alternate;
 }
-@keyframes meshDrift{
-  0%{transform:scale(1) translate(0,0)}
-  100%{transform:scale(1.1) translate(3%,2%)}
+/* Aurora layer B — second mesh offset */
+.error-mesh::after{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 45% 50% at 55% -10%,rgba(201,168,76,.07) 0%,transparent 55%),
+    radial-gradient(ellipse 60% 45% at 15% 90%,rgba(13,138,120,.1) 0%,transparent 55%);
+  animation:auroraB 28s ease-in-out infinite alternate;
+}
+@keyframes auroraA{
+  0%{transform:scale(1) translate(0,0) rotate(0deg)}
+  100%{transform:scale(1.12) translate(3%,2.5%) rotate(.5deg)}
+}
+@keyframes auroraB{
+  0%{opacity:.6;transform:translate(0,0)}
+  100%{opacity:1;transform:translate(-2%,1.5%)}
 }
 
-/* Faint grid overlay */
-.error-wrap::after{
-  content:'';position:absolute;inset:0;pointer-events:none;
+/* Grid overlay */
+.error-grid{
+  position:absolute;inset:0;pointer-events:none;z-index:0;
   background-image:
     linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
     linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
   background-size:72px 72px;
-  -webkit-mask-image:radial-gradient(ellipse 80% 75% at 50% 50%,rgba(0,0,0,.7) 20%,transparent 72%);
-  mask-image:radial-gradient(ellipse 80% 75% at 50% 50%,rgba(0,0,0,.7) 20%,transparent 72%);
+  -webkit-mask-image:radial-gradient(ellipse 85% 80% at 50% 50%,rgba(0,0,0,.7) 20%,transparent 72%);
+  mask-image:radial-gradient(ellipse 85% 80% at 50% 50%,rgba(0,0,0,.7) 20%,transparent 72%);
 }
 
-/* Watermark 404 */
+/* Floating particle dots */
+.p-dot{
+  position:absolute;border-radius:50%;pointer-events:none;z-index:0;
+  background:var(--teal);opacity:0;
+  animation:floatDot var(--dur,12s) var(--delay,0s) ease-in-out infinite;
+}
+@keyframes floatDot{
+  0%{opacity:0;transform:translateY(0) scale(1)}
+  15%{opacity:var(--op,.18)}
+  85%{opacity:var(--op,.18)}
+  100%{opacity:0;transform:translateY(-120px) scale(.6)}
+}
+
+/* Watermark */
 .wm{
   position:absolute;
   font-family:'DM Serif Display',serif;
-  font-size:clamp(200px,26vw,380px);
+  font-size:clamp(180px,26vw,360px);
   font-weight:400;color:#fff;
-  opacity:.025;line-height:1;
-  letter-spacing:-12px;
+  opacity:.025;line-height:1;letter-spacing:-12px;
   user-select:none;pointer-events:none;
   top:50%;left:50%;
   transform:translate(-50%,-50%);
   z-index:0;white-space:nowrap;
 }
 
-/* Card */
+/* ── CARD ── */
 .error-card{
   position:relative;z-index:1;
-  max-width:560px;width:100%;
+  max-width:600px;width:100%;
   text-align:center;
 }
 
-/* Gold top accent line */
 .card-accent{
   width:56px;height:3px;
   background:linear-gradient(to right,var(--gold),var(--gold-l),transparent);
@@ -158,10 +188,9 @@ button{cursor:pointer;font-family:inherit;border:none;background:none}
 }
 @keyframes accentPulse{
   0%,100%{opacity:.7;transform:scaleX(1)}
-  50%{opacity:1;transform:scaleX(1.18)}
+  50%{opacity:1;transform:scaleX(1.2)}
 }
 
-/* Eyebrow */
 .error-eyebrow{
   display:inline-flex;align-items:center;gap:8px;
   background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);
@@ -169,13 +198,15 @@ button{cursor:pointer;font-family:inherit;border:none;background:none}
   font-size:11px;font-weight:600;color:var(--gold);
   letter-spacing:.9px;text-transform:uppercase;
 }
+.error-eyebrow-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--gold);opacity:.7;flex-shrink:0;
+}
 
-/* Error code */
 .error-code{
   font-family:'DM Serif Display',serif;
   font-size:clamp(72px,10vw,112px);
-  color:#fff;line-height:1;letter-spacing:-4px;
-  margin-bottom:4px;
+  color:#fff;line-height:1;letter-spacing:-4px;margin-bottom:4px;
 }
 .error-code span{
   background:linear-gradient(135deg,var(--teal-l),var(--teal));
@@ -183,33 +214,94 @@ button{cursor:pointer;font-family:inherit;border:none;background:none}
   -webkit-text-fill-color:transparent;
 }
 
-/* Headline */
 .error-headline{
   font-family:'DM Serif Display',serif;
-  font-size:clamp(22px,3vw,30px);
-  color:#fff;line-height:1.2;
-  letter-spacing:-.5px;margin-bottom:18px;
+  font-size:clamp(22px,3vw,32px);
+  color:#fff;line-height:1.18;letter-spacing:-.6px;margin-bottom:18px;
 }
 .error-headline em{font-style:italic;color:var(--gold)}
 
-/* Sub */
 .error-sub{
-  font-size:16px;color:rgba(255,255,255,.45);
-  line-height:1.72;font-weight:300;
-  max-width:420px;margin:0 auto 40px;
+  font-size:15.5px;color:rgba(255,255,255,.44);
+  line-height:1.75;font-weight:300;
+  max-width:460px;margin:0 auto 36px;
 }
-.error-sub strong{color:rgba(255,255,255,.75);font-weight:500}
+.error-sub strong{color:rgba(255,255,255,.72);font-weight:500}
 
-/* Divider */
-.error-divider{
-  width:1px;height:44px;
-  background:linear-gradient(to bottom,transparent,rgba(255,255,255,.1),transparent);
-  margin:0 auto 40px;
+/* ── SEARCH BAR ── */
+.search-wrap{
+  position:relative;max-width:420px;margin:0 auto 36px;
 }
+.search-box{
+  display:flex;align-items:center;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:11px;
+  padding:0 16px;
+  transition:border-color .22s,background .22s,box-shadow .22s;
+}
+.search-box:focus-within{
+  border-color:rgba(13,138,120,.65);
+  background:rgba(255,255,255,.1);
+  box-shadow:0 0 0 3px rgba(13,138,120,.15);
+}
+.search-icon{
+  color:rgba(255,255,255,.35);font-size:15px;
+  flex-shrink:0;margin-right:10px;pointer-events:none;
+  transition:color .2s;
+}
+.search-box:focus-within .search-icon{color:var(--teal-l)}
+.search-input{
+  flex:1;background:none;border:none;outline:none;
+  color:#fff;font-size:14px;font-family:inherit;
+  padding:13px 0;
+}
+.search-input::placeholder{color:rgba(255,255,255,.28)}
+.search-clear{
+  color:rgba(255,255,255,.28);font-size:18px;line-height:1;
+  padding:4px;border-radius:4px;
+  transition:color .2s;display:none;
+  background:none;border:none;cursor:pointer;
+}
+.search-clear:hover{color:rgba(255,255,255,.7)}
+.search-clear.visible{display:block}
+/* Dropdown results */
+.search-results{
+  position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:50;
+  background:var(--navy-3);border:1px solid rgba(255,255,255,.12);
+  border-radius:11px;overflow:hidden;
+  box-shadow:0 20px 56px rgba(0,0,0,.55);
+  display:none;
+}
+.search-results.open{display:block}
+.sr-item{
+  display:flex;align-items:center;gap:12px;
+  padding:13px 16px;cursor:pointer;
+  transition:background .15s;
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.sr-item:last-child{border-bottom:none}
+.sr-item:hover,.sr-item.active{background:rgba(13,138,120,.14)}
+.sr-icon{
+  font-size:16px;width:28px;height:28px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.06);border-radius:7px;
+}
+.sr-text{flex:1;min-width:0;text-align:left}
+.sr-title{font-size:13px;font-weight:600;color:#fff}
+.sr-desc{font-size:11.5px;color:rgba(255,255,255,.38);margin-top:1px}
+.sr-arrow{color:rgba(255,255,255,.22);font-size:12px}
+.sr-empty{
+  padding:20px 16px;text-align:center;
+  font-size:13px;color:rgba(255,255,255,.38);
+}
+.sr-empty a{color:var(--teal-l);transition:color .2s}
+.sr-empty a:hover{color:#fff}
 
-/* Buttons */
+/* ── MAIN BUTTONS ── */
 .error-btns{
   display:flex;gap:13px;justify-content:center;flex-wrap:wrap;
+  margin-bottom:44px;
 }
 .btn-fill{
   display:inline-flex;align-items:center;gap:8px;
@@ -232,18 +324,46 @@ button{cursor:pointer;font-family:inherit;border:none;background:none}
 }
 .btn-ghost:hover{color:#fff;border-color:rgba(255,255,255,.36);background:rgba(255,255,255,.06);transform:translateY(-2px)}
 
-/* Helpful links */
-.error-links{
-  margin-top:44px;
-  display:flex;align-items:center;justify-content:center;
-  gap:6px;flex-wrap:wrap;
+/* ── POPULAR PAGES ── */
+.popular-label{
+  font-size:10.5px;font-weight:700;
+  color:rgba(255,255,255,.2);
+  text-transform:uppercase;letter-spacing:2px;
+  margin-bottom:16px;
 }
-.error-links span{font-size:12px;color:rgba(255,255,255,.2)}
-.error-links a{
-  font-size:12px;color:rgba(255,255,255,.38);
-  transition:color .2s;padding:4px 8px;border-radius:5px;
+.popular-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
 }
-.error-links a:hover{color:rgba(255,255,255,.75);background:rgba(255,255,255,.05)}
+.pop-card{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;padding:16px 12px 14px;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  transition:background .22s,border-color .22s,transform .22s;
+  cursor:pointer;
+}
+.pop-card:hover{
+  background:rgba(13,138,120,.14);
+  border-color:rgba(13,138,120,.3);
+  transform:translateY(-3px);
+}
+.pop-icon{
+  font-size:22px;line-height:1;
+  transition:transform .22s;
+}
+.pop-card:hover .pop-icon{transform:scale(1.18)}
+.pop-name{
+  font-size:12px;font-weight:600;color:rgba(255,255,255,.65);
+  line-height:1.2;text-align:center;
+  transition:color .22s;
+}
+.pop-card:hover .pop-name{color:#fff}
+.pop-badge{
+  font-size:9.5px;font-weight:600;
+  background:rgba(13,138,120,.22);border:1px solid rgba(13,138,120,.3);
+  color:var(--teal-l);border-radius:100px;padding:2px 8px;
+  letter-spacing:.3px;
+}
 
 /* ── FOOTER ── */
 footer{
@@ -291,26 +411,28 @@ footer{
 .cookie-btn:hover{background:var(--teal-l)}
 
 /* ── FADE IN ── */
-.fade-in{opacity:0;transform:translateY(22px);animation:fadeUp .72s ease forwards}
+.fade-in{opacity:0;transform:translateY(22px);animation:fadeUp .72s cubic-bezier(.22,1,.36,1) forwards}
 .fade-in.d1{animation-delay:.1s}
 .fade-in.d2{animation-delay:.22s}
-.fade-in.d3{animation-delay:.36s}
-.fade-in.d4{animation-delay:.5s}
+.fade-in.d3{animation-delay:.34s}
+.fade-in.d4{animation-delay:.46s}
+.fade-in.d5{animation-delay:.58s}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
 
 /* ── RESPONSIVE ── */
 @media(max-width:768px){
   .nav-links{display:none}
   .hamburger{display:flex}
+  .popular-grid{grid-template-columns:repeat(2,1fr)}
   .ft-top{flex-direction:column}
   .ft-cols{gap:32px}
   .ft-bot{flex-direction:column;text-align:center}
 }
 @media(max-width:540px){
-  .error-wrap{padding:100px 5% 64px}
+  .error-wrap{padding:100px 5% 60px}
   .error-btns{flex-direction:column;align-items:center}
   .error-btns a{width:100%;max-width:300px;justify-content:center}
-  .wm{letter-spacing:-6px}
+  .popular-grid{grid-template-columns:repeat(2,1fr)}
   .cookie{left:12px;right:12px;bottom:12px}
 }
 </style>
@@ -336,7 +458,6 @@ footer{
   </button>
 </nav>
 
-<!-- MOBILE MENU -->
 <div id="mob-nav">
   <a href="/#how" onclick="closeMob()">How it works</a>
   <a href="/#features" onclick="closeMob()">Features</a>
@@ -347,44 +468,87 @@ footer{
 </div>
 
 <!-- 404 CONTENT -->
-<main class="error-wrap">
+<main class="error-wrap" role="main">
+
+  <!-- Animated aurora background -->
+  <div class="error-mesh" aria-hidden="true"></div>
+  <div class="error-grid" aria-hidden="true"></div>
+
+  <!-- Floating particles (populated by JS) -->
+  <div id="particles" aria-hidden="true"></div>
 
   <!-- Faint watermark -->
   <div class="wm" aria-hidden="true">404</div>
 
   <div class="error-card">
 
-    <div class="card-accent fade-in"></div>
+    <div class="card-accent fade-in" aria-hidden="true"></div>
 
-    <div class="error-eyebrow fade-in d1">Page not found</div>
+    <div class="error-eyebrow fade-in d1">
+      <span class="error-eyebrow-dot" aria-hidden="true"></span>
+      Error 404 &nbsp;·&nbsp; Missing entry
+    </div>
 
-    <div class="error-code fade-in d1">4<span>0</span>4</div>
+    <div class="error-code fade-in d1" aria-hidden="true">4<span>0</span>4</div>
 
     <h1 class="error-headline fade-in d2">
-      This page doesn't balance.<br>
-      But your books <em>can.</em>
+      This URL has been audited.<br>
+      <em>Finding: it doesn't exist.</em>
     </h1>
 
     <p class="error-sub fade-in d2">
-      The page you're looking for has gone missing — unlike a well-prepared P&amp;L.<br>
-      <strong>Let's get you back on track.</strong>
+      Our systems cross-referenced every ledger, reconciled every path,
+      and ran three variance analyses. This page simply isn't in the accounts.<br><br>
+      <strong>The good news: your next client report is only 15 minutes away.</strong>
     </p>
 
-    <div class="error-divider fade-in d3"></div>
-
-    <div class="error-btns fade-in d3">
-      <a href="/" class="btn-fill">← Go home</a>
-      <a href="https://drive.google.com/uc?export=download&id=1Jfbyc0XbM5ZJX7-y_uhLlQ8ePJ5fj6C1" rel="noopener" class="btn-ghost">↓ Download sample report</a>
+    <!-- Search bar -->
+    <div class="search-wrap fade-in d3">
+      <div class="search-box" role="search">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <input
+          type="search"
+          class="search-input"
+          id="search-input"
+          placeholder="Search FinReportAI…"
+          autocomplete="off"
+          aria-label="Search site"
+          aria-autocomplete="list"
+          aria-controls="search-results"
+        >
+        <button class="search-clear" id="search-clear" aria-label="Clear search" tabindex="-1">×</button>
+      </div>
+      <div class="search-results" id="search-results" role="listbox" aria-label="Search results"></div>
     </div>
 
-    <div class="error-links fade-in d4">
-      <a href="/#how">How it works</a>
-      <span>·</span>
-      <a href="/#features">Features</a>
-      <span>·</span>
-      <a href="/#pricing">Pricing</a>
-      <span>·</span>
-      <a href="https://app.finreportai.co.uk" rel="noopener">Get started free</a>
+    <!-- Primary CTAs -->
+    <div class="error-btns fade-in d3">
+      <a href="/" class="btn-fill">← Take me home</a>
+      <a href="https://app.finreportai.co.uk" rel="noopener" class="btn-ghost">Get started free →</a>
+    </div>
+
+    <!-- Popular pages -->
+    <div class="fade-in d4">
+      <p class="popular-label">Popular pages</p>
+      <div class="popular-grid">
+        <a href="/" class="pop-card">
+          <span class="pop-icon">🏠</span>
+          <span class="pop-name">Home</span>
+        </a>
+        <a href="/sample" class="pop-card">
+          <span class="pop-icon">📄</span>
+          <span class="pop-name">Sample Report</span>
+          <span class="pop-badge">Free</span>
+        </a>
+        <a href="/#pricing" class="pop-card">
+          <span class="pop-icon">💷</span>
+          <span class="pop-name">Pricing</span>
+        </a>
+        <a href="https://app.finreportai.co.uk" rel="noopener" class="pop-card">
+          <span class="pop-icon">🖥️</span>
+          <span class="pop-name">Client Portal</span>
+        </a>
+      </div>
     </div>
 
   </div>
@@ -412,6 +576,12 @@ footer{
         <a href="https://app.finreportai.co.uk" rel="noopener">Client Login</a>
         <a href="mailto:reports@finreportai.co.uk">Contact</a>
       </div>
+      <div class="ft-col">
+        <h4>Legal</h4>
+        <a href="/terms">Terms &amp; Conditions</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/status">System Status</a>
+      </div>
     </div>
   </div>
   <div class="ft-bot">
@@ -420,23 +590,138 @@ footer{
   </div>
 </footer>
 
-<!-- COOKIE BANNER -->
+<!-- COOKIE -->
 <div class="cookie" id="cookie">
   <p>We use cookies to improve your experience. By continuing you accept our <a href="/privacy">privacy policy</a>.</p>
   <button class="cookie-btn" onclick="acceptCookie()">Accept</button>
 </div>
 
 <script>
-// Mobile menu
+/* ── SITE PAGES for search ── */
+const PAGES = [
+  { title:'Home',               desc:'Automated financial reports for UK accountancy firms',         url:'/',                                                                     icon:'🏠' },
+  { title:'Sample Report',      desc:'Download a full unredacted sample PDF — free, no sign-up',     url:'/sample',                                                               icon:'📄' },
+  { title:'Pricing',            desc:'Standard £299/mo · White Label £499/mo · Unlimited clients',   url:'/#pricing',                                                             icon:'💷' },
+  { title:'How It Works',       desc:'Export a P&L, upload it, receive a client-ready PDF in 15 min',url:'/#how',                                                                 icon:'⚙️' },
+  { title:'Features',           desc:'19 sections: summary, charts, flags, health score, forecast',  url:'/#features',                                                            icon:'✨' },
+  { title:'FAQ',                desc:'Common questions about format, data, security, and billing',    url:'/#faq',                                                                 icon:'💬' },
+  { title:'Client Portal',      desc:'Submit reports, view history, download past PDFs',              url:'https://app.finreportai.co.uk',                                         icon:'🖥️' },
+  { title:'System Status',      desc:'Live health checks for PDF generation and client portal',       url:'/status',                                                               icon:'🟢' },
+  { title:'Privacy Policy',     desc:'How we handle your data and client information',                url:'/privacy',                                                              icon:'🔒' },
+  { title:'Terms & Conditions', desc:'Subscription terms, usage policy, and cancellation',            url:'/terms',                                                                icon:'📋' },
+  { title:'Contact',            desc:'Email us at reports@finreportai.co.uk',                         url:'mailto:reports@finreportai.co.uk',                                      icon:'✉️' },
+  { title:'Get Started Free',   desc:'Create an account — first report completely free',              url:'https://app.finreportai.co.uk',                                         icon:'🚀' },
+];
+
+/* ── SEARCH ── */
+(function(){
+  const input   = document.getElementById('search-input');
+  const results = document.getElementById('search-results');
+  const clear   = document.getElementById('search-clear');
+  let activeIdx = -1;
+
+  function getItems(){ return results.querySelectorAll('.sr-item'); }
+
+  function renderResults(q){
+    q = q.trim().toLowerCase();
+    if(!q){ results.classList.remove('open'); results.innerHTML=''; clear.classList.remove('visible'); activeIdx=-1; return; }
+    clear.classList.add('visible');
+
+    const matched = PAGES.filter(p =>
+      p.title.toLowerCase().includes(q) ||
+      p.desc.toLowerCase().includes(q)
+    ).slice(0,6);
+
+    if(!matched.length){
+      results.innerHTML = `<div class="sr-empty">No pages match "<strong>${escHtml(q)}</strong>" &mdash; <a href="https://www.google.com/search?q=site:finreportai.co.uk+${encodeURIComponent(q)}" target="_blank" rel="noopener">Search Google →</a></div>`;
+    } else {
+      results.innerHTML = matched.map((p,i)=>`
+        <div class="sr-item" role="option" data-url="${escHtml(p.url)}" data-idx="${i}">
+          <span class="sr-icon">${p.icon}</span>
+          <span class="sr-text">
+            <span class="sr-title">${highlight(p.title, q)}</span>
+            <span class="sr-desc">${highlight(p.desc, q)}</span>
+          </span>
+          <span class="sr-arrow">›</span>
+        </div>`).join('');
+      results.querySelectorAll('.sr-item').forEach(el=>{
+        el.addEventListener('click',()=>navigate(el.dataset.url));
+        el.addEventListener('mouseenter',()=>{ setActive(-1); el.classList.add('active'); });
+      });
+    }
+    results.classList.add('open');
+    activeIdx = -1;
+  }
+
+  function highlight(text, q){
+    if(!q) return escHtml(text);
+    const re = new RegExp('('+escRe(q)+')', 'gi');
+    return escHtml(text).replace(re,'<mark style="background:rgba(13,138,120,.3);color:#fff;border-radius:2px;padding:0 2px">$1</mark>');
+  }
+
+  function escHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function escRe(s){ return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
+
+  function setActive(idx){
+    const items = getItems();
+    items.forEach(el=>el.classList.remove('active'));
+    activeIdx = idx;
+    if(idx >= 0 && idx < items.length) items[idx].classList.add('active');
+  }
+
+  function navigate(url){
+    if(!url) return;
+    if(url.startsWith('mailto:') || url.startsWith('http')){ window.open(url,'_blank','noopener'); }
+    else { window.location.href = url; }
+  }
+
+  input.addEventListener('input', ()=> renderResults(input.value));
+
+  input.addEventListener('keydown', e=>{
+    const items = getItems();
+    if(e.key==='ArrowDown'){ e.preventDefault(); setActive(Math.min(activeIdx+1, items.length-1)); }
+    else if(e.key==='ArrowUp'){ e.preventDefault(); setActive(Math.max(activeIdx-1, 0)); }
+    else if(e.key==='Enter'){
+      if(activeIdx>=0 && items[activeIdx]){ navigate(items[activeIdx].dataset.url); }
+      else if(input.value.trim()){ window.open('https://www.google.com/search?q=site:finreportai.co.uk+'+encodeURIComponent(input.value.trim()),'_blank','noopener'); }
+    }
+    else if(e.key==='Escape'){ results.classList.remove('open'); input.blur(); }
+  });
+
+  clear.addEventListener('click',()=>{ input.value=''; renderResults(''); input.focus(); });
+
+  document.addEventListener('click', e=>{
+    if(!e.target.closest('.search-wrap')) results.classList.remove('open');
+  });
+})();
+
+/* ── FLOATING PARTICLES ── */
+(function(){
+  const container = document.getElementById('particles');
+  const count = 8;
+  for(let i=0;i<count;i++){
+    const d = document.createElement('div');
+    d.className = 'p-dot';
+    const size = 3 + Math.random()*5;
+    d.style.cssText = [
+      `width:${size}px`,`height:${size}px`,
+      `left:${5+Math.random()*90}%`,
+      `top:${30+Math.random()*60}%`,
+      `--dur:${10+Math.random()*14}s`,
+      `--delay:${-Math.random()*12}s`,
+      `--op:${.08+Math.random()*.14}`,
+    ].join(';');
+    container.appendChild(d);
+  }
+})();
+
+/* ── MOBILE MENU ── */
 const ham = document.getElementById('ham');
 const mobNav = document.getElementById('mob-nav');
 function closeMob(){ham.classList.remove('open');mobNav.classList.remove('open')}
-ham.addEventListener('click',()=>{
-  ham.classList.toggle('open');
-  mobNav.classList.toggle('open');
-});
+ham.addEventListener('click',()=>{ ham.classList.toggle('open'); mobNav.classList.toggle('open'); });
 
-// Cookie
+/* ── COOKIE ── */
 if(!localStorage.getItem('fr_cookie_ok')){
   document.getElementById('cookie').classList.add('show');
 }
