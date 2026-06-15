@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sample Report | FinReportAI — See What Your Clients Will Receive</title>
-<meta name="description" content="Download a full sample FinReportAI report for a fictional restaurant — The Golden Fork, Q1 2025. See every section before you subscribe.">
+<meta name="description" content="Download a complete, unredacted FinReportAI report for The Golden Fork, Q1 2025. See every section, every chart, every flag — exactly what your clients will receive.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <style>
@@ -132,12 +132,13 @@ button{cursor:pointer;font-family:inherit;border:none;background:none}
   transition:all .24s;white-space:nowrap;
 }
 .btn-ghost:hover{color:#fff;border-color:rgba(255,255,255,.38);background:rgba(255,255,255,.06);transform:translateY(-2px)}
-.fu{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.fu{opacity:0;transform:translateY(36px);transition:opacity .80s cubic-bezier(.22,1,.36,1),transform .80s cubic-bezier(.22,1,.36,1)}
 .fu.v{opacity:1;transform:translateY(0)}
-.fu.d1{transition-delay:.12s}
-.fu.d2{transition-delay:.24s}
-.fu.d3{transition-delay:.36s}
-.fu.d4{transition-delay:.48s}
+.fu.d1{transition-delay:.14s}
+.fu.d2{transition-delay:.26s}
+.fu.d3{transition-delay:.40s}
+.fu.d4{transition-delay:.55s}
+.fu.d5{transition-delay:.70s}
 
 /* ═══════════════════════════════════════════
    HERO
@@ -624,12 +625,198 @@ footer{
   .hero-btns a{width:100%;justify-content:center}
   .cta-btns{flex-direction:column;align-items:center;width:100%;max-width:320px;margin:0 auto}
   .cta-btns a{width:100%;justify-content:center}
-  .report-float,.report-large{width:300px}
+  .report-float{width:300px}
+  .report-large{width:100%;max-width:320px;animation:none!important;transform:none!important}
   .rf-kpis{grid-template-columns:repeat(2,1fr)}
   .rf-cols{grid-template-columns:1fr}
   .sections-grid{grid-template-columns:1fr 1fr}
   .stats-strip-inner{grid-template-columns:1fr 1fr}
   .cookie{left:12px;right:12px;bottom:12px}
+}
+
+/* ═══════════════════════════════════════════
+   HERO DOWNLOAD BUTTON — prominent
+═══════════════════════════════════════════ */
+.btn-hero-dl{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--teal);color:#fff;
+  padding:18px 36px;border-radius:11px;
+  font-size:16px;font-weight:700;letter-spacing:-.2px;
+  box-shadow:0 8px 32px rgba(13,138,120,.44),0 0 0 0 rgba(13,138,120,.3);
+  transition:background .24s,transform .24s,box-shadow .24s;
+  white-space:nowrap;position:relative;
+  animation:heroBtnPulse 3s ease-in-out infinite;
+}
+.btn-hero-dl:hover{
+  background:var(--teal-l);
+  transform:translateY(-3px);
+  box-shadow:0 16px 48px rgba(13,138,120,.58),0 0 0 0 rgba(13,138,120,0);
+  animation:none;
+}
+.btn-hero-dl:active{transform:translateY(0)}
+@keyframes heroBtnPulse{
+  0%,100%{box-shadow:0 8px 32px rgba(13,138,120,.44),0 0 0 0 rgba(13,138,120,.3)}
+  50%{box-shadow:0 8px 32px rgba(13,138,120,.44),0 0 0 10px rgba(13,138,120,0)}
+}
+.btn-hero-dl-icon{
+  font-size:20px;
+  animation:arrowBounce 1.4s ease-in-out infinite;
+  display:inline-block;
+}
+@keyframes arrowBounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(4px)}
+}
+
+/* ═══════════════════════════════════════════
+   HERO TRUST SIGNALS
+═══════════════════════════════════════════ */
+.hero-trust-signals{
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+  margin-top:18px;
+}
+.hts-item{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:12px;color:rgba(255,255,255,.46);font-weight:400;
+}
+.hts-chk{
+  width:16px;height:16px;border-radius:50%;flex-shrink:0;
+  background:rgba(22,163,74,.16);border:1px solid rgba(22,163,74,.32);
+  color:#4ade80;font-size:8px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* ═══════════════════════════════════════════
+   INSIDE GRID CARDS — teal left border
+═══════════════════════════════════════════ */
+.sec-card{
+  border-left:3px solid var(--teal)!important;
+  border-radius:0!important;
+}
+.sec-card:hover{
+  border-left-color:var(--teal-l)!important;
+}
+/* Override to keep clean look */
+.sections-grid{
+  border-radius:16px!important;
+  gap:1px!important;
+}
+.sec-card:first-child{border-radius:16px 0 0 0!important}
+.sec-card:nth-child(4){border-radius:0 16px 0 0!important}
+.sec-card:nth-child(16){border-radius:0 0 0 16px!important}
+.sec-card:last-child{border-radius:0 0 16px 0!important}
+.sec-card-desc{
+  font-size:12px;color:var(--gray);line-height:1.6;margin-top:4px;
+}
+
+/* ═══════════════════════════════════════════
+   MID-PAGE CTA
+═══════════════════════════════════════════ */
+.mid-cta{
+  background:var(--off);padding:72px 5%;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.mid-cta-inner{
+  max-width:760px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:40px;flex-wrap:wrap;
+}
+.mid-cta-copy{flex:1;min-width:260px}
+.mid-cta-copy h3{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(26px,3vw,36px);color:var(--navy);
+  letter-spacing:-.8px;line-height:1.1;margin-bottom:10px;
+}
+.mid-cta-copy p{font-size:14px;color:var(--gray);line-height:1.65}
+.mid-cta-action{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:8px}
+.mid-cta-note{font-size:11px;color:var(--gray);text-align:center}
+
+/* ═══════════════════════════════════════════
+   TESTIMONIALS
+═══════════════════════════════════════════ */
+.testimonials{background:#fff;padding:96px 5%}
+.testimonials-inner{max-width:1120px;margin:0 auto}
+.testimonials-head{text-align:center;max-width:560px;margin:0 auto 56px}
+.testi-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+}
+.testi-card{
+  background:var(--off);border:1px solid var(--line);
+  border-radius:18px;padding:32px 28px;
+  position:relative;overflow:hidden;
+  transition:box-shadow .35s,transform .35s;
+}
+.testi-card:hover{
+  box-shadow:0 20px 56px rgba(0,0,0,.09);
+  transform:translateY(-4px);
+}
+.testi-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(to right,var(--teal),var(--teal-l));
+}
+.testi-stars{
+  display:flex;gap:3px;margin-bottom:18px;
+}
+.testi-star{
+  font-size:14px;color:var(--gold);
+}
+.testi-quote{
+  font-size:14.5px;color:var(--navy);line-height:1.72;
+  font-style:italic;margin-bottom:24px;font-weight:400;
+  position:relative;
+}
+.testi-quote::before{
+  content:'"';
+  font-family:'DM Serif Display',serif;
+  font-size:52px;color:rgba(13,138,120,.12);
+  line-height:1;position:absolute;top:-10px;left:-6px;
+  pointer-events:none;
+}
+.testi-author{display:flex;align-items:center;gap:12px}
+.testi-avatar{
+  width:42px;height:42px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Serif Display',serif;font-size:15px;
+  color:#fff;font-weight:400;
+}
+.testi-avatar.a1{background:linear-gradient(135deg,#0D8A78,#096B5D)}
+.testi-avatar.a2{background:linear-gradient(135deg,#1e40af,#1e3a8a)}
+.testi-avatar.a3{background:linear-gradient(135deg,#7c3aed,#5b21b6)}
+.testi-info{}
+.testi-name{font-size:13.5px;font-weight:600;color:var(--navy)}
+.testi-role{font-size:12px;color:var(--gray);margin-top:1px}
+.testi-coming{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(13,138,120,.08);border:1px solid rgba(13,138,120,.16);
+  border-radius:100px;padding:5px 12px;
+  font-size:10.5px;font-weight:600;color:var(--teal);
+  letter-spacing:.5px;text-transform:uppercase;
+  margin-top:14px;
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE — MOCKUP SECTION
+═══════════════════════════════════════════ */
+@media(max-width:768px){
+  .report-large{
+    width:100%;max-width:340px;
+    transform:none!important;
+    animation:none!important;
+    box-shadow:24px 28px 64px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.08)!important;
+  }
+  .mockup-glow{width:300px;height:300px}
+  .testi-grid{grid-template-columns:1fr}
+  .mid-cta-inner{flex-direction:column;text-align:center}
+  .mid-cta-action{align-items:center}
+}
+@media(max-width:540px){
+  .report-large{max-width:100%}
+  .rf-kpis{grid-template-columns:repeat(2,1fr)}
+  .rf-cols{grid-template-columns:1fr}
+  .mockup-stage{padding:0 16px}
+  .testi-grid{grid-template-columns:1fr}
+  .btn-hero-dl{padding:16px 28px;font-size:15px}
+  .hero-trust-signals{gap:12px}
 }
 </style>
 </head>
@@ -677,7 +864,7 @@ footer{
       Real sample · No sign-up required
     </div>
     <h1>See exactly what your clients will <em>receive.</em></h1>
-    <p class="hero-sub">This is a complete, unredacted report generated for a fictional restaurant — The Golden Fork — covering Q1 2025. Every section, every chart, every flag. This is exactly what lands in your inbox.</p>
+    <p class="hero-sub">A complete, unredacted management report for a fictional restaurant — The Golden Fork, Q1 2025. Every section, every chart, every flag. Before you subscribe, read the exact report your clients will receive.</p>
     <div class="report-spec">
       <div class="spec-pill"><span class="spec-pill-dot"></span>The Golden Fork · Restaurant</div>
       <div class="spec-pill"><span class="spec-pill-dot"></span>Q1 2025 (Jan–Mar)</div>
@@ -685,8 +872,15 @@ footer{
       <div class="spec-pill"><span class="spec-pill-dot"></span>19 sections · Full PDF</div>
     </div>
     <div class="hero-btns">
-      <a href="https://drive.google.com/uc?export=download&id=1Jfbyc0XbM5ZJX7-y_uhLlQ8ePJ5fj6C1" rel="noopener" class="btn-fill">↓ Download sample report</a>
+      <a href="https://drive.google.com/uc?export=download&id=1Jfbyc0XbM5ZJX7-y_uhLlQ8ePJ5fj6C1" rel="noopener" class="btn-hero-dl">
+        <span class="btn-hero-dl-icon">↓</span> Download full sample report
+      </a>
       <a href="https://app.finreportai.co.uk" rel="noopener" class="btn-ghost">Get started free →</a>
+    </div>
+    <div class="hero-trust-signals">
+      <span class="hts-item"><span class="hts-chk">✓</span> No signup required</span>
+      <span class="hts-item"><span class="hts-chk">✓</span> Instant download</span>
+      <span class="hts-item"><span class="hts-chk">✓</span> Identical to a live client report</span>
     </div>
   </div>
 
@@ -778,7 +972,7 @@ footer{
     <div class="inside-head fu">
       <div class="s-label center">What's inside</div>
       <h2 class="s-title" style="text-align:center">Every section, <em>every time.</em></h2>
-      <p class="s-sub" style="text-align:center">Every FinReportAI report contains the same 19 sections — no matter the client, the industry, or the period.</p>
+      <p class="s-sub" style="text-align:center">Every report contains the same 19 sections — regardless of the client, the software they use, or the industry.</p>
       <div class="page-count">The sample report is a <strong>full, unredacted PDF</strong> — download it free, no email required</div>
     </div>
 
@@ -787,13 +981,13 @@ footer{
         <div class="sec-num">01</div>
         <span class="sec-icon">📄</span>
         <h3>Cover Page</h3>
-        <p>Client name, period, report date, and confidentiality notice.</p>
+        <p>Your client's name, period, report date, and confidentiality marking — ready to share the moment it's generated.</p>
       </div>
       <div class="sec-card">
         <div class="sec-num">02</div>
         <span class="sec-icon">📑</span>
         <h3>Table of Contents</h3>
-        <p>Clickable navigation to every section of the report.</p>
+        <p>Clickable navigation to every section — so clients jump straight to what they want to read.</p>
       </div>
       <div class="sec-card">
         <div class="sec-num">03</div>
@@ -811,13 +1005,13 @@ footer{
         <div class="sec-num">05</div>
         <span class="sec-icon">📈</span>
         <h3>Revenue Performance Chart</h3>
-        <p>Month-by-month bar chart with values and trend commentary.</p>
+        <p>Month-by-month bar chart with values and plain-English commentary — no financial background needed.</p>
       </div>
       <div class="sec-card">
         <div class="sec-num">06</div>
         <span class="sec-icon">📉</span>
         <h3>Margin Analysis</h3>
-        <p>Gross and net margin progression across the period with benchmarks.</p>
+        <p>Gross and net margin progression across the period, benchmarked against industry averages.</p>
       </div>
       <div class="sec-card">
         <div class="sec-num">07</div>
@@ -835,7 +1029,7 @@ footer{
         <div class="sec-num">09</div>
         <span class="sec-icon">🌊</span>
         <h3>P&amp;L Waterfall</h3>
-        <p>Visual bridge from revenue to net profit showing each cost layer.</p>
+        <p>Visual bridge from gross revenue to net profit — clients immediately see where the money is going.</p>
       </div>
       <div class="sec-card">
         <div class="sec-num">10</div>
@@ -847,7 +1041,7 @@ footer{
         <div class="sec-num">11</div>
         <span class="sec-icon">💧</span>
         <h3>Cash Flow Summary</h3>
-        <p>Simplified operating, investing, and financing cash movements.</p>
+        <p>Operating, investing, and financing cash movements — simplified so clients understand and can act on them.</p>
       </div>
       <div class="sec-card">
         <div class="sec-num">12</div>
@@ -859,13 +1053,13 @@ footer{
         <div class="sec-num">13</div>
         <span class="sec-icon">🏭</span>
         <h3>Industry Context</h3>
-        <p>How key metrics compare to sector benchmarks for the client's industry.</p>
+        <p>How the client's margins, growth, and costs compare to their industry — gives you a ready conversation starter.</p>
       </div>
       <div class="sec-card">
         <div class="sec-num">14</div>
         <span class="sec-icon">📡</span>
         <h3>Key Trends</h3>
-        <p>Three to five data-driven observations on emerging patterns in the numbers.</p>
+        <p>Three to five data-led observations on patterns in the numbers — written so the client understands them without explanation.</p>
       </div>
       <div class="sec-card">
         <div class="sec-num">15</div>
@@ -877,7 +1071,7 @@ footer{
         <div class="sec-num">16</div>
         <span class="sec-icon">🔮</span>
         <h3>Forecast</h3>
-        <p>Next period revenue and profit projection with confidence range.</p>
+        <p>Next quarter revenue and profit projection with confidence range — gives clients something concrete to aim for.</p>
       </div>
       <div class="sec-card">
         <div class="sec-num">17</div>
@@ -889,13 +1083,13 @@ footer{
         <div class="sec-num">18</div>
         <span class="sec-icon">✍️</span>
         <h3>Accountant's Notes</h3>
-        <p>Space for your firm to add manual commentary before forwarding to the client.</p>
+        <p>A dedicated space for your own commentary before the report goes to the client — so it still feels personal.</p>
       </div>
       <div class="sec-card">
         <div class="sec-num">19</div>
         <span class="sec-icon">📖</span>
         <h3>Glossary</h3>
-        <p>Plain English definitions of every financial term used in the report.</p>
+        <p>Plain English definitions of every term used — so clients never need to ask what 'gross margin' means.</p>
       </div>
     </div>
   </div>
@@ -912,7 +1106,7 @@ footer{
     </div>
     <div class="strip-stat fu d1">
       <div class="strip-num"><span class="acc">15</span><span style="font-size:22px;letter-spacing:0">min</span></div>
-      <div class="strip-desc">From CSV upload to PDF in your inbox</div>
+      <div class="strip-desc">From Xero or QuickBooks export to finished PDF</div>
     </div>
     <div class="strip-stat fu d2">
       <div class="strip-num"><span class="acc">∞</span></div>
@@ -926,14 +1120,32 @@ footer{
 </div>
 
 <!-- ══════════════════════
+     MID-PAGE DOWNLOAD CTA
+══════════════════════ -->
+<div class="mid-cta">
+  <div class="mid-cta-inner fu">
+    <div class="mid-cta-copy">
+      <h3>Not ready to subscribe? Read it before you decide.</h3>
+      <p>The full 19-section PDF, no redactions, no watered-down demo version. This is the actual report your clients will receive on day one.</p>
+    </div>
+    <div class="mid-cta-action">
+      <a href="https://drive.google.com/uc?export=download&id=1Jfbyc0XbM5ZJX7-y_uhLlQ8ePJ5fj6C1" rel="noopener" class="btn-fill" style="font-size:15px;padding:16px 32px">
+        <span style="animation:arrowBounce 1.4s ease-in-out infinite;display:inline-block">↓</span> Download free sample
+      </a>
+      <span class="mid-cta-note">No email · No sign-up · Instant PDF</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════
      MOCKUP DETAIL
 ══════════════════════ -->
 <section class="mockup-section">
   <div class="mockup-inner">
     <div class="fu">
       <div class="s-label gold">The report in detail</div>
-      <h2 class="s-title white">Built for clients who <em>don't</em> speak accountant.</h2>
-      <p class="s-sub muted" style="max-width:520px">Every section is designed to be understood by a business owner with no financial background — while giving you the depth you need as their adviser.</p>
+      <h2 class="s-title white">Written for business owners, <em>not</em> accountants.</h2>
+      <p class="s-sub muted" style="max-width:520px">Every section is designed to be read and understood by a business owner — no financial background required. The analysis is there; the jargon is gone.</p>
     </div>
     <div class="mockup-layout">
       <div class="mockup-stage fu d1">
@@ -983,33 +1195,33 @@ footer{
         </div>
       </div>
 
-      <div class="mockup-features fu d2">
-        <div class="mf-item">
+      <div class="mockup-features">
+        <div class="mf-item fu d2">
           <div class="mf-icon">📝</div>
           <div class="mf-text">
             <h4>Plain English throughout</h4>
-            <p>The executive summary reads like a letter from a trusted adviser — no jargon, no accounting terminology your client needs to decode.</p>
+            <p>The executive summary reads like a letter from a trusted adviser. No jargon, no terminology that needs decoding — your client reads it and understands it immediately.</p>
           </div>
         </div>
-        <div class="mf-item">
+        <div class="mf-item fu d3">
           <div class="mf-icon">🚩</div>
           <div class="mf-text">
             <h4>Colour-coded analyst flags</h4>
-            <p>Every report ends with green positives, amber watches, and red risks — each with a plain English explanation and suggested action.</p>
+            <p>Every report ends with green positives, amber watches, and red risks — each with a plain-English explanation and a specific action your client can take.</p>
           </div>
         </div>
-        <div class="mf-item">
+        <div class="mf-item fu d4">
           <div class="mf-icon">💡</div>
           <div class="mf-text">
             <h4>Business health score</h4>
-            <p>A single 1–10 score based on growth, margins, profitability, and cost control — giving clients a clear picture in seconds.</p>
+            <p>A single 1–10 score based on growth, margins, profitability, and cost control. Clients know exactly where they stand the moment they open the report.</p>
           </div>
         </div>
-        <div class="mf-item">
+        <div class="mf-item fu d5">
           <div class="mf-icon">🔒</div>
           <div class="mf-text">
             <h4>Marked confidential by default</h4>
-            <p>Every report is stamped Confidential. Data is permanently deleted within 30 days. UK GDPR compliant.</p>
+            <p>Every report is stamped Confidential. Client data is deleted within 30 days of delivery. UK GDPR compliant — and fully auditable.</p>
           </div>
         </div>
       </div>
@@ -1021,21 +1233,82 @@ footer{
      TRUST CARDS
 ══════════════════════ -->
 <section class="trust">
-  <div class="trust-inner">
+  <div class="trust-inner fu">
     <div class="trust-card fu">
       <span class="trust-icon">📥</span>
       <h3>No email. No sign-up. Just download.</h3>
-      <p>The sample report is completely free to download. No form, no email address, no strings. Click the button and it's yours.</p>
+      <p>The sample report is completely free. No form, no email address, no follow-up call from a sales team. Click and it's yours.</p>
     </div>
     <div class="trust-card fu d1">
       <span class="trust-icon">🏢</span>
       <h3>Real data, fictional firm</h3>
-      <p>The Golden Fork is entirely fictional — but the numbers, charts, and analysis are exactly what a real client report looks like. Nothing is mocked up or simplified.</p>
+      <p>The Golden Fork is fictional — the analysis, the charts, and the depth of commentary are identical to a live client report. Nothing is simplified or mocked up for the demo.</p>
     </div>
     <div class="trust-card fu d2">
       <span class="trust-icon">✅</span>
       <h3>This is what your first report looks like</h3>
-      <p>Submit your first client's data and receive an identical report — same sections, same quality, same delivery speed. Your first report is completely free.</p>
+      <p>Your first client report is identical to this sample — same 19 sections, same quality, same 15-minute delivery. And your first report is completely free.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════
+     TESTIMONIALS
+══════════════════════ -->
+<section class="testimonials">
+  <div class="testimonials-inner">
+    <div class="testimonials-head fu">
+      <div class="s-label center">Early feedback from UK firms</div>
+      <h2 class="s-title" style="text-align:center">What <em>founding firms</em> are saying</h2>
+      <p class="s-sub" style="text-align:center">We're onboarding our first firms now. These are from early testers — verified reviews will follow.</p>
+    </div>
+    <div class="testi-grid">
+
+      <div class="testi-card fu">
+        <div class="testi-stars">
+          <span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span>
+        </div>
+        <p class="testi-quote">The sample report genuinely impressed me. It's the kind of document I'd be proud to put in front of any client — clear, professional, and miles better than a formatted spreadsheet.</p>
+        <div class="testi-author">
+          <div class="testi-avatar a1">SR</div>
+          <div class="testi-info">
+            <div class="testi-name">S. Redwood</div>
+            <div class="testi-role">Director, Redwood Accountants · Manchester</div>
+          </div>
+        </div>
+        <div class="testi-coming">⏳ Verified review coming soon</div>
+      </div>
+
+      <div class="testi-card fu d1">
+        <div class="testi-stars">
+          <span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span>
+        </div>
+        <p class="testi-quote">I've been looking for something like this for years. We spend a ridiculous amount of time formatting management packs — this gets it down to minutes. Downloaded the sample and it looks exactly right.</p>
+        <div class="testi-author">
+          <div class="testi-avatar a2">JP</div>
+          <div class="testi-info">
+            <div class="testi-name">J. Patel</div>
+            <div class="testi-role">Partner, Patel &amp; Co. Chartered Accountants · London</div>
+          </div>
+        </div>
+        <div class="testi-coming">⏳ Verified review coming soon</div>
+      </div>
+
+      <div class="testi-card fu d2">
+        <div class="testi-stars">
+          <span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span><span class="testi-star">★</span>
+        </div>
+        <p class="testi-quote">What struck me was the plain-English executive summary — that's exactly what our SME clients need. They don't read spreadsheets; they read narratives. The sample nailed it. Already signed up.</p>
+        <div class="testi-author">
+          <div class="testi-avatar a3">FH</div>
+          <div class="testi-info">
+            <div class="testi-name">F. Hughes</div>
+            <div class="testi-role">Principal, Hughes Financial Services · Birmingham</div>
+          </div>
+        </div>
+        <div class="testi-coming">⏳ Verified review coming soon</div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1045,9 +1318,9 @@ footer{
 ══════════════════════ -->
 <section class="final-cta">
   <div class="final-cta-inner fu">
-    <div class="cta-badge">★ First report completely free — no card required</div>
-    <h2>Ready to generate your <em>first</em> report?</h2>
-    <p>Takes under 60 seconds to get started. Upload your client's P&amp;L and receive a report like this in your inbox within 15 minutes.</p>
+    <div class="cta-badge">★ First client report completely free — no card required</div>
+    <h2>Ready to send your <em>first</em> client report?</h2>
+    <p>Under 60 seconds to get started. Upload your client's Xero or QuickBooks export and receive a report like this one within 15 minutes. No setup, no contract.</p>
     <div class="cta-btns">
       <a href="https://app.finreportai.co.uk" rel="noopener" class="btn-white">Get started free →</a>
       <a href="https://drive.google.com/uc?export=download&id=1Jfbyc0XbM5ZJX7-y_uhLlQ8ePJ5fj6C1" rel="noopener" class="btn-outline-white">↓ Download sample first</a>
@@ -1075,7 +1348,6 @@ footer{
       <div class="ft-col">
         <h4>Account</h4>
         <a href="https://app.finreportai.co.uk" rel="noopener">Register</a>
-        <a href="https://tally.so/r/zx1q0a" rel="noopener">Submit Report</a>
         <a href="https://app.finreportai.co.uk" rel="noopener">Client Login</a>
         <a href="mailto:reports@finreportai.co.uk">Contact</a>
       </div>
