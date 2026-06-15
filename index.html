@@ -1738,6 +1738,31 @@ window.addEventListener('DOMContentLoaded', function(){
     var stars = new THREE.Points(starGeo, starMat);
     group.add(stars);
 
+    // Crystalline icosahedra — large wireframe shapes in the deep background
+    var crystalA = null, crystalB = null, ringMesh = null;
+    try {
+      var icoA = new THREE.IcosahedronGeometry(210, 1);
+      crystalA = new THREE.LineSegments(
+        new THREE.WireframeGeometry(icoA),
+        new THREE.LineBasicMaterial({color:0x16C7AE, transparent:true, opacity:0.26, blending:THREE.AdditiveBlending})
+      );
+      scene.add(crystalA);
+
+      var icoB = new THREE.IcosahedronGeometry(360, 0);
+      crystalB = new THREE.LineSegments(
+        new THREE.WireframeGeometry(icoB),
+        new THREE.LineBasicMaterial({color:0xC9A84C, transparent:true, opacity:0.11, blending:THREE.AdditiveBlending})
+      );
+      scene.add(crystalB);
+
+      if(!MOBILE){
+        var tor = new THREE.TorusGeometry(460, 1.8, 8, 180);
+        ringMesh = new THREE.Mesh(tor, new THREE.MeshBasicMaterial({color:0x16C7AE, transparent:true, opacity:0.15, blending:THREE.AdditiveBlending}));
+        ringMesh.rotation.x = Math.PI * 0.46;
+        scene.add(ringMesh);
+      }
+    } catch(e){}
+
     // Events
     window.addEventListener('mousemove', function(e){
       mouse.x = (e.clientX/innerWidth - 0.5) * 2;
@@ -1770,6 +1795,11 @@ window.addEventListener('DOMContentLoaded', function(){
 
       // Scroll dolly
       camera.position.z = 420 + scrollY * 0.08;
+
+      // Crystalline shape rotation (independent of node group)
+      if(crystalA){ crystalA.rotation.x = t * 0.22; crystalA.rotation.y = t * -0.15; }
+      if(crystalB){ crystalB.rotation.x = t * -0.10; crystalB.rotation.z = t * 0.085; }
+      if(ringMesh){ ringMesh.rotation.z = t * 0.13; }
 
       // Node pulse
       var nc = nodeGeo.attributes.color;
