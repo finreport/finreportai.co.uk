@@ -1289,6 +1289,8 @@ footer{background:rgba(8,18,38,.6);border-top:1px solid var(--line);padding:60px
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<!-- Three.js CDN fallback: if cdnjs is blocked, jsdelivr is tried at window.load -->
+<script>window.addEventListener('load',function(){if(!window.THREE){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js';s.onload=function(){if(window.__threeInitFn)window.__threeInitFn();};document.head.appendChild(s);}});</script>
 
 <!-- ═══════════════ EXPERIENCE ═══════════════ -->
 <script>
@@ -1622,7 +1624,6 @@ window.addEventListener('DOMContentLoaded', function(){
      THREE.JS — DATA COSMOS
   ───────────────────────────────────────────── */
   (function(){
-    if(REDUCE) return;
     var canvas = document.getElementById('bg-canvas');
     if(!canvas) return;
 
@@ -1840,10 +1841,16 @@ window.addEventListener('DOMContentLoaded', function(){
             pointer.ty=(e.clientY/window.innerHeight-0.5)*2;
           },{passive:true});
         }
-        document.addEventListener('visibilitychange',function(){if(document.hidden)stop();else start();});
-        start();
+        if(!REDUCE){
+          // Only animate when motion is acceptable; otherwise just hold the first frame
+          document.addEventListener('visibilitychange',function(){if(document.hidden)stop();else start();});
+          start();
+        }
       }
     }
+
+    // Expose for CDN fallback script
+    window.__threeInitFn = tryInit;
 
     tryInit(); // attempt at DOMContentLoaded
     window.addEventListener('load', tryInit, {once:true}); // fallback if Three.js deferred past DCL
