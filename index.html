@@ -1379,19 +1379,17 @@ window.addEventListener('DOMContentLoaded', function(){
      BILLING TOGGLE  (canonical Stripe URLs)
   ───────────────────────────────────────────── */
   (function(){
-    var STD_URL = 'https://buy.stripe.com/7sY4gr24W8pEgYRdTLes001';
-    var WL_URL  = 'https://buy.stripe.com/6oU5kvbFwbBQ9wpbLDes002';
     var PLANS = {
-      monthly:  {stdP:'£299', stdB:'',                              wlP:'£499', wlB:''},
-      sixmonth: {stdP:'£249', stdB:'billed £1,494 every 6 months',  wlP:'£419', wlB:'billed £2,514 every 6 months'},
-      annual:   {stdP:'£199', stdB:'billed £2,388/yr',              wlP:'£349', wlB:'billed £4,188/yr'}
+      monthly:  {stdP:'£299', stdB:'',                              wlP:'£499', wlB:'',                              stdU:'https://buy.stripe.com/7sY4gr24W8pEgYRdTLes001', wlU:'https://buy.stripe.com/6oU5kvbFwbBQ9wpbLDes002'},
+      sixmonth: {stdP:'£249', stdB:'billed £1,494 every 6 months',  wlP:'£419', wlB:'billed £2,514 every 6 months',  stdU:'https://buy.stripe.com/6oU9ALgZQcFUbExeXPes003', wlU:'https://buy.stripe.com/dRm3cn10SfS6gYR4jbes005'},
+      annual:   {stdP:'£199', stdB:'billed £2,388/yr',              wlP:'£349', wlB:'billed £4,188/yr',              stdU:'https://buy.stripe.com/dRm28jfVM6hwfUN9Dves004', wlU:'https://buy.stripe.com/aFa28j8tkgWa0ZT6rjes006'}
     };
     function setPeriod(period){
       var p = PLANS[period]; if(!p) return;
       var eStdP=document.getElementById('std-price'), eStdB=document.getElementById('std-billed'), eStdC=document.getElementById('std-cta');
       var eWlP=document.getElementById('wl-price'),  eWlB=document.getElementById('wl-billed'),  eWlC=document.getElementById('wl-cta');
-      if(eStdP)eStdP.textContent=p.stdP; if(eStdB)eStdB.textContent=p.stdB; if(eStdC)eStdC.href=STD_URL;
-      if(eWlP)eWlP.textContent=p.wlP;   if(eWlB)eWlB.textContent=p.wlB;   if(eWlC)eWlC.href=WL_URL;
+      if(eStdP)eStdP.textContent=p.stdP; if(eStdB)eStdB.textContent=p.stdB; if(eStdC)eStdC.href=p.stdU;
+      if(eWlP)eWlP.textContent=p.wlP;   if(eWlB)eWlB.textContent=p.wlB;   if(eWlC)eWlC.href=p.wlU;
     }
     var toggle = document.querySelector('.billing-toggle');
     if(toggle){
