@@ -1285,12 +1285,10 @@ footer{background:rgba(8,18,38,.6);border-top:1px solid var(--line);padding:60px
   <button class="cookie-btn" onclick="acceptCookie()">Accept</button>
 </div>
 
-<!-- ═══════════════ LIBRARIES (CDN) ═══════════════ -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+<!-- ═══════════════ LIBRARIES ═══════════════ -->
+<script src="/js/three.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-<!-- Three.js CDN fallback: if cdnjs is blocked, jsdelivr is tried at window.load -->
-<script>window.addEventListener('load',function(){if(!window.THREE){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js';s.onload=function(){if(window.__threeInitFn)window.__threeInitFn();};document.head.appendChild(s);}});</script>
 
 <!-- ═══════════════ EXPERIENCE ═══════════════ -->
 <script>
@@ -1652,7 +1650,7 @@ window.addEventListener('DOMContentLoaded', function(){
       try {
         /* try with preferred settings; fall back to bare context if refused */
         try {
-          renderer = new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:!MOBILE,powerPreference:'high-performance'});
+          renderer = new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:!MOBILE});
         } catch(e){
           renderer = new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:false});
         }
@@ -1848,9 +1846,6 @@ window.addEventListener('DOMContentLoaded', function(){
         }
       }
     }
-
-    // Expose for CDN fallback script
-    window.__threeInitFn = tryInit;
 
     tryInit(); // attempt at DOMContentLoaded
     window.addEventListener('load', tryInit, {once:true}); // fallback if Three.js deferred past DCL
