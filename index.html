@@ -160,7 +160,7 @@ body{
 }
 /* Deep ambient backdrop behind the WebGL canvas */
 body::before{
-  content:'';position:fixed;inset:0;z-index:-3;pointer-events:none;
+  content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:
     radial-gradient(ellipse 90% 60% at 18% 8%, rgba(13,138,120,.16) 0%, transparent 55%),
     radial-gradient(ellipse 70% 55% at 92% 28%, rgba(201,168,76,.08) 0%, transparent 52%),
@@ -179,13 +179,14 @@ img{display:block;max-width:100%}
    WEBGL CANVAS + GRAIN
 ═══════════════════════════════════════════════════════════ */
 #bg-canvas{
-  position:fixed;inset:0;width:100%;height:100%;z-index:-2;
+  position:fixed;inset:0;width:100%;height:100%;z-index:0;
   pointer-events:none;display:block;
   opacity:0;transition:opacity 1.6s ease;
 }
 #bg-canvas.ready{opacity:1}
+#page-wrap{position:relative;z-index:2;isolation:isolate}
 .grain{
-  position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.035;
+  position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.035;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -679,6 +680,8 @@ footer{background:rgba(8,18,38,.6);border-top:1px solid var(--line);padding:60px
 
 <!-- Scroll progress -->
 <div class="scroll-progress" aria-hidden="true"><div class="scroll-progress-bar" id="scrollbar"></div></div>
+
+<div id="page-wrap">
 
 <!-- ══════════════════════════════════════════ NAV ══════════════════════════════════════════ -->
 <nav id="nav">
@@ -1253,6 +1256,7 @@ footer{background:rgba(8,18,38,.6);border-top:1px solid var(--line);padding:60px
     <div class="ft-legal"><a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms &amp; Conditions</a></div>
   </div>
 </footer>
+</div><!-- /page-wrap -->
 
 <!-- STICKY MOBILE CTA -->
 <div id="sticky-cta">
@@ -1766,8 +1770,6 @@ window.addEventListener('DOMContentLoaded', function(){
         if(edges.length>0) group.add(packetPoints);
 
         group.__net={edges:edges,nodePositions:nodePositions,packets:packets,nodePhases:nodePhases,nGeo:nGeo,pGeo:pGeo};
-        camera.lookAt(0,0,0);
-        renderer.render(scene,camera);
         return true;
       } catch(e){ return false; }
     }
