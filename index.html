@@ -1290,7 +1290,7 @@ footer{background:rgba(8,18,38,.6);border-top:1px solid var(--line);padding:60px
 </div>
 
 <!-- ═══════════════ LIBRARIES ═══════════════ -->
-<script src="/js/three.min.js?v=3" defer></script>
+<script src="/js/three.min.js?v=4" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 
@@ -1635,7 +1635,7 @@ window.addEventListener('DOMContentLoaded', function(){
     var crystalA, crystalB, ringMesh, particles, nodePoints, packetPoints;
     var raf = null, running = false;
     var pointer = {x:0, y:0, tx:0, ty:0};
-    var clock = {t:0};
+    var clock = {t:0, last:null};
 
     /* soft glow sprite for points */
     function softTexture(){
@@ -1788,10 +1788,18 @@ window.addEventListener('DOMContentLoaded', function(){
       if(!running) return;
       raf=requestAnimationFrame(frame);
 
-      clock.t+=0.0045;
+      /* Delta-time: measure real seconds since last frame so speed is
+         identical at any refresh rate (60/120/144 Hz, Chrome or Firefox). */
+      var now = performance.now();
+      var delta = clock.last !== null ? Math.min((now - clock.last) * 0.001, 0.1) : 0.01667;
+      clock.last = now;
 
-      pointer.x+=(pointer.tx-pointer.x)*0.045;
-      pointer.y+=(pointer.ty-pointer.y)*0.045;
+      clock.t += delta * 0.27; /* 0.0045 * 60 = 0.27 units per real second */
+
+      /* Frame-rate-independent pointer lerp: equivalent to *= 0.045 at 60fps */
+      var lerpF = 1 - Math.exp(-2.76 * delta);
+      pointer.x += (pointer.tx - pointer.x) * lerpF;
+      pointer.y += (pointer.ty - pointer.y) * lerpF;
       camera.position.x=pointer.x*2.4;
       camera.position.y=-pointer.y*1.8;
 
@@ -1816,7 +1824,8 @@ window.addEventListener('DOMContentLoaded', function(){
         nc.needsUpdate=true;
         var pp=net.pGeo.attributes.position;
         for(var i=0;i<net.packets.length;i++){
-          var pk=net.packets[i]; pk.t+=pk.sp;
+          var pk=net.packets[i];
+          pk.t += pk.sp * delta * 60; /* time-based: sp values were tuned for 60fps */
           if(pk.t>1){pk.t=0;pk.ei=Math.floor(Math.random()*net.edges.length);}
           var ea=net.nodePositions[net.edges[pk.ei][0]],eb=net.nodePositions[net.edges[pk.ei][1]];
           pp.setXYZ(i,ea.x+(eb.x-ea.x)*pk.t,ea.y+(eb.y-ea.y)*pk.t,ea.z+(eb.z-ea.z)*pk.t);
@@ -1828,7 +1837,7 @@ window.addEventListener('DOMContentLoaded', function(){
       renderer.render(scene,camera);
     }
 
-    function start(){if(!running){running=true;frame();}}
+    function start(){if(!running){clock.last=null;running=true;frame();}}
     function stop(){running=false;if(raf)cancelAnimationFrame(raf);}
 
     function resize(){
