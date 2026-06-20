@@ -1778,40 +1778,43 @@ window.addEventListener('DOMContentLoaded', function(){
     function frame(){
       if(!running) return;
       raf=requestAnimationFrame(frame);
-      clock.t+=0.0045;
 
-      pointer.x+=(pointer.tx-pointer.x)*0.045;
-      pointer.y+=(pointer.ty-pointer.y)*0.045;
-      camera.position.x=pointer.x*2.4;
-      camera.position.y=-pointer.y*1.8;
+      if(!REDUCE){
+        clock.t+=0.0045;
 
-      var h=document.documentElement.scrollHeight-window.innerHeight;
-      var sp=h>0?window.scrollY/h:0;
-      camera.position.z=15+sp*7;
-      group.rotation.y=clock.t*0.6+sp*Math.PI*1.4+pointer.x*0.25;
-      group.rotation.x=Math.sin(clock.t*0.4)*0.12+sp*0.5;
+        pointer.x+=(pointer.tx-pointer.x)*0.045;
+        pointer.y+=(pointer.ty-pointer.y)*0.045;
+        camera.position.x=pointer.x*2.4;
+        camera.position.y=-pointer.y*1.8;
 
-      if(crystalA){crystalA.rotation.x=clock.t*0.7; crystalA.rotation.y=-clock.t*0.5;}
-      if(crystalB){crystalB.rotation.x=-clock.t*0.32; crystalB.rotation.z=clock.t*0.28;}
-      if(particles){particles.rotation.y=-clock.t*0.12;}
-      if(ringMesh){ringMesh.rotation.z=clock.t*0.4;}
+        var h=document.documentElement.scrollHeight-window.innerHeight;
+        var sp=h>0?window.scrollY/h:0;
+        camera.position.z=15+sp*7;
+        group.rotation.y=clock.t*0.6+sp*Math.PI*1.4+pointer.x*0.25;
+        group.rotation.x=Math.sin(clock.t*0.4)*0.12+sp*0.5;
 
-      var net=group.__net;
-      if(net&&net.edges.length>0){
-        var nc=net.nGeo.attributes.color;
-        for(var i=0;i<net.nodePhases.length;i++){
-          var p=0.5+0.5*Math.sin(clock.t*2.2+net.nodePhases[i]);
-          nc.setXYZ(i,0.086*p+0.02,0.78*p+0.12,0.68*p+0.1);
+        if(crystalA){crystalA.rotation.x=clock.t*0.7; crystalA.rotation.y=-clock.t*0.5;}
+        if(crystalB){crystalB.rotation.x=-clock.t*0.32; crystalB.rotation.z=clock.t*0.28;}
+        if(particles){particles.rotation.y=-clock.t*0.12;}
+        if(ringMesh){ringMesh.rotation.z=clock.t*0.4;}
+
+        var net=group.__net;
+        if(net&&net.edges.length>0){
+          var nc=net.nGeo.attributes.color;
+          for(var i=0;i<net.nodePhases.length;i++){
+            var p=0.5+0.5*Math.sin(clock.t*2.2+net.nodePhases[i]);
+            nc.setXYZ(i,0.086*p+0.02,0.78*p+0.12,0.68*p+0.1);
+          }
+          nc.needsUpdate=true;
+          var pp=net.pGeo.attributes.position;
+          for(var i=0;i<net.packets.length;i++){
+            var pk=net.packets[i]; pk.t+=pk.sp;
+            if(pk.t>1){pk.t=0;pk.ei=Math.floor(Math.random()*net.edges.length);}
+            var ea=net.nodePositions[net.edges[pk.ei][0]],eb=net.nodePositions[net.edges[pk.ei][1]];
+            pp.setXYZ(i,ea.x+(eb.x-ea.x)*pk.t,ea.y+(eb.y-ea.y)*pk.t,ea.z+(eb.z-ea.z)*pk.t);
+          }
+          pp.needsUpdate=true;
         }
-        nc.needsUpdate=true;
-        var pp=net.pGeo.attributes.position;
-        for(var i=0;i<net.packets.length;i++){
-          var pk=net.packets[i]; pk.t+=pk.sp;
-          if(pk.t>1){pk.t=0;pk.ei=Math.floor(Math.random()*net.edges.length);}
-          var ea=net.nodePositions[net.edges[pk.ei][0]],eb=net.nodePositions[net.edges[pk.ei][1]];
-          pp.setXYZ(i,ea.x+(eb.x-ea.x)*pk.t,ea.y+(eb.y-ea.y)*pk.t,ea.z+(eb.z-ea.z)*pk.t);
-        }
-        pp.needsUpdate=true;
       }
 
       camera.lookAt(0,0,0);
@@ -1835,7 +1838,6 @@ window.addEventListener('DOMContentLoaded', function(){
       DPRCAP = MOBILE ? 1.5 : 2;
       if(build()){
         canvas.classList.add('ready');
-        renderer.render(scene, camera); // static frame always shown, even with reduced motion
         window.addEventListener('resize',resize,{passive:true});
         if(FINE&&!MOBILE){
           window.addEventListener('mousemove',function(e){
@@ -1843,10 +1845,8 @@ window.addEventListener('DOMContentLoaded', function(){
             pointer.ty=(e.clientY/window.innerHeight-0.5)*2;
           },{passive:true});
         }
-        if(!REDUCE){
-          document.addEventListener('visibilitychange',function(){if(document.hidden)stop();else start();});
-          start();
-        }
+        document.addEventListener('visibilitychange',function(){if(document.hidden)stop();else start();});
+        start(); // always run the loop; REDUCE just means no animation updates
       }
     }
 
