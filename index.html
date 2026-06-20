@@ -1655,10 +1655,13 @@ window.addEventListener('DOMContentLoaded', function(){
         /* try with preferred settings; fall back to bare context if refused */
         try {
           renderer = new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:!MOBILE});
+          console.log('[BG] WebGLRenderer created (antialias='+(!MOBILE)+')');
         } catch(e){
-          renderer = new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:false});
+          console.warn('[BG] WebGLRenderer failed, retrying without antialias:', e);
+          try { renderer = new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:false}); }
+          catch(e2){ console.error('[BG] WebGLRenderer fallback also failed:', e2); return false; }
         }
-        if(!renderer) return false;
+        if(!renderer){ console.error('[BG] renderer is null after construction'); return false; }
 
         renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,DPRCAP));
         renderer.setSize(window.innerWidth,window.innerHeight);
@@ -1770,8 +1773,9 @@ window.addEventListener('DOMContentLoaded', function(){
         if(edges.length>0) group.add(packetPoints);
 
         group.__net={edges:edges,nodePositions:nodePositions,packets:packets,nodePhases:nodePhases,nGeo:nGeo,pGeo:pGeo};
+        console.log('[BG] build() completed successfully');
         return true;
-      } catch(e){ return false; }
+      } catch(e){ console.error('[BG] build() threw:', e); return false; }
     }
 
     function frame(){
@@ -1828,11 +1832,14 @@ window.addEventListener('DOMContentLoaded', function(){
     }
 
     function tryInit(){
+      console.log('[BG] tryInit called, THREE=',!!window.THREE,'ready=',canvas.classList.contains('ready'));
       if(canvas.classList.contains('ready')) return;
-      if(!window.THREE) return;
+      if(!window.THREE){ console.warn('[BG] THREE not yet available'); return; }
       THREE = window.THREE;
       DPRCAP = MOBILE ? 1.5 : 2;
-      if(build()){
+      var ok = build();
+      console.log('[BG] build() returned', ok);
+      if(ok){
         canvas.classList.add('ready');
         window.addEventListener('resize',resize,{passive:true});
         if(FINE&&!MOBILE){
@@ -1842,15 +1849,14 @@ window.addEventListener('DOMContentLoaded', function(){
           },{passive:true});
         }
         if(!REDUCE){
-          // Only animate when motion is acceptable; otherwise just hold the first frame
           document.addEventListener('visibilitychange',function(){if(document.hidden)stop();else start();});
           start();
         }
       }
     }
 
-    tryInit(); // attempt at DOMContentLoaded
-    window.addEventListener('load', tryInit, {once:true}); // fallback if Three.js deferred past DCL
+    tryInit();
+    window.addEventListener('load', tryInit, {once:true});
   })();
 
 });
