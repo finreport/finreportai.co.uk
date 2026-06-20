@@ -1290,7 +1290,7 @@ footer{background:rgba(8,18,38,.6);border-top:1px solid var(--line);padding:60px
 </div>
 
 <!-- ═══════════════ LIBRARIES ═══════════════ -->
-<script src="/js/three.min.js?v=2" defer></script>
+<script src="/js/three.min.js?v=3" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 
@@ -1651,15 +1651,24 @@ window.addEventListener('DOMContentLoaded', function(){
     }
 
     function build(){
+      var failReason = '';
       try {
-        /* try with preferred settings; fall back to bare context if refused */
+        /* try with antialias; fall back silently if context creation refused */
         try {
           renderer = new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:!MOBILE});
         } catch(e){
-          try { renderer = new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:false}); }
-          catch(e2){ return false; }
+          failReason = 'antialias WebGLRenderer failed ('+e+'), trying without';
+          try {
+            renderer = new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:false});
+          } catch(e2){
+            console.error('[BG] WebGLRenderer creation failed entirely:', e2);
+            return false;
+          }
         }
-        if(!renderer) return false;
+        if(!renderer){
+          console.error('[BG] WebGLRenderer is null after construction');
+          return false;
+        }
 
         renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,DPRCAP));
         renderer.setSize(window.innerWidth,window.innerHeight);
@@ -1779,42 +1788,40 @@ window.addEventListener('DOMContentLoaded', function(){
       if(!running) return;
       raf=requestAnimationFrame(frame);
 
-      if(!REDUCE){
-        clock.t+=0.0045;
+      clock.t+=0.0045;
 
-        pointer.x+=(pointer.tx-pointer.x)*0.045;
-        pointer.y+=(pointer.ty-pointer.y)*0.045;
-        camera.position.x=pointer.x*2.4;
-        camera.position.y=-pointer.y*1.8;
+      pointer.x+=(pointer.tx-pointer.x)*0.045;
+      pointer.y+=(pointer.ty-pointer.y)*0.045;
+      camera.position.x=pointer.x*2.4;
+      camera.position.y=-pointer.y*1.8;
 
-        var h=document.documentElement.scrollHeight-window.innerHeight;
-        var sp=h>0?window.scrollY/h:0;
-        camera.position.z=15+sp*7;
-        group.rotation.y=clock.t*0.6+sp*Math.PI*1.4+pointer.x*0.25;
-        group.rotation.x=Math.sin(clock.t*0.4)*0.12+sp*0.5;
+      var h=document.documentElement.scrollHeight-window.innerHeight;
+      var sp=h>0?window.scrollY/h:0;
+      camera.position.z=15+sp*7;
+      group.rotation.y=clock.t*0.6+sp*Math.PI*1.4+pointer.x*0.25;
+      group.rotation.x=Math.sin(clock.t*0.4)*0.12+sp*0.5;
 
-        if(crystalA){crystalA.rotation.x=clock.t*0.7; crystalA.rotation.y=-clock.t*0.5;}
-        if(crystalB){crystalB.rotation.x=-clock.t*0.32; crystalB.rotation.z=clock.t*0.28;}
-        if(particles){particles.rotation.y=-clock.t*0.12;}
-        if(ringMesh){ringMesh.rotation.z=clock.t*0.4;}
+      if(crystalA){crystalA.rotation.x=clock.t*0.7; crystalA.rotation.y=-clock.t*0.5;}
+      if(crystalB){crystalB.rotation.x=-clock.t*0.32; crystalB.rotation.z=clock.t*0.28;}
+      if(particles){particles.rotation.y=-clock.t*0.12;}
+      if(ringMesh){ringMesh.rotation.z=clock.t*0.4;}
 
-        var net=group.__net;
-        if(net&&net.edges.length>0){
-          var nc=net.nGeo.attributes.color;
-          for(var i=0;i<net.nodePhases.length;i++){
-            var p=0.5+0.5*Math.sin(clock.t*2.2+net.nodePhases[i]);
-            nc.setXYZ(i,0.086*p+0.02,0.78*p+0.12,0.68*p+0.1);
-          }
-          nc.needsUpdate=true;
-          var pp=net.pGeo.attributes.position;
-          for(var i=0;i<net.packets.length;i++){
-            var pk=net.packets[i]; pk.t+=pk.sp;
-            if(pk.t>1){pk.t=0;pk.ei=Math.floor(Math.random()*net.edges.length);}
-            var ea=net.nodePositions[net.edges[pk.ei][0]],eb=net.nodePositions[net.edges[pk.ei][1]];
-            pp.setXYZ(i,ea.x+(eb.x-ea.x)*pk.t,ea.y+(eb.y-ea.y)*pk.t,ea.z+(eb.z-ea.z)*pk.t);
-          }
-          pp.needsUpdate=true;
+      var net=group.__net;
+      if(net&&net.edges.length>0){
+        var nc=net.nGeo.attributes.color;
+        for(var i=0;i<net.nodePhases.length;i++){
+          var p=0.5+0.5*Math.sin(clock.t*2.2+net.nodePhases[i]);
+          nc.setXYZ(i,0.086*p+0.02,0.78*p+0.12,0.68*p+0.1);
         }
+        nc.needsUpdate=true;
+        var pp=net.pGeo.attributes.position;
+        for(var i=0;i<net.packets.length;i++){
+          var pk=net.packets[i]; pk.t+=pk.sp;
+          if(pk.t>1){pk.t=0;pk.ei=Math.floor(Math.random()*net.edges.length);}
+          var ea=net.nodePositions[net.edges[pk.ei][0]],eb=net.nodePositions[net.edges[pk.ei][1]];
+          pp.setXYZ(i,ea.x+(eb.x-ea.x)*pk.t,ea.y+(eb.y-ea.y)*pk.t,ea.z+(eb.z-ea.z)*pk.t);
+        }
+        pp.needsUpdate=true;
       }
 
       camera.lookAt(0,0,0);
@@ -1833,7 +1840,10 @@ window.addEventListener('DOMContentLoaded', function(){
 
     function tryInit(){
       if(canvas.classList.contains('ready')) return;
-      if(!window.THREE) return;
+      if(!window.THREE){
+        console.error('[BG] Background animation failed to initialize: THREE.js not available');
+        return;
+      }
       THREE = window.THREE;
       DPRCAP = MOBILE ? 1.5 : 2;
       if(build()){
@@ -1846,7 +1856,9 @@ window.addEventListener('DOMContentLoaded', function(){
           },{passive:true});
         }
         document.addEventListener('visibilitychange',function(){if(document.hidden)stop();else start();});
-        start(); // always run the loop; REDUCE just means no animation updates
+        start();
+      } else {
+        console.error('[BG] Background animation failed to initialize: WebGL scene build failed (check GPU/context support)');
       }
     }
 
