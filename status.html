@@ -679,7 +679,7 @@ footer{
       <div class="svc-icon" id="icon-pdf">⚙️</div>
       <div class="svc-info">
         <div class="svc-name">PDF Generation Server</div>
-        <div class="svc-detail" id="detail-pdf">Checking endpoint…</div>
+        <div class="svc-detail" id="detail-pdf">Checking server availability…</div>
       </div>
       <div class="svc-right">
         <span class="status-badge checking" id="badge-pdf">
@@ -883,6 +883,8 @@ const SERVICES = [
    STATE
 ────────────────────────────────────── */
 const state = { pdf: null, portal: null, email: true };
+let consecutivePdfFails = 0;
+let checkInProgress = false;
 
 /* ──────────────────────────────────────
    BUILD UPTIME BARS
@@ -942,7 +944,7 @@ function setStatus(id, status, detailText, timeText) {
   const detail = document.getElementById('detail-' + id);
   const time   = document.getElementById('time-' + id);
 
-  const labels  = { green: 'Operational', amber: 'Checking…', red: 'Degraded' };
+  const labels  = { green: 'Operational', amber: 'Degraded', red: 'Disrupted' };
   const icons   = {
     pdf:    { green: '⚙️', red: '⚙️' },
     portal: { green: '🖥️', red: '🖥️' },
@@ -988,12 +990,10 @@ function setRespTime(id, ms, isManual) {
 /* ──────────────────────────────────────
    CHECK PDF
 ────────────────────────────────────── */
-async function checkPdf() {
-  setStatus('pdf', 'amber', 'Checking endpoint…', '—');
-  document.getElementById('time-pdf').innerHTML = '<span class="resp-dot"></span>Checking…';
+async function attemptPdfFetch() {
+  const ctrl = new AbortController();
+  const timeout = setTimeout(() => ctrl.abort(), 65000);
   try {
-    const ctrl = new AbortController();
-    const timeout = setTimeout(() => ctrl.abort(), 10000);
     const t0 = performance.now();
     const res = await fetch('https://finreportai.onrender.com/healthz', {
       method: 'GET',
@@ -1004,19 +1004,52 @@ async function checkPdf() {
     const ms = Math.round(performance.now() - t0);
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
-    if (data && data.status === 'ok') {
-      state.pdf = true;
-      setStatus('pdf', 'green', 'PDF generation endpoint responding normally', '');
-      setRespTime('pdf', ms);
-    } else {
-      throw new Error('Unexpected response');
-    }
+    if (data && data.status === 'ok') return { ok: true, ms };
+    throw new Error('Unexpected response');
   } catch (e) {
-    state.pdf = false;
-    const msg = e.name === 'AbortError' ? 'Request timed out after 10s' : 'Endpoint not responding';
-    setStatus('pdf', 'red', msg, '');
-    setRespTime('pdf', 0, false);
-    document.getElementById('time-pdf').innerHTML = '<span class="resp-dot"></span>Timeout';
+    clearTimeout(timeout);
+    throw e;
+  }
+}
+
+async function checkPdf() {
+  setStatus('pdf', 'amber', 'Checking server availability…', '—');
+  document.getElementById('time-pdf').innerHTML = '<span class="resp-dot"></span>Checking…';
+  try {
+    const result = await attemptPdfFetch();
+    consecutivePdfFails = 0;
+    state.pdf = true;
+    setStatus('pdf', 'green', 'PDF generation server is available', '');
+    setRespTime('pdf', result.ms);
+  } catch (e) {
+    // First attempt failed — wait 5 s then retry once
+    setStatus('pdf', 'amber', 'Server not responding — retrying in 5 s…', '—');
+    document.getElementById('time-pdf').innerHTML = '<span class="resp-dot"></span>Retrying…';
+    await new Promise(r => setTimeout(r, 5000));
+    try {
+      const result = await attemptPdfFetch();
+      consecutivePdfFails = 0;
+      state.pdf = true;
+      setStatus('pdf', 'green', 'PDF generation server is available', '');
+      setRespTime('pdf', result.ms);
+    } catch (e2) {
+      consecutivePdfFails++;
+      if (consecutivePdfFails >= 2) {
+        state.pdf = false;
+        const msg = e2.name === 'AbortError'
+          ? 'Server not responding after 65 s (possible extended cold-start or outage)'
+          : 'Server unavailable — two consecutive check cycles failed';
+        setStatus('pdf', 'red', msg, '');
+      } else {
+        // First failed cycle: amber (Degraded) — may be a cold-start
+        state.pdf = false;
+        const msg = e2.name === 'AbortError'
+          ? 'Server cold-starting — did not respond within 65 s'
+          : 'Server did not respond — monitoring on next cycle';
+        setStatus('pdf', 'amber', msg, '');
+      }
+      document.getElementById('time-pdf').innerHTML = '<span class="resp-dot"></span>No response';
+    }
   }
   updateBanner();
 }
@@ -1065,12 +1098,21 @@ function updateBanner() {
   if (!allChecked) return;
 
   const allUp = state.pdf && state.portal && state.email;
+  // pdf is null when unchecked, true when healthy, false when failed
+  // consecutivePdfFails tracks cycles: 1 = degraded (amber), 2+ = disrupted (red)
+  const pdfDegraded = !state.pdf && consecutivePdfFails === 1;
+  const portalDown  = !state.portal;
 
   if (allUp) {
     banner.className = 'overall-banner green';
     icon.textContent = '✓';
     title.textContent = 'All systems operational';
     sub.textContent = 'All services are running normally. Last checked at ' + nowStr() + '.';
+  } else if (pdfDegraded && !portalDown) {
+    banner.className = 'overall-banner amber';
+    icon.textContent = '⏳';
+    title.textContent = 'PDF server may be starting up';
+    sub.textContent = 'The PDF generation server did not respond this cycle — this is normal after a period of inactivity. Rechecking in ' + REFRESH_INTERVAL + ' s.';
   } else {
     banner.className = 'overall-banner red';
     icon.textContent = '⚠';
@@ -1083,6 +1125,9 @@ function updateBanner() {
    RUN ALL CHECKS
 ────────────────────────────────────── */
 async function runChecks() {
+  if (checkInProgress) return;
+  checkInProgress = true;
+
   // Reset state
   state.pdf    = null;
   state.portal = null;
@@ -1094,14 +1139,15 @@ async function runChecks() {
   document.getElementById('banner-title').textContent = 'Checking systems…';
   document.getElementById('banner-sub').textContent   = 'Running health checks across all services';
 
-  // Run in parallel
+  // Run in parallel (PDF check may take up to ~135 s including retry)
   await Promise.all([checkPdf(), checkPortal()]);
+  checkInProgress = false;
 }
 
 /* ──────────────────────────────────────
    AUTO-REFRESH COUNTDOWN
 ────────────────────────────────────── */
-const REFRESH_INTERVAL = 60;
+const REFRESH_INTERVAL = 150; // PDF check can take up to 135 s (65 s + 5 s wait + 65 s retry)
 let countdownVal = REFRESH_INTERVAL;
 let countdownTimer = null;
 
