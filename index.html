@@ -1296,17 +1296,14 @@ footer{background:rgba(8,18,38,.6);border-top:1px solid var(--line);padding:60px
 
 <!-- ═══════════════ EXPERIENCE ═══════════════ -->
 <script>
-console.error('[DIAG-IMMEDIATE] inline script is executing');
 window.addEventListener('DOMContentLoaded', function(){
   'use strict';
-  console.error('[DIAG] DOMContentLoaded fired');
   var REDUCE = false;
   try { REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){}
   var FINE = false;
   try { FINE = matchMedia('(pointer:fine)').matches; } catch(e){}
   var MOBILE = window.innerWidth < 768 || (navigator.maxTouchPoints>0 && window.innerWidth<1024);
   var LOWPOWER = (navigator.hardwareConcurrency||4) <= 4;
-  console.error('[DIAG] MOBILE='+MOBILE+' REDUCE='+REDUCE+' FINE='+FINE);
 
   /* ─────────────────────────────────────────────
      NAV + MOBILE MENU (vanilla, always works)
@@ -1625,7 +1622,6 @@ window.addEventListener('DOMContentLoaded', function(){
     clearFailsafe();
   }
 
-  console.error('[DIAG] Reached Three.js IIFE');
   /* ─────────────────────────────────────────────
      THREE.JS — DATA COSMOS
   ───────────────────────────────────────────── */
@@ -1659,13 +1655,11 @@ window.addEventListener('DOMContentLoaded', function(){
         /* try with preferred settings; fall back to bare context if refused */
         try {
           renderer = new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:!MOBILE});
-          console.error('[BG] WebGLRenderer created (antialias='+(!MOBILE)+')');
         } catch(e){
-          console.error('[BG] WebGLRenderer failed, retrying without antialias:', e);
           try { renderer = new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:false}); }
-          catch(e2){ console.error('[BG] WebGLRenderer fallback also failed:', e2); return false; }
+          catch(e2){ return false; }
         }
-        if(!renderer){ console.error('[BG] renderer is null after construction'); return false; }
+        if(!renderer) return false;
 
         renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,DPRCAP));
         renderer.setSize(window.innerWidth,window.innerHeight);
@@ -1777,9 +1771,8 @@ window.addEventListener('DOMContentLoaded', function(){
         if(edges.length>0) group.add(packetPoints);
 
         group.__net={edges:edges,nodePositions:nodePositions,packets:packets,nodePhases:nodePhases,nGeo:nGeo,pGeo:pGeo};
-        console.error('[BG] build() completed successfully');
         return true;
-      } catch(e){ console.error('[BG] build() threw:', e); return false; }
+      } catch(e){ return false; }
     }
 
     function frame(){
@@ -1836,15 +1829,13 @@ window.addEventListener('DOMContentLoaded', function(){
     }
 
     function tryInit(){
-      console.error('[BG] tryInit called, THREE=',!!window.THREE,'ready=',canvas.classList.contains('ready'));
       if(canvas.classList.contains('ready')) return;
-      if(!window.THREE){ console.error('[BG] THREE not yet available'); return; }
+      if(!window.THREE) return;
       THREE = window.THREE;
       DPRCAP = MOBILE ? 1.5 : 2;
-      var ok = build();
-      console.error('[BG] build() returned', ok);
-      if(ok){
+      if(build()){
         canvas.classList.add('ready');
+        renderer.render(scene, camera); // static frame always shown, even with reduced motion
         window.addEventListener('resize',resize,{passive:true});
         if(FINE&&!MOBILE){
           window.addEventListener('mousemove',function(e){
