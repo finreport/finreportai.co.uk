@@ -302,7 +302,7 @@ button{cursor:pointer;font-family:inherit;border:none;background:none}
 /* ── MAIN BUTTONS ── */
 .error-btns{
   display:flex;gap:13px;justify-content:center;flex-wrap:wrap;
-  margin-bottom:44px;
+  margin-bottom:20px;
 }
 .btn-fill{
   display:inline-flex;align-items:center;gap:8px;
@@ -503,6 +503,12 @@ footer{
       <strong>While you're here — see what your clients would actually receive.</strong> Download the full sample report free, no sign-up needed.
     </p>
 
+    <!-- Primary CTAs -->
+    <div class="error-btns fade-in d3">
+      <a href="/" class="btn-fill">← Take me home</a>
+      <a href="/sample" class="btn-ghost">↓ See the sample report</a>
+    </div>
+
     <!-- Search bar -->
     <div class="search-wrap fade-in d3">
       <div class="search-box" role="search">
@@ -520,12 +526,6 @@ footer{
         <button class="search-clear" id="search-clear" aria-label="Clear search" tabindex="-1">×</button>
       </div>
       <div class="search-results" id="search-results" role="listbox" aria-label="Search results"></div>
-    </div>
-
-    <!-- Primary CTAs -->
-    <div class="error-btns fade-in d3">
-      <a href="/" class="btn-fill">← Take me home</a>
-      <a href="/sample" class="btn-ghost">↓ See the sample report</a>
     </div>
 
     <!-- Popular pages -->
