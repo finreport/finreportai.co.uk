@@ -267,9 +267,9 @@ button{cursor:pointer;font-family:inherit;border:none;background:none}
 .search-clear.visible{display:block}
 /* Dropdown results */
 .search-results{
-  position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:100;
+  position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:300;
   background:var(--navy-3);border:1px solid rgba(255,255,255,.12);
-  border-radius:11px;overflow:hidden;
+  border-radius:11px;overflow-y:auto;max-height:min(320px,60vh);
   box-shadow:0 20px 56px rgba(0,0,0,.55);
   display:none;
 }
