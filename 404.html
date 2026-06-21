@@ -529,7 +529,7 @@ footer{
     </div>
 
     <!-- Popular pages -->
-    <div class="fade-in d4">
+    <div class="fade-in d4" id="popular-section">
       <p class="popular-label">Popular pages</p>
       <div class="popular-grid">
         <a href="/" class="pop-card">
@@ -618,13 +618,15 @@ const PAGES = [
   const input   = document.getElementById('search-input');
   const results = document.getElementById('search-results');
   const clear   = document.getElementById('search-clear');
+  const popular = document.getElementById('popular-section');
   let activeIdx = -1;
 
   function getItems(){ return results.querySelectorAll('.sr-item'); }
 
   function renderResults(q){
     q = q.trim().toLowerCase();
-    if(!q){ results.classList.remove('open'); results.innerHTML=''; clear.classList.remove('visible'); activeIdx=-1; return; }
+    if(!q){ results.classList.remove('open'); results.innerHTML=''; clear.classList.remove('visible'); activeIdx=-1; popular.style.display=''; return; }
+    popular.style.display='none';
     clear.classList.add('visible');
 
     const matched = PAGES.filter(p =>
