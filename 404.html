@@ -525,7 +525,6 @@ footer{
         >
         <button class="search-clear" id="search-clear" aria-label="Clear search" tabindex="-1">×</button>
       </div>
-      <div class="search-results" id="search-results" role="listbox" aria-label="Search results"></div>
     </div>
 
     <!-- Popular pages -->
@@ -616,28 +615,49 @@ const PAGES = [
 /* ── SEARCH ── */
 (function(){
   const input   = document.getElementById('search-input');
-  const results = document.getElementById('search-results');
+  const box     = document.querySelector('.search-box');
   const clear   = document.getElementById('search-clear');
   const popular = document.getElementById('popular-section');
   let activeIdx = -1;
+  let isOpen    = false;
 
-  function getItems(){ return results.querySelectorAll('.sr-item'); }
+  /* Portal appended directly to <body> — escapes overflow:hidden on .error-wrap */
+  const portal = document.createElement('div');
+  portal.id = 'search-results';
+  portal.className = 'search-results';
+  portal.setAttribute('role', 'listbox');
+  portal.setAttribute('aria-label', 'Search results');
+  document.body.appendChild(portal);
+
+  function positionPortal(){
+    const r = box.getBoundingClientRect();
+    portal.style.position = 'fixed';
+    portal.style.zIndex   = '9999';
+    portal.style.top      = (r.bottom + 6) + 'px';
+    portal.style.left     = r.left + 'px';
+    portal.style.width    = r.width + 'px';
+  }
+
+  function openPortal(){  positionPortal(); portal.classList.add('open');    isOpen = true;  }
+  function closePortal(){ portal.classList.remove('open'); portal.innerHTML = ''; isOpen = false; }
+
+  function getItems(){ return portal.querySelectorAll('.sr-item'); }
 
   function renderResults(q){
     q = q.trim().toLowerCase();
-    if(!q){ results.classList.remove('open'); results.innerHTML=''; clear.classList.remove('visible'); activeIdx=-1; popular.style.display=''; return; }
-    popular.style.display='none';
+    if(!q){ closePortal(); clear.classList.remove('visible'); activeIdx = -1; popular.style.display = ''; return; }
+    popular.style.display = 'none';
     clear.classList.add('visible');
 
     const matched = PAGES.filter(p =>
       p.title.toLowerCase().includes(q) ||
       p.desc.toLowerCase().includes(q)
-    ).slice(0,6);
+    ).slice(0, 6);
 
     if(!matched.length){
-      results.innerHTML = `<div class="sr-empty">No pages match "<strong>${escHtml(q)}</strong>" &mdash; <a href="https://www.google.com/search?q=site:pagevo.co.uk+${encodeURIComponent(q)}" target="_blank" rel="noopener">Search Google →</a></div>`;
+      portal.innerHTML = `<div class="sr-empty">No pages match "<strong>${escHtml(q)}</strong>" &mdash; <a href="https://www.google.com/search?q=site:pagevo.co.uk+${encodeURIComponent(q)}" target="_blank" rel="noopener">Search Google →</a></div>`;
     } else {
-      results.innerHTML = matched.map((p,i)=>`
+      portal.innerHTML = matched.map((p,i) => `
         <div class="sr-item" role="option" data-url="${escHtml(p.url)}" data-idx="${i}">
           <span class="sr-icon">${p.icon}</span>
           <span class="sr-text">
@@ -646,19 +666,19 @@ const PAGES = [
           </span>
           <span class="sr-arrow">›</span>
         </div>`).join('');
-      results.querySelectorAll('.sr-item').forEach(el=>{
-        el.addEventListener('click',()=>navigate(el.dataset.url));
-        el.addEventListener('mouseenter',()=>{ setActive(-1); el.classList.add('active'); });
+      portal.querySelectorAll('.sr-item').forEach(el => {
+        el.addEventListener('click', () => navigate(el.dataset.url));
+        el.addEventListener('mouseenter', () => { setActive(-1); el.classList.add('active'); });
       });
     }
-    results.classList.add('open');
+    openPortal();
     activeIdx = -1;
   }
 
   function highlight(text, q){
     if(!q) return escHtml(text);
-    const re = new RegExp('('+escRe(q)+')', 'gi');
-    return escHtml(text).replace(re,'<mark style="background:rgba(13,138,120,.3);color:#fff;border-radius:2px;padding:0 2px">$1</mark>');
+    const re = new RegExp('(' + escRe(q) + ')', 'gi');
+    return escHtml(text).replace(re, '<mark style="background:rgba(13,138,120,.3);color:#fff;border-radius:2px;padding:0 2px">$1</mark>');
   }
 
   function escHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -666,35 +686,38 @@ const PAGES = [
 
   function setActive(idx){
     const items = getItems();
-    items.forEach(el=>el.classList.remove('active'));
+    items.forEach(el => el.classList.remove('active'));
     activeIdx = idx;
     if(idx >= 0 && idx < items.length) items[idx].classList.add('active');
   }
 
   function navigate(url){
     if(!url) return;
-    if(url.startsWith('mailto:') || url.startsWith('http')){ window.open(url,'_blank','noopener'); }
+    if(url.startsWith('mailto:') || url.startsWith('http')){ window.open(url, '_blank', 'noopener'); }
     else { window.location.href = url; }
   }
 
-  input.addEventListener('input', ()=> renderResults(input.value));
+  input.addEventListener('input', () => renderResults(input.value));
 
-  input.addEventListener('keydown', e=>{
+  input.addEventListener('keydown', e => {
     const items = getItems();
-    if(e.key==='ArrowDown'){ e.preventDefault(); setActive(Math.min(activeIdx+1, items.length-1)); }
-    else if(e.key==='ArrowUp'){ e.preventDefault(); setActive(Math.max(activeIdx-1, 0)); }
-    else if(e.key==='Enter'){
-      if(activeIdx>=0 && items[activeIdx]){ navigate(items[activeIdx].dataset.url); }
-      else if(input.value.trim()){ window.open('https://www.google.com/search?q=site:pagevo.co.uk+'+encodeURIComponent(input.value.trim()),'_blank','noopener'); }
+    if(e.key === 'ArrowDown'){ e.preventDefault(); setActive(Math.min(activeIdx + 1, items.length - 1)); }
+    else if(e.key === 'ArrowUp'){ e.preventDefault(); setActive(Math.max(activeIdx - 1, 0)); }
+    else if(e.key === 'Enter'){
+      if(activeIdx >= 0 && items[activeIdx]){ navigate(items[activeIdx].dataset.url); }
+      else if(input.value.trim()){ window.open('https://www.google.com/search?q=site:pagevo.co.uk+' + encodeURIComponent(input.value.trim()), '_blank', 'noopener'); }
     }
-    else if(e.key==='Escape'){ results.classList.remove('open'); input.blur(); }
+    else if(e.key === 'Escape'){ closePortal(); input.blur(); }
   });
 
-  clear.addEventListener('click',()=>{ input.value=''; renderResults(''); input.focus(); });
+  clear.addEventListener('click', () => { input.value = ''; renderResults(''); input.focus(); });
 
-  document.addEventListener('click', e=>{
-    if(!e.target.closest('.search-wrap')) results.classList.remove('open');
+  document.addEventListener('click', e => {
+    if(!e.target.closest('.search-wrap') && !portal.contains(e.target)) closePortal();
   });
+
+  window.addEventListener('scroll', () => { if(isOpen) positionPortal(); }, { passive: true });
+  window.addEventListener('resize', () => { if(isOpen) positionPortal(); }, { passive: true });
 })();
 
 /* ── FLOATING PARTICLES ── */
