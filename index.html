@@ -589,6 +589,9 @@ section{position:relative}
 .p-cta.fill{background:var(--teal);color:#fff;box-shadow:0 6px 22px rgba(13,138,120,.45)}
 .p-cta.fill:hover{background:var(--teal-l);transform:translateY(-3px);box-shadow:0 14px 38px rgba(22,199,174,.6)}
 .plan-billed{font-size:12px;color:var(--ink-dim);margin-bottom:8px;min-height:18px;transition:opacity .3s}
+.p-cards-payg{max-width:440px;margin:28px auto 0}
+.payg-crossover{font-size:12.5px;color:var(--ink-dim);text-align:center;margin-top:16px;line-height:1.6}
+.payg-crossover strong{color:rgba(255,255,255,.82);font-weight:600}
 .pricing-trust{display:flex;align-items:center;justify-content:center;gap:30px;margin-top:30px;flex-wrap:wrap}
 .pt{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink-dim)}
 .pricing-sec-badges{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:24px;flex-wrap:wrap;font-size:11.5px;color:var(--ink-dim)}
@@ -1225,6 +1228,28 @@ footer{background:rgba(8,18,38,.6);border-top:1px solid var(--line);padding:60px
         </div>
       </div>
     </div>
+
+    <!-- Pay As You Go -->
+    <div class="p-cards-payg">
+      <div class="p-card glass" data-reveal>
+        <div class="pc-content">
+          <div class="plan-lbl">Pay As You Go</div>
+          <div class="plan-price">£45</div>
+          <div class="plan-period">per report, one-off</div>
+          <div class="plan-billed">or 5 reports for £199 <span style="color:#5fe39b">— save ~11%</span></div>
+          <div class="plan-desc">No subscription, no monthly fee. Buy exactly the reports you need, whenever you need them.</div>
+          <ul class="plan-feats">
+            <li>The full Pagevo report — summary, charts, health score, forecast, and flags</li>
+            <li>Works with Xero, QuickBooks, Sage, Excel, and any CSV</li>
+            <li>5-report packs never expire — use them whenever you like</li>
+            <li class="plan-feat-muted">Standard Pagevo branding — white-label available on subscription plans</li>
+          </ul>
+          <a href="https://app.pagevo.co.uk" rel="noopener" class="p-cta fill" data-magnetic>Buy a report →</a>
+        </div>
+      </div>
+      <p class="payg-crossover">Doing <strong>7+ reports a month?</strong> Standard works out cheaper — unlimited reports for £299/mo.</p>
+    </div>
+
     <div class="pricing-trust" data-reveal>
       <div class="pt"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="15" height="15" style="color:var(--teal-l);flex-shrink:0" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg> Cancel anytime</div>
       <div class="pt"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="15" height="15" style="flex-shrink:0" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z"/></svg> No card to get started</div>
@@ -1278,7 +1303,7 @@ footer{background:rgba(8,18,38,.6);border-top:1px solid var(--line);padding:60px
       </div>
       <div class="faq-item glass">
         <div class="faq-q">How is this different from Syft or Fathom?<span class="faq-tog">+</span></div>
-        <div class="faq-a">Three meaningful differences. Pricing: Syft and Fathom charge per connected client — typically £18–£25/client/month, which scales against you as your practice grows. Pagevo is one flat monthly fee regardless of client count. Setup: Syft and Fathom require your clients to grant OAuth access to their accounting software — some clients refuse. We need only a CSV export you already produce. Scope: we focus entirely on the client-facing PDF report. That's the deliverable your clients actually receive and read.</div>
+        <div class="faq-a">Four meaningful differences. Pricing: Syft and Fathom charge per connected client — typically £18–£25/client/month, which scales against you as your practice grows. Pagevo is one flat monthly fee regardless of client count. Setup: Syft and Fathom require your clients to grant OAuth access to their accounting software — some clients refuse. We need only a CSV export you already produce. Scope: we focus entirely on the client-facing PDF report. That's the deliverable your clients actually receive and read. Flexibility: Syft, Fathom, and Spotlight Reporting are all subscription-only. Pagevo is the only one that also lets you buy a single report or a small pack with no ongoing commitment.</div>
       </div>
       <div class="faq-item glass">
         <div class="faq-q">Do my clients need to do anything?<span class="faq-tog">+</span></div>
